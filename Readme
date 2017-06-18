@@ -1,0 +1,2 @@
+CREATE DATABASE SystemOfOrganizationStudyProcessDB;
+change name and password in app.properties file.

@@ -1,13 +1,10 @@
 package com.vkkzlabs.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-
+/**
+ * Created by vadim on 03.04.17.
+ */
 @Entity
 @Table(name="UserType")
 public class UserType {
