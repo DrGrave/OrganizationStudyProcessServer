@@ -1,7 +1,7 @@
 package com.vkkzlabs.service;
 
 import com.vkkzlabs.dao.UserCredentialsDAO;
-import com.vkkzlabs.entity.UserCredentials;
+import com.vkkzlabs.entity.MyUserCredentials;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,12 @@ public class UserCredentialsServiceImpl implements UserCredentialsService{
     private UserCredentialsDAO userCredentialsDAO;
 
     @Override
-    public UserCredentials getCtredById(int id) {
-        return userCredentialsDAO.findByUserCredentialsID(id);
+    public MyUserCredentials getCtredById(int id) {
+        return userCredentialsDAO.findByIdUserCredential(id);
+    }
+
+    @Override
+    public MyUserCredentials getUserByLogin(String login) {
+        return userCredentialsDAO.findByUserLogin(login);
     }
 }

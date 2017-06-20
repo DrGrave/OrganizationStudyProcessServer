@@ -1,8 +1,6 @@
 package com.vkkzlabs;
 
-import com.vkkzlabs.dao.UserCredentialsDAO;
 import com.vkkzlabs.dao.UserTypeDAO;
-import com.vkkzlabs.entity.UserCredentials;
 import com.vkkzlabs.entity.UserType;
 import org.junit.Test;
 import org.junit.runner.RunWith;

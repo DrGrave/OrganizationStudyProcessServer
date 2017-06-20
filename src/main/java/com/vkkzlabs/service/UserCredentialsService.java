@@ -1,7 +1,8 @@
 package com.vkkzlabs.service;
 
-import com.vkkzlabs.entity.UserCredentials;
+import com.vkkzlabs.entity.MyUserCredentials;
 
 public interface UserCredentialsService {
-    UserCredentials getCtredById(int id);
+    MyUserCredentials getCtredById(int id);
+    MyUserCredentials getUserByLogin(String login);
 }
