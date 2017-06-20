@@ -11,9 +11,9 @@ public class RolesMap {
     Map<Integer, String> roles = new HashMap<Integer, String>();
 
     public Map<Integer, String> getRoles() {
-        roles.put(1, "USER");
-        roles.put(2, "USER");
-        roles.put(3, "ADMIN");
+        roles.put(1, "ROLE_USER");
+        roles.put(2, "ROLE_USER");
+        roles.put(3, "ROLE_ADMIN");
         roles.put(4, "DBA");
         return roles;
     }

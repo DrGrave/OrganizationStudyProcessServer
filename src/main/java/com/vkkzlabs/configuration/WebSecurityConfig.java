@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
+
 
 @Configuration
 @EnableWebSecurity
@@ -23,8 +23,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userDetailsService);
-           //     .passwordEncoder(getShaPasswordEncoder());
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(getShaPasswordEncoder());
     }
 
     @Override
@@ -35,8 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // указываем правила запросов
                 // по которым будет определятся доступ к ресурсам и остальным данным
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/**").permitAll()
-                .anyRequest().permitAll()
+                .antMatchers("/resources/**", "/**").hasAnyRole("USER")
                 .and();
 
         http.formLogin()
@@ -65,11 +64,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-//
-//    @Bean
-//    public ShaPasswordEncoder getShaPasswordEncoder(){
-//        return new ShaPasswordEncoder();
-//    }
+
+    @Bean
+    public ShaPasswordEncoder getShaPasswordEncoder(){
+        return new ShaPasswordEncoder(256);
+    }
 
 
 
