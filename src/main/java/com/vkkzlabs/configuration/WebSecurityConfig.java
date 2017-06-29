@@ -1,7 +1,6 @@
 package com.vkkzlabs.configuration;
 
 import com.vkkzlabs.service.UserDetailsService;
-import com.vkkzlabs.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +17,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final UserDetailsService userDetailsService;
+
     @Autowired
-    private UserDetailsService userDetailsService;
+    public WebSecurityConfig(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
