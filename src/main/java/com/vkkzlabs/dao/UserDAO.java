@@ -2,6 +2,7 @@ package com.vkkzlabs.dao;
 
 import com.vkkzlabs.entity.MyUser;
 import com.vkkzlabs.entity.UserType;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 /**
