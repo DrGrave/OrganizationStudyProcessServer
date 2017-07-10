@@ -6,22 +6,22 @@ import javax.persistence.*;
  * Created by Vadim on 08.07.2017.
  */
 @Entity
-@Table(name="QuestionType")
-public class QuestionType {
+@Table(name="TypeOfQuestion")
+public class TypeOfQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private
-    int idQuestionType;
+    int idTypeOfQuestion;
 
     @Column(name = "NameQuestionType")
     private String nameQuestionType;
 
-    public int getIdQuestionType() {
-        return idQuestionType;
+    public int getIdTypeOfQuestion() {
+        return idTypeOfQuestion;
     }
 
-    public void setIdQuestionType(int idQuestionType) {
-        this.idQuestionType = idQuestionType;
+    public void setIdTypeOfQuestion(int idTypeOfQuestion) {
+        this.idTypeOfQuestion = idTypeOfQuestion;
     }
 
     public String getNameQuestionType() {

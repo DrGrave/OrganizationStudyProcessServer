@@ -22,7 +22,7 @@ public class Question {
 
     @ManyToOne
     @JoinColumn(name = "IdTypeQuestion")
-    private QuestionType questionType;
+    private TypeOfQuestion typeOfQuestion;
 
 
     public int getIdQuestion() {
@@ -49,11 +49,11 @@ public class Question {
         this.topics = topics;
     }
 
-    public QuestionType getQuestionType() {
-        return questionType;
+    public TypeOfQuestion getTypeOfQuestion() {
+        return typeOfQuestion;
     }
 
-    public void setQuestionType(QuestionType questionType) {
-        this.questionType = questionType;
+    public void setTypeOfQuestion(TypeOfQuestion typeOfQuestion) {
+        this.typeOfQuestion = typeOfQuestion;
     }
 }

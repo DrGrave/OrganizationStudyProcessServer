@@ -27,17 +27,17 @@ public class M2MStudentWork {
 
     @ManyToOne
         @JoinColumn(name = "IdTimetable")
-        private Timeteable timeteable;
+        private Timetable timetable;
 
     @Column(name = "Mark")
         private int Mark;
 
-    public Timeteable getTimeteable() {
-        return timeteable;
+    public Timetable getTimetable() {
+        return timetable;
     }
 
-    public void setTimeteable(Timeteable timeteable) {
-        this.timeteable = timeteable;
+    public void setTimetable(Timetable timetable) {
+        this.timetable = timetable;
     }
 
     public int getMark() {

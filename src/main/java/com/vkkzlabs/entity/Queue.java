@@ -18,7 +18,7 @@ public class Queue {
 
     @ManyToOne
     @JoinColumn(name = "IdTimeteable")
-    private Timeteable timeteable;
+    private Timetable timetable;
 
     @ManyToOne
     @JoinColumn(name = "IdOfWork")
@@ -40,12 +40,12 @@ public class Queue {
         this.MyUser = MyUser;
     }
 
-    public Timeteable getTimeteable() {
-        return timeteable;
+    public Timetable getTimetable() {
+        return timetable;
     }
 
-    public void setTimeteable(Timeteable timeteable) {
-        this.timeteable = timeteable;
+    public void setTimetable(Timetable timeteable) {
+        this.timetable = timeteable;
     }
 
     public Work getWork() {
@@ -61,7 +61,7 @@ public class Queue {
         return "Queue{" +
                 "idQueue=" + idQueue +
                 ", MyUser=" + MyUser +
-                ", timeteable=" + timeteable +
+                ", timeteable=" + timetable +
                 ", work=" + work +
                 '}';
     }

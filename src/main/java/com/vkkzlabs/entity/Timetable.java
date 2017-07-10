@@ -8,8 +8,8 @@ import java.util.Date;
  * Created by vadim on 03.04.17.
  */
 @Entity
-@Table(name = "Timeteable")
-public class Timeteable {
+@Table(name = "Timetable")
+public class Timetable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
