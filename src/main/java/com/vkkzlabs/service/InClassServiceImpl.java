@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class InClassServiceImpl implements InClassService{
     @Autowired
-    InClassDAO inClassDAO;
+    private InClassDAO inClassDAO;
 
     @Override
     public InClass getInClassByIdInClass(int idInClass) {

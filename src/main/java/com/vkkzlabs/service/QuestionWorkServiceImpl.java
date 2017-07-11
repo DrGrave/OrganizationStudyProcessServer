@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class QuestionWorkServiceImpl implements QuestionWorkService{
     @Autowired
-    QuestionWorkDAO questionWorkDAO;
+    private QuestionWorkDAO questionWorkDAO;
 
     @Override
     public M2MQuestionWork getQuestionWorkByIdQuestionWork(int idQuestionWork) {

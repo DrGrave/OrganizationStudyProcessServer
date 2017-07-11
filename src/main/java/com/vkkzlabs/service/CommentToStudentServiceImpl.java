@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommentToStudentServiceImpl implements CommentToStudentService{
     @Autowired
-    CommentToStudentDAO commentToStudentDAO;
+    private CommentToStudentDAO commentToStudentDAO;
 
     @Override
     public CommentToStudent getCommentToStudentByIdCommentToStudent(int idCommentToStudent) {

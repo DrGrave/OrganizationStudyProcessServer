@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class GroupTimetableServiceImpl implements GroupTimeTableService{
     @Autowired
-    GroupTimetableDAO groupTimetableDAO;
+    private GroupTimetableDAO groupTimetableDAO;
 
     @Override
     public M2MGroupTimetable getGroupTimetableByIdGroupTimetable(int idGroupTimetable) {

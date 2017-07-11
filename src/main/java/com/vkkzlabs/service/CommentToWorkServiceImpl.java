@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommentToWorkServiceImpl implements CommentToWorkService{
     @Autowired
-    CommentToWorkDAO commentToWorkDAO;
+    private CommentToWorkDAO commentToWorkDAO;
 
     @Override
     public CommentToWork getCommentToWorkByIdCommentToWork(int idCommentToWork) {

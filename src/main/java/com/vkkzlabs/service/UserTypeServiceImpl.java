@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserTypeServiceImpl implements UserTypeService {
     @Autowired
-    private
-    UserTypeDAO userTypeDao;
+    private UserTypeDAO userTypeDao;
 
     @Override
     public UserType getUserTypeByID(int id) {

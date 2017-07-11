@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StudentWorkServiceImpl implements StudentWorkService {
     @Autowired
-    StudentWorkDAO studentWorkDAO;
+    private StudentWorkDAO studentWorkDAO;
 
     @Override
     public M2MStudentWork getStudentWorkByIdStudentWork(int idStudentWork) {

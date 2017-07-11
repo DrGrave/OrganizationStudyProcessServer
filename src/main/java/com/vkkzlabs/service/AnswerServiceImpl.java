@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AnswerServiceImpl implements AnswerService {
     @Autowired
-    AnswerDAO answerDAO;
+    private AnswerDAO answerDAO;
 
     @Override
     public Answer getAnswerByIdAnswer(int answerId) {

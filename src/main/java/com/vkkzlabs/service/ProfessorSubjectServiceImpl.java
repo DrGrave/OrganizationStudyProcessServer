@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProfessorSubjectServiceImpl implements ProfessorSubjectService {
     @Autowired
-    ProfessorSubjectDAO professorSubjectDAO;
+    private ProfessorSubjectDAO professorSubjectDAO;
 
     @Override
     public M2MProfessorSubject getProfessorSubjectByIdProfessorSubject(int idProfessorSubject) {

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AttorneyServiceImpl implements AttorneyService {
     @Autowired
-    AttorneyDAO attorneyDAO;
+    private AttorneyDAO attorneyDAO;
 
     @Override
     public Attorney getAttorneyByIdAttorney(int idAttorney) {
