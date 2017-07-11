@@ -8,4 +8,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface InClassDAO extends CrudRepository<InClass, Long> {
     InClass findByIdInClass(int id);
+
+    InClass getByIdInClass(int idInClass);
 }

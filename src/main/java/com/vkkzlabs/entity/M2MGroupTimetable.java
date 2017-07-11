@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "M2M_Group_Timeteable")
-public class M2MGroupTimeteable {
+public class M2MGroupTimetable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

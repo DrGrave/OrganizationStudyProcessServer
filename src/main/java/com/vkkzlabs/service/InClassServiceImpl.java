@@ -1,0 +1,17 @@
+package com.vkkzlabs.service;
+
+import com.vkkzlabs.dao.InClassDAO;
+import com.vkkzlabs.entity.InClass;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class InClassServiceImpl implements InClassService{
+    @Autowired
+    InClassDAO inClassDAO;
+
+    @Override
+    public InClass getInClassByIdInClass(int idInClass) {
+        return inClassDAO.getByIdInClass(idInClass);
+    }
+}

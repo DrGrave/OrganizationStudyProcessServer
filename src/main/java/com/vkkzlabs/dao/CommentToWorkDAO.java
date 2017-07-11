@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
  * Created by vadim on 19.06.17.
  */
 public interface CommentToWorkDAO extends CrudRepository<CommentToWork, Long> {
-    CommentToWork findByIdCommentToWork(int id);
+    CommentToWork getByIdCommentToWork(int idCommentToWork);
 }
