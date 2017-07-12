@@ -1,2 +1,2 @@
-CREATE DATABASE SystemOfOrganizationStudyProcessDB;
-change name and password to DB in app.properties file.
+CREATE DATABASE OrganizationStudyProcessDB;
+change name and password to DB2 in app.properties file.
