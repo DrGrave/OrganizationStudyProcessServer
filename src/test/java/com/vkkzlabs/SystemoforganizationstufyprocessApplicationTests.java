@@ -84,7 +84,7 @@ public class SystemoforganizationstufyprocessApplicationTests {
 		MyUserCredentials myUserCredentials = new MyUserCredentials();
 		myUserCredentials.setMyUser(myUser);
 		myUserCredentials.setUserLogin("Login");
-		myUserCredentials.setUserPassword("e7cf3ef4f17c3999a94f2c6f612e8a888e5b1026878e4e19398b23bd38ec221a");
+		myUserCredentials.setUserPassword("e7cf3ef4f17c3999a94f2c6f612e8a888e5b1026878e4e19398b23bd38ec221a"); //Password
 		userCredentialsService.saveUserCredentials(myUserCredentials);
 	}
 
