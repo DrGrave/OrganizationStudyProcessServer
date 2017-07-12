@@ -11,6 +11,11 @@ public class TypeOfWorkServiceImpl implements TypeOfWorkService{
     private TypeOfWorkDAO typeOfWorkDAO;
 
     @Override
+    public void saveTypeOfWork(TypeOfWork typeOfWork) {
+        typeOfWorkDAO.save(typeOfWork);
+    }
+
+    @Override
     public TypeOfWork getTypeOfWorkByIdTypeOfWork(int idTypeOfWork) {
         return typeOfWorkDAO.getByIdTypeOfWOrk(idTypeOfWork);
     }
