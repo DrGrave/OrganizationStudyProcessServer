@@ -12,6 +12,11 @@ public class CommentToWorkServiceImpl implements CommentToWorkService{
     private CommentToWorkDAO commentToWorkDAO;
 
     @Override
+    public void saveCommentToWork(CommentToWork commentToWork) {
+        commentToWorkDAO.save(commentToWork);
+    }
+
+    @Override
     public CommentToWork getCommentToWorkByIdCommentToWork(int idCommentToWork) {
         return commentToWorkDAO.getByIdCommentToWork(idCommentToWork);
     }

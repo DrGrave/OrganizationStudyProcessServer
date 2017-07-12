@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("usertype")
+@RequestMapping("UserType")
 public class UserTypeController{
     @Autowired
-    UserTypeService userTypeService;
+    private UserTypeService userTypeService;
 
     @GetMapping("{id}")
     public ResponseEntity<UserType> getUserTypeById(@PathVariable("id") Integer id) {

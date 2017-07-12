@@ -11,6 +11,11 @@ public class AnswerServiceImpl implements AnswerService {
     private AnswerDAO answerDAO;
 
     @Override
+    public void saveAnswer(Answer answer) {
+        answerDAO.save(answer);
+    }
+
+    @Override
     public Answer getAnswerByIdAnswer(int answerId) {
         return answerDAO.getByIdAnswer(answerId);
     }

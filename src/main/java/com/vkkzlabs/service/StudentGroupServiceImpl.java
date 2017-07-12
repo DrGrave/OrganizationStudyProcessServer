@@ -11,6 +11,11 @@ public class StudentGroupServiceImpl implements StudentGroupService{
     private StudentGroupDAO studentGroupDAO;
 
     @Override
+    public void saveStudentGroup(StudentGroup studentGroup) {
+        studentGroupDAO.save(studentGroup);
+    }
+
+    @Override
     public StudentGroup getStudentGroupByIdStudentGroup(int idStudentGroup) {
         return studentGroupDAO.getByIdGroup(idStudentGroup);
     }

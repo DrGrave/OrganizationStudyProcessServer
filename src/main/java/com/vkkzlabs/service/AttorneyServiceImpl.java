@@ -11,6 +11,11 @@ public class AttorneyServiceImpl implements AttorneyService {
     private AttorneyDAO attorneyDAO;
 
     @Override
+    public void saveAttorney(Attorney attorney) {
+        attorneyDAO.save(attorney);
+    }
+
+    @Override
     public Attorney getAttorneyByIdAttorney(int idAttorney) {
         return attorneyDAO.getByIdAttorney(idAttorney);
     }

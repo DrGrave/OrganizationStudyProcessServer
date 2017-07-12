@@ -11,6 +11,11 @@ public class TypeOfAnswerServiceImpl implements TypeOfAnswerService{
     private TypeOfAnswerDAO typeOfAnswerDAO;
 
     @Override
+    public void saveTypeOfAnswer(TypeOfAnswer typeOfAnswer) {
+        typeOfAnswerDAO.save(typeOfAnswer);
+    }
+
+    @Override
     public TypeOfAnswer getTypeOfAnswerByIdTypeOfAnswer(int idTypeOfAnswer) {
         return typeOfAnswerDAO.getByIdTypeOfAnswer(idTypeOfAnswer);
     }

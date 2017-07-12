@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("usercred")
+@RequestMapping("UserCredentials")
 public class UserCredentialsController {
     @Autowired
-    private
-    UserCredentialsService userCredentialsService;
+    private UserCredentialsService userCredentialsService;
 
     @GetMapping("{id}")
     public ResponseEntity<MyUserCredentials> getUserCredentialsById(@PathVariable("id") Integer id) {

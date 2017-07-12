@@ -11,6 +11,11 @@ public class TimetableServiceImpl implements TimetableService{
     private TimetableDAO timetableDAO;
 
     @Override
+    public void saveTimetable(Timetable timetable) {
+        timetableDAO.save(timetable);
+    }
+
+    @Override
     public Timetable getTimetableByIdTimetable(int idTimetable) {
         return timetableDAO.getByIdTimeteable(idTimetable);
     }

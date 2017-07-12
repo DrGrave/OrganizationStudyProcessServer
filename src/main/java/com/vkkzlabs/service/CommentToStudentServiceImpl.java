@@ -11,6 +11,11 @@ public class CommentToStudentServiceImpl implements CommentToStudentService{
     private CommentToStudentDAO commentToStudentDAO;
 
     @Override
+    public void saveCommentToStudent(CommentToStudent commentToStudent) {
+        commentToStudentDAO.save(commentToStudent);
+    }
+
+    @Override
     public CommentToStudent getCommentToStudentByIdCommentToStudent(int idCommentToStudent) {
         return commentToStudentDAO.getByIdCommentOfStudent(idCommentToStudent);
     }

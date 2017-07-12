@@ -9,10 +9,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class TypeOfAttorneyServiceImpl implements TypeOfAttorneyService{
     @Autowired
-    private TypeOfAttorneyDAO typeOfAttorneyDA;
+    private TypeOfAttorneyDAO typeOfAttorneyDAO;
+
+    @Override
+    public void saveTypeOfAttorney(TypeOfAttorney typeOfAttorney) {
+        typeOfAttorneyDAO.save(typeOfAttorney);
+    }
 
     @Override
     public TypeOfAttorney getTypeOfAttorneyByIdTypeOfAttorney(int idTypeOfAttorney) {
-        return typeOfAttorneyDA.getByIdTypeOfAttorney(idTypeOfAttorney);
+        return typeOfAttorneyDAO.getByIdTypeOfAttorney(idTypeOfAttorney);
     }
 }

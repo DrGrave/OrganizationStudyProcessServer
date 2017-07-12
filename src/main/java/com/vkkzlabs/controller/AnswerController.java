@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("answer")
+@RequestMapping("Answer")
 public class AnswerController {
     @Autowired
     private AnswerService answerService;

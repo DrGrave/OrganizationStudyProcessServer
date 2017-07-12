@@ -11,6 +11,11 @@ public class SubjectServiceImpl implements SubjectService{
     private SubjectDAO subjectDAO;
 
     @Override
+    public void saveSubject(Subject subject) {
+        subjectDAO.save(subject);
+    }
+
+    @Override
     public Subject getSubjectByIdSubject(int idSubject) {
         return subjectDAO.getByIdSubject(idSubject);
     }

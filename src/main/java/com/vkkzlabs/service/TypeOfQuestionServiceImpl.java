@@ -11,6 +11,11 @@ public class TypeOfQuestionServiceImpl implements TypeOfQuestionService{
     private TypeOfQuestionDAO typeOfQuestionDAO;
 
     @Override
+    public void saveTypeOfQuestion(TypeOfQuestion typeOfQuestion) {
+        typeOfQuestionDAO.save(typeOfQuestion);
+    }
+
+    @Override
     public TypeOfQuestion getTypeOfQuestionByIdTypeOfQuestion(int idTypeOfQuestion) {
         return typeOfQuestionDAO.getByIdTypeOfQuestion(idTypeOfQuestion);
     }

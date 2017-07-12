@@ -11,6 +11,11 @@ public class TypeInClassServiceImpl implements TypeInClassService{
     private TypeInClassDAO typeInClassDAO;
 
     @Override
+    public void saveTypeInClass(TypeInClass typeInClass) {
+        typeInClassDAO.save(typeInClass);
+    }
+
+    @Override
     public TypeInClass getTypeInClassByIdTypeInClass(int idTypeInClass) {
         return typeInClassDAO.getByIdTypeInClass(idTypeInClass);
     }

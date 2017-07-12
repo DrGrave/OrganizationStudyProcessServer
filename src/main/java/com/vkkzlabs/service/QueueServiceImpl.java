@@ -11,6 +11,11 @@ public class QueueServiceImpl implements QueueService {
     private QueueDAO queueDAO;
 
     @Override
+    public void saveQueue(Queue queue) {
+        queueDAO.save(queue);
+    }
+
+    @Override
     public Queue getQueueByIdQueue(int idQueue) {
         return queueDAO.getByIdQueue(idQueue);
     }

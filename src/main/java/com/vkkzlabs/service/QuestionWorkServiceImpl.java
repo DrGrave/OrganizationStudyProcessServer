@@ -11,6 +11,11 @@ public class QuestionWorkServiceImpl implements QuestionWorkService{
     private QuestionWorkDAO questionWorkDAO;
 
     @Override
+    public void saveQuestionWork(M2MQuestionWork questionWork) {
+        questionWorkDAO.save(questionWork);
+    }
+
+    @Override
     public M2MQuestionWork getQuestionWorkByIdQuestionWork(int idQuestionWork) {
         return questionWorkDAO.getByIdM2MQuestionWork(idQuestionWork);
     }

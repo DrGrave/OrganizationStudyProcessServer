@@ -11,6 +11,11 @@ public class GroupTimetableServiceImpl implements GroupTimeTableService{
     private GroupTimetableDAO groupTimetableDAO;
 
     @Override
+    public void saveGroupTimetable(M2MGroupTimetable groupTimetable) {
+        groupTimetableDAO.save(groupTimetable);
+    }
+
+    @Override
     public M2MGroupTimetable getGroupTimetableByIdGroupTimetable(int idGroupTimetable) {
         return groupTimetableDAO.getByIdGroupTimetable(idGroupTimetable);
     }

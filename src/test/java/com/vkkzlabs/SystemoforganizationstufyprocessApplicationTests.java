@@ -40,6 +40,53 @@ public class SystemoforganizationstufyprocessApplicationTests {
 	@Autowired private WorkService workService;
 	@Autowired private UserTypeService userTypeService;
 
+	@Test
+	public void fullDB(){
+		UserType userType = new UserType();
+		userType.setNameUserType("NameUserType");
+		userTypeService.saveUserType(userType);
+
+		TypeOfWork typeOfWork = new TypeOfWork();
+		typeOfWork.setNameTypeOfWOrk("TypeOfWork");
+		typeOfWorkService.saveTypeOfWork(typeOfWork);
+
+		TypeOfQuestion typeOfQuestion = new TypeOfQuestion();
+		typeOfQuestion.setNameQuestionType("TypeOfQuestion");
+		typeOfQuestionService.saveTypeOfQuestion(typeOfQuestion);
+
+		TypeOfAttorney typeOfAttorney = new TypeOfAttorney();
+		typeOfAttorney.setNameOfTypeAttorney("TypeOfAttorney");
+		typeOfAttorneyService.saveTypeOfAttorney(typeOfAttorney);
+
+		TypeOfAnswer typeOfAnswer = new TypeOfAnswer();
+		typeOfAnswer.setNameTypeOfAnswer("TypeOfAnswer");
+		typeOfAnswerService.saveTypeOfAnswer(typeOfAnswer);
+
+		TypeOfAcceptWork typeOfAcceptWork = new TypeOfAcceptWork();
+		typeOfAcceptWork.setNameOfAccaptWork("TypeOfAcceptWork");
+		typeOfAcceptWorkService.saveTypeOfAcceptWork(typeOfAcceptWork);
+
+		TypeInClass typeInClass = new TypeInClass();
+		typeInClass.setNameTypeInClass("TypeInClass");
+		typeInClassService.saveTypeInClass(typeInClass);
+
+		Subject subject = new Subject();
+		subject.setNameSubject("Subject");
+		subjectService.saveSubject(subject);
+
+		MyUser myUser = new MyUser();
+		myUser.setUserName("Name");
+		myUser.setUserSeccondname("Seccondname");
+		myUser.setUserSurname("Surname");
+		myUser.setUserType(userType);
+		userService.saveUser(myUser);
+
+		MyUserCredentials myUserCredentials = new MyUserCredentials();
+		myUserCredentials.setMyUser(myUser);
+		myUserCredentials.setUserLogin("Login");
+		myUserCredentials.setUserPassword("e7cf3ef4f17c3999a94f2c6f612e8a888e5b1026878e4e19398b23bd38ec221a");
+		userCredentialsService.saveUserCredentials(myUserCredentials);
+	}
 
 	@Test
 	public void saveTypeOfWork(){

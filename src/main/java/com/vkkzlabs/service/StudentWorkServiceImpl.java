@@ -11,6 +11,11 @@ public class StudentWorkServiceImpl implements StudentWorkService {
     private StudentWorkDAO studentWorkDAO;
 
     @Override
+    public void saveStudentWork(M2MStudentWork studentWork) {
+        studentWorkDAO.save(studentWork);
+    }
+
+    @Override
     public M2MStudentWork getStudentWorkByIdStudentWork(int idStudentWork) {
         return studentWorkDAO.getByIdM2MStudentWork(idStudentWork);
     }

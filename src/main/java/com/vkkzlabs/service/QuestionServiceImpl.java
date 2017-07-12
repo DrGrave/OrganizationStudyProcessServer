@@ -11,6 +11,11 @@ public class QuestionServiceImpl implements QuestionService{
     private QuestionDAO questionDAO;
 
     @Override
+    public void saveQuestion(Question question) {
+        questionDAO.save(question);
+    }
+
+    @Override
     public Question getQuestionByIdQuestion(int idQuestion) {
         return questionDAO.getByIdQuestion(idQuestion);
     }

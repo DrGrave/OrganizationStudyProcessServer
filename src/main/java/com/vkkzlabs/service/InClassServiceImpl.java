@@ -11,6 +11,11 @@ public class InClassServiceImpl implements InClassService{
     private InClassDAO inClassDAO;
 
     @Override
+    public void saveInClass(InClass inClass) {
+        inClassDAO.save(inClass);
+    }
+
+    @Override
     public InClass getInClassByIdInClass(int idInClass) {
         return inClassDAO.getByIdInClass(idInClass);
     }

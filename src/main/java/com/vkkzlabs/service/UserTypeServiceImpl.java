@@ -12,6 +12,11 @@ public class UserTypeServiceImpl implements UserTypeService {
     private UserTypeDAO userTypeDao;
 
     @Override
+    public void saveUserType(UserType userType) {
+        userTypeDao.save(userType);
+    }
+
+    @Override
     public UserType getUserTypeByID(int id) {
         return userTypeDao.findByIdUserType(id);
     }

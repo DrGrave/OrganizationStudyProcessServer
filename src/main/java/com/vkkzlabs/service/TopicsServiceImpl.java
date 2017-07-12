@@ -11,6 +11,11 @@ public class TopicsServiceImpl implements TopicsService{
     private TopicsDAO topicsDAO;
 
     @Override
+    public void saveTopic(Topics topic) {
+        topicsDAO.save(topic);
+    }
+
+    @Override
     public Topics getTopicByIdTopic(int idTopic) {
         return topicsDAO.getByIdTopic(idTopic);
     }

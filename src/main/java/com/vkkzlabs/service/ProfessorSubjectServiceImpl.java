@@ -11,6 +11,11 @@ public class ProfessorSubjectServiceImpl implements ProfessorSubjectService {
     private ProfessorSubjectDAO professorSubjectDAO;
 
     @Override
+    public void saveProfessorSubject(M2MProfessorSubject professorSubject) {
+        professorSubjectDAO.save(professorSubject);
+    }
+
+    @Override
     public M2MProfessorSubject getProfessorSubjectByIdProfessorSubject(int idProfessorSubject) {
         return professorSubjectDAO.getByIdM2MProfessorSubject(idProfessorSubject);
     }

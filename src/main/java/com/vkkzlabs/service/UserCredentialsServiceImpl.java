@@ -11,6 +11,11 @@ public class UserCredentialsServiceImpl implements UserCredentialsService{
     private UserCredentialsDAO userCredentialsDAO;
 
     @Override
+    public void saveUserCredentials(MyUserCredentials userCredentials) {
+        userCredentialsDAO.save(userCredentials);
+    }
+
+    @Override
     public MyUserCredentials getCtredById(int id) {
         return userCredentialsDAO.findByIdUserCredential(id);
     }
