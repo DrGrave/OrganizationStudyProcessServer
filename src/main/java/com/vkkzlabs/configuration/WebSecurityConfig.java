@@ -40,6 +40,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // And filter other requests to check the presence of JWT in header
                 .addFilterBefore(new JWTAuthenticationFilter(),
                         UsernamePasswordAuthenticationFilter.class);
+
+        http.logout()
+                // разрешаем делать логаут всем
+                .permitAll()
+                // указываем URL логаута
+                .logoutUrl("/logout")
+                .clearAuthentication(true)
+                .deleteCookies()
+                // указываем URL при удачном логауте
+                .logoutSuccessUrl("/home?logout")
+                // делаем не валидной текущую сессию
+                .invalidateHttpSession(true);
     }
 
 
