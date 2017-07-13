@@ -12,4 +12,5 @@ public class SystemoforganizationstufyprocessApplication {
 	public static void main(String[] args) throws Throwable {
 		SpringApplication.run(SystemoforganizationstufyprocessApplication.class, args);
 	}
+
 }
