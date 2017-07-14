@@ -18,7 +18,9 @@ public class UserCredentialsController {
 
     @GetMapping("{id}")
     public ResponseEntity<MyUserCredentials> getUserCredentialsById(@PathVariable("id") Integer id) {
-        MyUserCredentials article = userCredentialsService.getCtredById(id);
-        return new ResponseEntity<MyUserCredentials>(article, HttpStatus.OK);
+        MyUserCredentials userCredentials = userCredentialsService.getCtredById(id);
+        if (userCredentials != null) {
+            return new ResponseEntity<MyUserCredentials>(userCredentials, HttpStatus.OK);
+        }return new ResponseEntity<MyUserCredentials>(HttpStatus.NOT_FOUND);
     }
 }

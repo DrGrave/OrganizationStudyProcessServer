@@ -21,8 +21,7 @@ public class CommentToStudentController {
         CommentToStudent attorney = commentToStudentService.getCommentToStudentByIdCommentToStudent(id);
         if (attorney != null) {
             return new ResponseEntity<CommentToStudent>(attorney, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<CommentToStudent>(HttpStatus.NOT_FOUND);
-        }
+        }return new ResponseEntity<CommentToStudent>(HttpStatus.NOT_FOUND);
+
     }
 }

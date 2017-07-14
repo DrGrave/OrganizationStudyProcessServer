@@ -18,8 +18,9 @@ public class UserTypeController{
 
     @GetMapping("{id}")
     public ResponseEntity<UserType> getUserTypeById(@PathVariable("id") Integer id) {
-        UserType article = userTypeService.getUserTypeByID(id);
-        System.out.print(article);
-        return new ResponseEntity<UserType>(article, HttpStatus.OK);
+        UserType userType = userTypeService.getUserTypeByID(id);
+        if (userType != null) {
+            return new ResponseEntity<UserType>(userType, HttpStatus.OK);
+        }return new ResponseEntity<UserType>(HttpStatus.NOT_FOUND);
     }
 }

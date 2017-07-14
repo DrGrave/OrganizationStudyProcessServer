@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="TypeOfAccaptWork")
+@Table(name="TypeOfAcceptWork")
 public class TypeOfAcceptWork {
 
     @Id

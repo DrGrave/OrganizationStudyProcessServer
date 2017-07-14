@@ -18,8 +18,9 @@ public class AnswerController {
 
     @GetMapping("{id}")
     public ResponseEntity<Answer> getAnswerById(@PathVariable("id") Integer id) {
-        Answer article = answerService.getAnswerByIdAnswer(id);
-        System.out.print(article);
-        return new ResponseEntity<Answer>(article, HttpStatus.OK);
+        Answer answer = answerService.getAnswerByIdAnswer(id);
+        if (answer != null) {
+            return new ResponseEntity<Answer>(answer, HttpStatus.OK);
+        } return new ResponseEntity<Answer>(HttpStatus.NOT_FOUND);
     }
 }

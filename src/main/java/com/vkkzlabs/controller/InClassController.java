@@ -15,14 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class InClassController {
     @Autowired
     private InClassService inClassService;
+
     @GetMapping("{id}")
     public ResponseEntity<InClass> getCommentToWork(@PathVariable("id") Integer id) {
         InClass inClass = inClassService.getInClassByIdInClass(id);
         if (inClass != null) {
             return new ResponseEntity<InClass>(inClass, HttpStatus.OK);
-        }else {
-            return new ResponseEntity<InClass>(HttpStatus.NOT_FOUND);
-        }
+        }return new ResponseEntity<InClass>(HttpStatus.NOT_FOUND);
     }
 
 }

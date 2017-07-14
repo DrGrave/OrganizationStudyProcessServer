@@ -21,9 +21,7 @@ public class AttorneyController {
         Attorney attorney = attorneyService.getAttorneyByIdAttorney(id);
         if (attorney != null) {
             return new ResponseEntity<Attorney>(attorney, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<Attorney>(HttpStatus.NOT_FOUND);
-        }
+        }return new ResponseEntity<Attorney>(HttpStatus.NOT_FOUND);
     }
 
 }

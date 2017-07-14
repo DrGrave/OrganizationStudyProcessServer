@@ -19,7 +19,7 @@ public class SystemoforganizationstufyprocessApplicationTests {
 	@Autowired private CommentToWorkService commentToWorkService;
 	@Autowired private AnswerService answerService;
 	@Autowired private InClassService inClassService;
-	@Autowired private GroupTimeTableService groupTimeTableService;
+	@Autowired private GroupTimetableService groupTimetableService;
 	@Autowired private ProfessorSubjectService professorSubjectService;
 	@Autowired private StudentWorkService studentWorkService;
 	@Autowired private QuestionWorkService questionWorkService;
@@ -39,6 +39,9 @@ public class SystemoforganizationstufyprocessApplicationTests {
 	@Autowired private TypeOfWorkService typeOfWorkService;
 	@Autowired private WorkService workService;
 	@Autowired private UserTypeService userTypeService;
+	@Autowired private UserAchievementService userAchievementService;
+	@Autowired private UserSettingsService userSettingsService;
+	@Autowired private AchievementService achievementService;
 
 	@Test
 	public void fullDB(){

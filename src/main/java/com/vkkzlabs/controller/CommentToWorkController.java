@@ -21,8 +21,6 @@ public class CommentToWorkController {
         CommentToWork commentToWork = commentToWorkService.getCommentToWorkByIdCommentToWork(id);
         if (commentToWork != null) {
             return new ResponseEntity<CommentToWork>(commentToWork, HttpStatus.OK);
-        }else {
-            return new ResponseEntity<CommentToWork>(HttpStatus.NOT_FOUND);
-        }
+        }return new ResponseEntity<CommentToWork>(HttpStatus.NOT_FOUND);
     }
 }
