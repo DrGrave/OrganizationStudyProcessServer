@@ -2,9 +2,7 @@ package com.vkkzlabs.entity;
 
 import javax.persistence.*;
 
-/**
- * Created by Vadim on 12.04.2017.
- */
+
 @Entity
 @Table(name="TypeOfAccaptWork")
 public class TypeOfAcceptWork {

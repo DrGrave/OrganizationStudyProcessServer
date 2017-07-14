@@ -2,9 +2,7 @@ package com.vkkzlabs.entity;
 
 import javax.persistence.*;
 
-/**
- * Created by vadim on 03.04.17.
- */
+
 @Entity
 @Table(name="TypeOfAttorney")
 public class TypeOfAttorney {

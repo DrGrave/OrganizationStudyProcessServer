@@ -2,9 +2,7 @@ package com.vkkzlabs.entity;
 
 import javax.persistence.*;
 
-/**
- * Created by Vadim on 08.07.2017.
- */
+
 @Entity
 @Table(name="Question")
 public class Question {

@@ -2,11 +2,9 @@ package com.vkkzlabs.entity;
 
 import javax.persistence.*;
 
-/**
- * Created by Vadim on 04.04.2017.
- */
+
 @Entity
-@Table(name = "M2M_Group_Timeteable")
+@Table(name = "M2MGroupTimeteable")
 public class M2MGroupTimetable {
 
     @Id

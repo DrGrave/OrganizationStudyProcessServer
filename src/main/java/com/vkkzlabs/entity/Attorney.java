@@ -2,16 +2,13 @@ package com.vkkzlabs.entity;
 
 import javax.persistence.*;
 
-/**
- * Created by vadim on 03.04.17.
- */
+
 @Entity
 @Table(name="Attorney")
 public class Attorney {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private
-    int idAttorney;
+    private int idAttorney;
 
     @ManyToOne
         @JoinColumn(name = "IdTypeOfAttorney")

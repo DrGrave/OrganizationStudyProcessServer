@@ -2,16 +2,13 @@ package com.vkkzlabs.entity;
 
 import javax.persistence.*;
 
-/**
- * Created by vadim on 03.04.17.
- */
+
 @Entity
 @Table(name = "Work")
 public class Work {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private
-    int idOfWork;
+    private int idOfWork;
 
     @Column(name = "NumberOfWork")
     private String numberOfWOrk;

@@ -3,9 +3,7 @@ package com.vkkzlabs.entity;
 import javax.persistence.*;
 import java.sql.Date;
 
-/**
- * Created by vadim on 03.04.17.
- */
+
 @Entity
 @Table(name = "CommentToWork")
 public class CommentToWork {

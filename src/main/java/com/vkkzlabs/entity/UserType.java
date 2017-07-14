@@ -2,21 +2,17 @@ package com.vkkzlabs.entity;
 
 import javax.persistence.*;
 
-/**
- * Created by vadim on 03.04.17.
- */
+
 @Entity
 @Table(name="UserType")
 public class UserType {
     @Id
     @Column(name="IdUserType")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private
-    int idUserType;
+    private int idUserType;
 
     @Column(name = "NameUserType")
-    private
-    String nameUserType;
+    private String nameUserType;
 
     public int getIdUserType() {
         return idUserType;

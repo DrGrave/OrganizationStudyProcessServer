@@ -2,15 +2,13 @@ package com.vkkzlabs.entity;
 
 import javax.persistence.*;
 
-/**
- * Created by Vadim on 04.04.2017.
- */
+
 @Entity
-@Table(name = "M2M_Professor_Subject")
+@Table(name = "M2MProfessorSubject")
 public class M2MProfessorSubject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int idM2MProfessorSubject;
+    private int idM2MProfessorSubject;
 
     @ManyToOne
     @JoinColumn(name = "IdUser")

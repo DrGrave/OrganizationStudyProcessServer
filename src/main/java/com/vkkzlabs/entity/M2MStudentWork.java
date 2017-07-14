@@ -2,11 +2,8 @@ package com.vkkzlabs.entity;
 
 import javax.persistence.*;
 
-/**
- * Created by Vadim on 04.04.2017.
- */
 @Entity
-@Table(name = "M2M_Student_Work")
+@Table(name = "M2MStudentWork")
 public class M2MStudentWork {
     @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
