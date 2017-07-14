@@ -1,7 +1,8 @@
-package com.vkkzlabs.service;
+package com.vkkzlabs.service.Impl;
 
 import com.vkkzlabs.dao.AnswerDAO;
 import com.vkkzlabs.entity.Answer;
+import com.vkkzlabs.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

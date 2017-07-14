@@ -1,12 +1,13 @@
-package com.vkkzlabs.service;
+package com.vkkzlabs.service.Impl;
 
 import com.vkkzlabs.dao.QuestionDAO;
 import com.vkkzlabs.entity.Question;
+import com.vkkzlabs.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class QuestionServiceImpl implements QuestionService{
+public class QuestionServiceImpl implements QuestionService {
     @Autowired
     private QuestionDAO questionDAO;
 

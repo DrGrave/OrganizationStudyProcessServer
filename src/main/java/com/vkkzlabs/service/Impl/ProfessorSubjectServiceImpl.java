@@ -1,7 +1,8 @@
-package com.vkkzlabs.service;
+package com.vkkzlabs.service.Impl;
 
 import com.vkkzlabs.dao.ProfessorSubjectDAO;
 import com.vkkzlabs.entity.M2MProfessorSubject;
+import com.vkkzlabs.service.ProfessorSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

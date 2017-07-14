@@ -1,8 +1,9 @@
-package com.vkkzlabs.service;
+package com.vkkzlabs.service.Impl;
 
 
 import com.vkkzlabs.dao.UserTypeDAO;
 import com.vkkzlabs.entity.UserType;
+import com.vkkzlabs.service.UserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

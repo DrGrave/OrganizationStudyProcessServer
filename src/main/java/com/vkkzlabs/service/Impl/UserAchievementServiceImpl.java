@@ -1,12 +1,13 @@
-package com.vkkzlabs.service;
+package com.vkkzlabs.service.Impl;
 
 import com.vkkzlabs.dao.UserAchievementDAO;
 import com.vkkzlabs.entity.M2MUserAchievements;
+import com.vkkzlabs.service.UserAchievementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserAchievementServiceImpl implements UserAchievementService{
+public class UserAchievementServiceImpl implements UserAchievementService {
     @Autowired
     private UserAchievementDAO userAchievementDAO;
 

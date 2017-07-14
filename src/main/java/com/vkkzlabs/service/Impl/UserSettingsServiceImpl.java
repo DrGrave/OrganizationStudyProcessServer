@@ -1,12 +1,13 @@
-package com.vkkzlabs.service;
+package com.vkkzlabs.service.Impl;
 
 import com.vkkzlabs.dao.UserSettingsDAO;
 import com.vkkzlabs.entity.UserSettings;
+import com.vkkzlabs.service.UserSettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserSettingsServiceImpl implements UserSettingsService{
+public class UserSettingsServiceImpl implements UserSettingsService {
     @Autowired
     private UserSettingsDAO userSettingsDAO;
 

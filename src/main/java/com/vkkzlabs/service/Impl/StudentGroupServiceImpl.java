@@ -1,12 +1,13 @@
-package com.vkkzlabs.service;
+package com.vkkzlabs.service.Impl;
 
 import com.vkkzlabs.dao.StudentGroupDAO;
 import com.vkkzlabs.entity.StudentGroup;
+import com.vkkzlabs.service.StudentGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StudentGroupServiceImpl implements StudentGroupService{
+public class StudentGroupServiceImpl implements StudentGroupService {
     @Autowired
     private StudentGroupDAO studentGroupDAO;
 

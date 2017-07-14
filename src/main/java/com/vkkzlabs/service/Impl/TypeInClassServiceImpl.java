@@ -1,12 +1,13 @@
-package com.vkkzlabs.service;
+package com.vkkzlabs.service.Impl;
 
 import com.vkkzlabs.dao.TypeInClassDAO;
 import com.vkkzlabs.entity.TypeInClass;
+import com.vkkzlabs.service.TypeInClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TypeInClassServiceImpl implements TypeInClassService{
+public class TypeInClassServiceImpl implements TypeInClassService {
     @Autowired
     private TypeInClassDAO typeInClassDAO;
 

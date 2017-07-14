@@ -1,7 +1,8 @@
-package com.vkkzlabs.service;
+package com.vkkzlabs.service.Impl;
 
 import com.vkkzlabs.dao.TimetableDAO;
 import com.vkkzlabs.entity.Timetable;
+import com.vkkzlabs.service.TimetableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

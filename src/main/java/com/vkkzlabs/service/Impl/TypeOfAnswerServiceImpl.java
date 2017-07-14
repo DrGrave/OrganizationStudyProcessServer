@@ -1,12 +1,13 @@
-package com.vkkzlabs.service;
+package com.vkkzlabs.service.Impl;
 
 import com.vkkzlabs.dao.TypeOfAnswerDAO;
 import com.vkkzlabs.entity.TypeOfAnswer;
+import com.vkkzlabs.service.TypeOfAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TypeOfAnswerServiceImpl implements TypeOfAnswerService{
+public class TypeOfAnswerServiceImpl implements TypeOfAnswerService {
     @Autowired
     private TypeOfAnswerDAO typeOfAnswerDAO;
 

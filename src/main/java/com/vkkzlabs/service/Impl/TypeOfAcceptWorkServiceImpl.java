@@ -1,12 +1,13 @@
-package com.vkkzlabs.service;
+package com.vkkzlabs.service.Impl;
 
 import com.vkkzlabs.dao.TypeOfAcceptWorkDAO;
 import com.vkkzlabs.entity.TypeOfAcceptWork;
+import com.vkkzlabs.service.TypeOfAcceptWorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TypeOfAcceptWorkServiceImpl implements TypeOfAcceptWorkService{
+public class TypeOfAcceptWorkServiceImpl implements TypeOfAcceptWorkService {
     @Autowired
     private TypeOfAcceptWorkDAO typeOfAcceptWorkDAO;
 

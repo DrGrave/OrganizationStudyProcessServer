@@ -1,13 +1,13 @@
-package com.vkkzlabs.service;
+package com.vkkzlabs.service.Impl;
 
-import com.vkkzlabs.dao.TypeOfAnswerDAO;
 import com.vkkzlabs.dao.TypeOfAttorneyDAO;
 import com.vkkzlabs.entity.TypeOfAttorney;
+import com.vkkzlabs.service.TypeOfAttorneyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TypeOfAttorneyServiceImpl implements TypeOfAttorneyService{
+public class TypeOfAttorneyServiceImpl implements TypeOfAttorneyService {
     @Autowired
     private TypeOfAttorneyDAO typeOfAttorneyDAO;
 

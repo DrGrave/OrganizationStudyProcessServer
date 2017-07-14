@@ -1,6 +1,6 @@
 package com.vkkzlabs.configuration;
 
-import com.vkkzlabs.service.UserDetailsServiceImpl;
+import com.vkkzlabs.service.Impl.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;

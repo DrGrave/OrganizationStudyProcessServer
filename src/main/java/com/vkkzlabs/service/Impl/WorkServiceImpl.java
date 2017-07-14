@@ -1,12 +1,13 @@
-package com.vkkzlabs.service;
+package com.vkkzlabs.service.Impl;
 
 import com.vkkzlabs.dao.WorkDAO;
 import com.vkkzlabs.entity.Work;
+import com.vkkzlabs.service.WorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class WorkServiceImpl implements WorkService{
+public class WorkServiceImpl implements WorkService {
     @Autowired
     private WorkDAO workDAO;
 
