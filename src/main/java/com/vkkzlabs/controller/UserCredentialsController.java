@@ -2,6 +2,7 @@ package com.vkkzlabs.controller;
 
 import com.vkkzlabs.entity.MyUserCredentials;
 import com.vkkzlabs.service.UserCredentialsService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,11 @@ public class UserCredentialsController {
     @GetMapping("{id}")
     public ResponseEntity<MyUserCredentials> getUserCredentialsById(@PathVariable("id") Integer id) {
         MyUserCredentials userCredentials = userCredentialsService.getCtredById(id);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Access-Control-Allow-Origin", "*");
+        responseHeaders.set("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
         if (userCredentials != null) {
-            return new ResponseEntity<MyUserCredentials>(userCredentials, HttpStatus.OK);
-        }return new ResponseEntity<MyUserCredentials>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<MyUserCredentials>(userCredentials,responseHeaders ,HttpStatus.OK);
+        }return new ResponseEntity<MyUserCredentials>(responseHeaders, HttpStatus.NOT_FOUND);
     }
 }

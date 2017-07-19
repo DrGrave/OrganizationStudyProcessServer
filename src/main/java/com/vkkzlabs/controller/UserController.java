@@ -5,6 +5,7 @@ import com.vkkzlabs.entity.MyUser;
 import com.vkkzlabs.service.InClassService;
 import com.vkkzlabs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,8 +25,11 @@ public class UserController {
     @GetMapping("{id}")
     public ResponseEntity<MyUser> getUserById(@PathVariable("id") Integer id) {
         MyUser user = userService.getUserById(id);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Access-Control-Allow-Origin", "*");
+        responseHeaders.set("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
         if (user != null) {
-            return new ResponseEntity<MyUser>(user, HttpStatus.OK);
-        }return new ResponseEntity<MyUser>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<MyUser>(user,responseHeaders , HttpStatus.OK);
+        }return new ResponseEntity<MyUser>(responseHeaders, HttpStatus.NOT_FOUND);
     }
 }
