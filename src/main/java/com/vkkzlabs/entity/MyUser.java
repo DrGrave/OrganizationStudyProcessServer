@@ -17,8 +17,8 @@ public class MyUser {
     @Column(name = "UserSurname", nullable = false)
     private String userSurname;
 
-    @Column(name = "UserSeccondname", nullable = false)
-    private String userSeccondname;
+    @Column(name = "UserSecondname", nullable = false)
+    private String userSecondname;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -64,12 +64,12 @@ public class MyUser {
         this.userSurname = userSurname;
     }
 
-    public String getUserSeccondname() {
-        return userSeccondname;
+    public String getUserSecondname() {
+        return userSecondname;
     }
 
-    public void setUserSeccondname(String userSeccondname) {
-        this.userSeccondname = userSeccondname;
+    public void setUserSecondname(String userSeccondname) {
+        this.userSecondname = userSeccondname;
     }
 
     public StudentGroup getStudentGroup() {

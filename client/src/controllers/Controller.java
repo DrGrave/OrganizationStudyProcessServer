@@ -5,11 +5,15 @@ import com.vkkzlabs.entity.MyUser;
 import com.vkkzlabs.entity.MyUserCredentials;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import requests.LoginController;
+
+import java.io.IOException;
 
 public class Controller {
 
@@ -30,23 +34,27 @@ public class Controller {
 
     private LoginController loginController = new LoginController();
 
+    static MyUserCredentials myUserCredentials;
+    static String token;
+    static MyUser iUser;
+
     @FXML
-    void signInEvent(ActionEvent event) {
-        MyUserCredentials myUserCredentials = new MyUserCredentials(loginTextField.getText(), passwordTextField.getText());
+    void signInEvent(ActionEvent event) throws IOException {
+        myUserCredentials = new MyUserCredentials(loginTextField.getText(), passwordTextField.getText());
         System.out.print(myUserCredentials);
-        String token = loginController.loginEvent(myUserCredentials);
+        token = loginController.loginEvent(myUserCredentials);
         if (token != null){
             incorrectLogPass.setVisible(false);
             myUserCredentials.setUserPassword(null);
-            MyUser iUser = loginController.getUserByLogin(myUserCredentials, token);
+            iUser = loginController.getUserByLogin(myUserCredentials, token);
             if (iUser.getUserType().getIdUserType() == 1) {
-                openAdminStage(iUser, token, myUserCredentials);
+                openAdminStage();
                 signInButtom.getScene().getWindow().hide();
             }else if (iUser.getUserType().getIdUserType() == 2) {
-                openProfessorStage(iUser, token, myUserCredentials);
+                openProfessorStage();
                 signInButtom.getScene().getWindow().hide();
             }else if (iUser.getUserType().getIdUserType() == 3) {
-                openSudentStage(iUser, token, myUserCredentials);
+                openStudentStage();
                 signInButtom.getScene().getWindow().hide();
             }else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -62,16 +70,28 @@ public class Controller {
         }
     }
 
-    private void openAdminStage(MyUser iUser, String token, MyUserCredentials myUserCredentials) {
-
+    private void openAdminStage() throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("../samples/Admin.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
-    private void openSudentStage(MyUser iUser, String token, MyUserCredentials myUserCredentials) {
-
+    private void openStudentStage() throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("../samples/Student.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
-    private void openProfessorStage(MyUser iUser, String token, MyUserCredentials myUserCredentials) {
-
+    private void openProfessorStage() throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("../samples/Professor.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }
