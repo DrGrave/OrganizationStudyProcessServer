@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -7,8 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<GridPane alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="controllers.Controller">
+<GridPane fx:id="logInForm" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -18,10 +18,12 @@
    <children>
       <Pane prefHeight="158.0" prefWidth="300.0">
          <children>
-            <TextField layoutX="120.0" layoutY="43.0" />
-            <TextField layoutX="120.0" layoutY="79.0" />
+            <TextField fx:id="loginTextField" layoutX="120.0" layoutY="43.0" />
+            <TextField fx:id="passwordTextField" layoutX="120.0" layoutY="79.0" onMouseDragEntered="#signInEvent" />
             <Label layoutX="62.0" layoutY="47.0" text="Login" />
             <Label layoutX="52.0" layoutY="83.0" text="Password" />
+            <Button fx:id="signInButtom" layoutX="194.0" layoutY="119.0" mnemonicParsing="false" onAction="#signInEvent" text="Sign In" />
+            <Label fx:id="incorrectLogPass" layoutX="62.0" layoutY="14.0" text="The login or password is incorrect!" visible="false" />
          </children>
       </Pane>
    </children>

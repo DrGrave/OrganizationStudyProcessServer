@@ -17,14 +17,13 @@ public class LoginController {
     @Autowired
     private UserCredentialsService userCredentialsService;
 
-    @RequestMapping(value = "getUser", method = RequestMethod.POST)
+    @RequestMapping(value = "GetUser", method = RequestMethod.POST)
     public ResponseEntity<MyUser> getUserByLogin(@RequestBody MyUserCredentials userCredentials, UriComponentsBuilder ucBuilder) {
 
         MyUser myUser = userCredentialsService.getUserByLogin(userCredentials.getUserLogin()).getMyUser();
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Access-Control-Allow-Origin", "*");
         responseHeaders.set("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
-        ResponseEntity<MyUser> responseEntity = new ResponseEntity<MyUser>(HttpStatus.OK);
         if (myUser != null) {
             return new ResponseEntity<MyUser>(myUser,responseHeaders , HttpStatus.OK);
         } return new ResponseEntity<MyUser>(responseHeaders, HttpStatus.NOT_FOUND);

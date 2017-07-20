@@ -20,6 +20,13 @@ public class MyUserCredentials {
     @JoinColumn(name = "IdUser")
     private MyUser MyUser;
 
+    public MyUserCredentials(){}
+
+    public MyUserCredentials(String userLogin, String userPassword) {
+        this.userLogin = userLogin;
+        this.userPassword = userPassword;
+    }
+
     public int getIdUserCredential() {
         return idUserCredential;
     }
