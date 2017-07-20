@@ -75,6 +75,7 @@ public class Controller {
         Parent root = FXMLLoader.load(getClass().getResource("../samples/Admin.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Admin client");
         stage.show();
     }
 
@@ -83,6 +84,7 @@ public class Controller {
         Parent root = FXMLLoader.load(getClass().getResource("../samples/Student.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Student client");
         stage.show();
     }
 
@@ -91,6 +93,7 @@ public class Controller {
         Parent root = FXMLLoader.load(getClass().getResource("../samples/Professor.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Professor client");
         stage.show();
     }
 

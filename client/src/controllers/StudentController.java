@@ -1,7 +1,6 @@
 package controllers;
-import javafx.event.ActionEvent;
+import com.vkkzlabs.entity.MyUser;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
@@ -23,8 +22,18 @@ public class StudentController {
     private Tab studentSettingsTab;
 
     public void initialize(){
+        checkForBadStudent(iUser);
+        checkForAchievement(iUser);
         System.out.print(iUser.getIdUser());
         System.out.print(token);
         System.out.print(myUserCredentials.getUserLogin());
+    }
+
+    private void checkForAchievement(MyUser iUser) {
+
+    }
+
+    private void checkForBadStudent(MyUser iUser) {
+
     }
 }

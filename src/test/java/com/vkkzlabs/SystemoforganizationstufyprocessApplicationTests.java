@@ -79,7 +79,7 @@ public class SystemoforganizationstufyprocessApplicationTests {
 
 		MyUser myUser = new MyUser();
 		myUser.setUserName("Name");
-		myUser.setUserSecondname("Seccondname");
+		myUser.setUserPatronymic("Seccondname");
 		myUser.setUserSurname("Surname");
 		myUser.setUserType(userType);
 		userService.saveUser(myUser);

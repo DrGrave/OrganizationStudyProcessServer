@@ -17,8 +17,15 @@ public class MyUser {
     @Column(name = "UserSurname", nullable = false)
     private String userSurname;
 
-    @Column(name = "UserSecondname", nullable = false)
-    private String userSecondname;
+    @Column(name = "UserPatronymic", nullable = false)
+    private String userPatronymic;
+
+    @Column(name = "Email", nullable = false)
+    private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "Gender")
+    private Gender gender;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -38,6 +45,22 @@ public class MyUser {
     }
 
     public MyUser() {
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public int getIdUser() {
@@ -64,12 +87,12 @@ public class MyUser {
         this.userSurname = userSurname;
     }
 
-    public String getUserSecondname() {
-        return userSecondname;
+    public String getUserPatronymic() {
+        return userPatronymic;
     }
 
-    public void setUserSecondname(String userSeccondname) {
-        this.userSecondname = userSeccondname;
+    public void setUserPatronymic(String userPatronymic) {
+        this.userPatronymic = userPatronymic;
     }
 
     public StudentGroup getStudentGroup() {
