@@ -24,9 +24,14 @@ public class StudentController {
     public void initialize(){
         checkForBadStudent(iUser);
         checkForAchievement(iUser);
+        checkForNewWorks(iUser);
         System.out.print(iUser.getIdUser());
         System.out.print(token);
         System.out.print(myUserCredentials.getUserLogin());
+    }
+
+    private void checkForNewWorks(MyUser iUser) {
+
     }
 
     private void checkForAchievement(MyUser iUser) {

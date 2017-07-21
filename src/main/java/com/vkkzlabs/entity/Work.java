@@ -1,6 +1,7 @@
 package com.vkkzlabs.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 
 @Entity
@@ -18,6 +19,9 @@ public class Work {
 
     @Column(name = "TextOfWork")
     private String textOfWork;
+
+    @Column(name = "DeadlineForWork")
+    private Date deadlineForWork;
 
     @ManyToOne
     @JoinColumn(name = "IdTypeOfWork")

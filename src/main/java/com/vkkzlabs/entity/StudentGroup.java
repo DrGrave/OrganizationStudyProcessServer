@@ -14,6 +14,10 @@ public class StudentGroup {
     @Column(name = "NumberOfGroup")
     private String numberOfGroup;
 
+    @ManyToOne
+    @JoinColumn(name = "IdChair")
+    private Chair chair;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "IdUserStarosta", nullable = false)
     private MyUser idMyUserStarosta;

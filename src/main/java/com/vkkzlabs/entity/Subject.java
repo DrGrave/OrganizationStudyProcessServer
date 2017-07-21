@@ -8,12 +8,22 @@ import javax.persistence.*;
 public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private
-    int idSubject;
+    private int idSubject;
 
     @Column(name = "NameSubject")
-    private
-    String nameSubject;
+    private String nameSubject;
+
+    @ManyToOne
+    @JoinColumn(name = "IdChair")
+    private Chair chair;
+
+    public Chair getChair() {
+        return chair;
+    }
+
+    public void setChair(Chair chair) {
+        this.chair = chair;
+    }
 
     public int getIdSubject() {
         return idSubject;
