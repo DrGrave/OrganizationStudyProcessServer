@@ -9,9 +9,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-import static controllers.Controller.myUserCredentials;
-import static controllers.Controller.token;
-import static controllers.Controller.iUser;
 
 public class AdminController {
 
@@ -44,6 +41,16 @@ public class AdminController {
 
     @FXML
     private Tab setingsTab;
+
+    private MyUser iUser;
+    private MyUserCredentials myUserCredentials;
+    private String token;
+
+    public AdminController(MyUser iUser, MyUserCredentials myUserCredentials, String token) {
+        this.iUser = iUser;
+        this.myUserCredentials = myUserCredentials;
+        this.token = token;
+    }
 
     @FXML
     void changeButtonAction(ActionEvent event) {

@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import requests.LoginController;
 
@@ -34,27 +35,25 @@ public class Controller {
 
     private LoginController loginController = new LoginController();
 
-    static MyUserCredentials myUserCredentials;
-    static String token;
-    static MyUser iUser;
+
 
     @FXML
     void signInEvent(ActionEvent event) throws IOException {
-        myUserCredentials = new MyUserCredentials(loginTextField.getText(), passwordTextField.getText());
+        MyUserCredentials myUserCredentials = new MyUserCredentials(loginTextField.getText(), passwordTextField.getText());
         System.out.print(myUserCredentials);
-        token = loginController.loginEvent(myUserCredentials);
+        String token = loginController.loginEvent(myUserCredentials);
         if (token != null){
             incorrectLogPass.setVisible(false);
             myUserCredentials.setUserPassword(null);
-            iUser = loginController.getUserByLogin(myUserCredentials, token);
+            MyUser iUser = loginController.getUserByLogin(myUserCredentials, token);
             if (iUser.getUserType().getIdUserType() == 1) {
-                openAdminStage();
+                openAdminStage(iUser, myUserCredentials, token);
                 signInButtom.getScene().getWindow().hide();
             }else if (iUser.getUserType().getIdUserType() == 2) {
-                openProfessorStage();
+                openProfessorStage(iUser, myUserCredentials, token);
                 signInButtom.getScene().getWindow().hide();
             }else if (iUser.getUserType().getIdUserType() == 3) {
-                openStudentStage();
+                openStudentStage(iUser, myUserCredentials, token);
                 signInButtom.getScene().getWindow().hide();
             }else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -70,26 +69,31 @@ public class Controller {
         }
     }
 
-    private void openAdminStage() throws IOException {
+    private void openAdminStage(MyUser iUser, MyUserCredentials myUserCredentials, String token) throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../samples/Admin.fxml"));
-        Scene scene = new Scene(root);
+        AdminController adminController = new AdminController(iUser, myUserCredentials, token);
+        FXMLLoader load = new  FXMLLoader(getClass().getResource("../samples/Admin.fxml"));
+        load.setController(adminController);
+        Scene scene = new Scene(load.load());
         stage.setScene(scene);
         stage.setTitle("Admin client");
         stage.show();
     }
 
-    private void openStudentStage() throws IOException {
+    private void openStudentStage(MyUser iUser, MyUserCredentials myUserCredentials, String token) throws IOException {
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../samples/Student.fxml"));
-        Scene scene = new Scene(root);
+        ProfessorController professorController = new ProfessorController(iUser, myUserCredentials, token);
+        FXMLLoader root = FXMLLoader.load(getClass().getResource("../samples/Student.fxml"));
+        root.setController(professorController);
+        Scene scene = new Scene(root.load());
         stage.setScene(scene);
         stage.setTitle("Student client");
         stage.show();
     }
 
-    private void openProfessorStage() throws IOException {
+    private void openProfessorStage(MyUser iUser, MyUserCredentials myUserCredentials, String token) throws IOException {
         Stage stage = new Stage();
+        StudentController studentController = new StudentController(iUser, myUserCredentials, token);
         Parent root = FXMLLoader.load(getClass().getResource("../samples/Professor.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);

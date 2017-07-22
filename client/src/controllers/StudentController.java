@@ -1,5 +1,6 @@
 package controllers;
 import com.vkkzlabs.entity.MyUser;
+import com.vkkzlabs.entity.MyUserCredentials;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,9 +16,6 @@ import org.springframework.security.access.method.P;
 
 import java.io.IOException;
 
-import static controllers.Controller.myUserCredentials;
-import static controllers.Controller.token;
-import static controllers.Controller.iUser;
 
 public class StudentController {
     @FXML
@@ -53,6 +51,16 @@ public class StudentController {
     @FXML
     void changeUserInfoButton(ActionEvent event) {
 
+    }
+
+    private MyUser iUser;
+    private MyUserCredentials myUserCredentials;
+    private String token;
+
+    public StudentController(MyUser iUser, MyUserCredentials myUserCredentials, String token) {
+        this.iUser = iUser;
+        this.myUserCredentials = myUserCredentials;
+        this.token = token;
     }
 
     public void initialize() throws IOException {

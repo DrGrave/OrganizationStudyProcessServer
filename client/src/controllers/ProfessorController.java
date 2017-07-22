@@ -1,13 +1,12 @@
 package controllers;
+import com.vkkzlabs.entity.MyUser;
+import com.vkkzlabs.entity.MyUserCredentials;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
-import static controllers.Controller.myUserCredentials;
-import static controllers.Controller.token;
-import static controllers.Controller.iUser;
 
 public class ProfessorController {
     @FXML
@@ -21,6 +20,16 @@ public class ProfessorController {
 
     @FXML
     private Tab professorSettingsTab;
+
+    private MyUser iUser;
+    private MyUserCredentials myUserCredentials;
+    private String token;
+
+    public ProfessorController(MyUser iUser, MyUserCredentials myUserCredentials, String token) {
+        this.iUser = iUser;
+        this.myUserCredentials = myUserCredentials;
+        this.token = token;
+    }
 
     public void initialize(){
         System.out.print(iUser.getIdUser());
