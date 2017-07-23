@@ -82,9 +82,9 @@ public class Controller {
 
     private void openStudentStage(MyUser iUser, MyUserCredentials myUserCredentials, String token) throws IOException {
         Stage stage = new Stage();
-        ProfessorController professorController = new ProfessorController(iUser, myUserCredentials, token);
-        FXMLLoader root = FXMLLoader.load(getClass().getResource("../samples/Student.fxml"));
-        root.setController(professorController);
+        StudentController studentController = new StudentController(iUser, myUserCredentials, token);
+        FXMLLoader root = new  FXMLLoader(getClass().getResource("../samples/Student.fxml"));
+        root.setController(studentController);
         Scene scene = new Scene(root.load());
         stage.setScene(scene);
         stage.setTitle("Student client");
@@ -93,9 +93,10 @@ public class Controller {
 
     private void openProfessorStage(MyUser iUser, MyUserCredentials myUserCredentials, String token) throws IOException {
         Stage stage = new Stage();
-        StudentController studentController = new StudentController(iUser, myUserCredentials, token);
-        Parent root = FXMLLoader.load(getClass().getResource("../samples/Professor.fxml"));
-        Scene scene = new Scene(root);
+        ProfessorController professorController = new ProfessorController(iUser, myUserCredentials, token);
+        FXMLLoader root =  new  FXMLLoader(getClass().getResource("../samples/Professor.fxml"));
+        root.setController(professorController);
+        Scene scene = new Scene(root.load());
         stage.setScene(scene);
         stage.setTitle("Professor client");
         stage.show();
