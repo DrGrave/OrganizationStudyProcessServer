@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("UserAchievement")
 public class UserAchievementController {
@@ -22,5 +24,13 @@ public class UserAchievementController {
         if (userAchievements != null) {
             return new ResponseEntity<M2MUserAchievements>(userAchievements, HttpStatus.OK);
         } return new ResponseEntity<M2MUserAchievements>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("IdUser/{id}")
+    public ResponseEntity<List<M2MUserAchievements>> getAchievementByUserId(@PathVariable("id") int idUser){
+        List<M2MUserAchievements> achievements = userAchievementService.getAchievementByUserId(idUser);
+        if (achievements != null){
+            return new ResponseEntity<List<M2MUserAchievements>>(achievements, HttpStatus.OK);
+        } return new ResponseEntity<List<M2MUserAchievements>>(HttpStatus.NOT_FOUND);
     }
 }
