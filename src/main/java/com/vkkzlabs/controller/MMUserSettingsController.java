@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(name = "MMUserSettings")
+@RequestMapping("MMUserSettings")
 public class MMUserSettingsController {
     @Autowired
     private MMUserSettingsService mmUserSettingsService;
