@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>TEST</title>
+  </head>
+  <body>
+  TEST
+  </body>
+  <script type="text/javascript">
+  	function test(){
+  	var data = new FormData();
+	data.append( "json", JSON.stringify( {userLogin:"Login", userPassword:"Password"} ) );
+  	fetch('/login',{
+  		method: "POST",
+  		body: data
+  	}).then(function(response) {
+  	  return response;
+ 	 }).then(function(res){
+  	  console.log("-----");
+ 	   console.log(res);
+ 	 }).catch(function(err){
+  		console.log(err);
+  	});
+}
+  </script>
+</html>
