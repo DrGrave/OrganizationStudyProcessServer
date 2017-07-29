@@ -89,7 +89,7 @@ public class TableOfDebitsController {
 
 
             Date thisDate = studentWorksController.getServerDate(token);
-            LocalDate date7 = thisDate.toLocalDate().minusDays(7);
+            LocalDate date7 = thisDate.toLocalDate().plusDays(7);
             LocalDate date15 = thisDate.toLocalDate().minusDays(15);
 
 
@@ -119,10 +119,10 @@ public class TableOfDebitsController {
                                 if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 4){
                                     setStyle("-fx-background-color: green");
                                 }else
-                                if (item.getIdOfWork().getDeadlineForWork().after(thisDate)) {
+                                if (item.getIdOfWork().getDeadlineForWork().before(thisDate)) {
                                     setStyle("-fx-background-color: lightcoral;");
                                 }else
-                                if (item.getIdOfWork().getDeadlineForWork().after(java.sql.Date.valueOf(date7))){
+                                if (item.getIdOfWork().getDeadlineForWork().before(java.sql.Date.valueOf(date7))){
                                     setStyle("-fx-background-color: coral;");
                                 }else
                                 if (item.getIdOfWork().getDeadlineForWork().after(java.sql.Date.valueOf(date15))){
