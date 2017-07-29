@@ -9,22 +9,22 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="tableOfDebits" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="tableOfDebits" prefHeight="633.0" prefWidth="414.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox>
                <children>
-                  <TableView fx:id="subjectTable" prefHeight="388.0" prefWidth="84.0">
+                  <TableView fx:id="subjectTable" prefHeight="593.0" prefWidth="90.0">
                     <columns>
-                      <TableColumn fx:id="subjectCollom" prefWidth="83.0" text="Subject" />
+                      <TableColumn fx:id="subjectCollom" minWidth="90.0" prefWidth="-1.0" text="Subject" />
                     </columns>
                   </TableView>
-                  <TableView fx:id="debtTable" prefHeight="593.0" prefWidth="311.0">
+                  <TableView fx:id="debtTable" prefHeight="593.0" prefWidth="323.0">
                     <columns>
-                      <TableColumn fx:id="numberOfWorkCollom" prefWidth="62.0" text="№ work" />
-                      <TableColumn fx:id="nameOfWorkCollom" prefWidth="145.0" text="Name of work" />
-                        <TableColumn fx:id="lastDateCollom" prefWidth="103.0" text="Last date" />
+                      <TableColumn fx:id="numberOfWorkCollom" prefWidth="74.0" text="№ work" />
+                      <TableColumn fx:id="nameOfWorkCollom" prefWidth="135.0" text="Name of work" />
+                        <TableColumn fx:id="lastDateCollom" prefWidth="114.0" text="Last date" />
                     </columns>
                   </TableView>
                </children>
