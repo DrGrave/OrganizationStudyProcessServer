@@ -2,6 +2,7 @@ package com.vkkzlabs.dao;
 
 import com.vkkzlabs.entity.M2MStudentWork;
 import com.vkkzlabs.entity.Subject;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

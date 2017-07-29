@@ -1,6 +1,7 @@
 package com.vkkzlabs.entity;
 
 import javax.persistence.*;
+import java.util.Comparator;
 
 @Entity
 @Table(name = "M2MStudentWork")
@@ -76,6 +77,13 @@ public class M2MStudentWork {
     public void setIdUser(MyUser idUser) {
         this.idUser = idUser;
     }
+
+    public static final Comparator<M2MStudentWork> COMPARE_BY_DATE = new Comparator<M2MStudentWork>() {
+        @Override
+        public int compare(M2MStudentWork lhs, M2MStudentWork rhs) {
+            return (int) (lhs.getIdOfWork().getDeadlineForWork().getTime() - rhs.getIdOfWork().getDeadlineForWork().getTime());
+        }
+    };
 
     @Override
     public boolean equals(Object obj) {

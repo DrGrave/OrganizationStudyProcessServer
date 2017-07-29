@@ -15,11 +15,7 @@ import requests.StudentWorksController;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class TableOfDebitsController {
     private StudentWorksController studentWorksController = new StudentWorksController();
@@ -75,18 +71,26 @@ public class TableOfDebitsController {
         M2MStudentWork[] studentWorks = studentWorksController.getSubjectsToList(iUser.getIdUser(), token);
         if (studentWorks != null) {
             List<M2MStudentWork> subjects = new ArrayList<>();
+            List<M2MStudentWork> toSort = Arrays.asList(studentWorks);
+            Collections.sort(toSort, Collections.reverseOrder(M2MStudentWork.COMPARE_BY_DATE));
+            studentWorks = toSort.toArray(studentWorks);
             for (M2MStudentWork m2MStudentWork : studentWorks) {
                 if (!ifExistsInList(subjects, m2MStudentWork)) {
                     subjects.add(m2MStudentWork);
+                }else{
+                    for (M2MStudentWork studentWork : subjects){
+                        if (studentWork.getIdOfWork().getSubject().getIdSubject() == m2MStudentWork.getIdOfWork().getSubject().getIdSubject() && 4 > m2MStudentWork.getIdOfAccaptWork().getIdOfAccaptWork()){
+                            subjects.remove(studentWork);
+                            subjects.add(m2MStudentWork);
+                        }
+                    }
                 }
             }
 
 
             Date thisDate = studentWorksController.getServerDate(token);
-            LocalDate date7 = thisDate.toLocalDate();
-            LocalDate date15 = thisDate.toLocalDate();
-            date7.minusDays(7);
-            date15.minusDays(15);
+            LocalDate date7 = thisDate.toLocalDate().minusDays(7);
+            LocalDate date15 = thisDate.toLocalDate().minusDays(15);
 
 
             Tooltip tooltip = new Tooltip("This is new work");
@@ -112,17 +116,17 @@ public class TableOfDebitsController {
                                 if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 1){
                                     setTooltip(tooltip);
                                 }
-                                if (item.getIdOfWork().getDeadlineForWork().after(java.sql.Date.valueOf(date7))) {
+                                if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 4){
+                                    setStyle("-fx-background-color: green");
+                                }else
+                                if (item.getIdOfWork().getDeadlineForWork().after(thisDate)) {
                                     setStyle("-fx-background-color: lightcoral;");
                                 }else
-                                if (item.getIdOfWork().getDeadlineForWork().after(java.sql.Date.valueOf(date15))){
+                                if (item.getIdOfWork().getDeadlineForWork().after(java.sql.Date.valueOf(date7))){
                                     setStyle("-fx-background-color: coral;");
                                 }else
-                                if (item.getIdOfWork().getDeadlineForWork().before(java.sql.Date.valueOf(date15))){
+                                if (item.getIdOfWork().getDeadlineForWork().after(java.sql.Date.valueOf(date15))){
                                     setStyle("-fx-background-color: khaki;");
-                                }else
-                                if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 4){
-                                    setStyle("-fx-background-color: aquamarine;");
                                 }
                             }
                             super.updateItem(item, empty);
