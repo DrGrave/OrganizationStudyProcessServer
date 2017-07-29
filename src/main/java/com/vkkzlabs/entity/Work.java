@@ -35,6 +35,14 @@ public class Work {
     @JoinColumn(name = "IdUser")
     private MyUser MyUser;
 
+    public Date getDeadlineForWork() {
+        return deadlineForWork;
+    }
+
+    public void setDeadlineForWork(Date deadlineForWork) {
+        this.deadlineForWork = deadlineForWork;
+    }
+
     public int getIdOfWork() {
         return idOfWork;
     }

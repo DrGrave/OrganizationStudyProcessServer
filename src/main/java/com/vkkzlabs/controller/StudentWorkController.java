@@ -38,4 +38,14 @@ public class StudentWorkController {
         }
         return new ResponseEntity<List<M2MStudentWork>>(subjectList, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/User/{idUser}/Subject/{idSubject}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<M2MStudentWork>> getWorkToStudent(@PathVariable("idUser") int idUser, @PathVariable("idSubject") int idSubject) {
+        List<M2MStudentWork> subjectList = studentWorkService.getListWorksToStudent(idUser, idSubject);
+        if (subjectList == null) {
+            System.out.println("works with id " + idUser + " not found");
+            return new ResponseEntity<List<M2MStudentWork>>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<List<M2MStudentWork>>(subjectList, HttpStatus.OK);
+    }
 }

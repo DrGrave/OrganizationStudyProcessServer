@@ -1,9 +1,9 @@
 package controllers;
-import com.vkkzlabs.entity.Achievements;
+
+
 import com.vkkzlabs.entity.M2MUserAchievements;
 import com.vkkzlabs.entity.MyUser;
 import com.vkkzlabs.entity.MyUserCredentials;
-import controllers.studentsControllers.AchievementsController;
 import controllers.studentsControllers.TableOfDebitsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +17,7 @@ import requests.AchievementsRequest;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 
 public class StudentController {
@@ -135,7 +135,7 @@ public class StudentController {
 
     private void checkForBadStudent(MyUser iUser) throws IOException {
         FXMLLoader debtTable = new  FXMLLoader(getClass().getResource("../samples/studentFXML/DebtTable.fxml"));
-        TableOfDebitsController tableOfDebitsController = new TableOfDebitsController();
+        TableOfDebitsController tableOfDebitsController = new TableOfDebitsController(iUser, token, myUserCredentials);
         debtTable.setController(tableOfDebitsController);
         hBoxStudentInfo.getChildren().add(debtTable.load());
     }
