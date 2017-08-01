@@ -16,6 +16,8 @@ import javafx.scene.image.ImageView;
 import requests.AchievementsRequest;
 
 
+import javax.swing.*;
+import java.io.File;
 import java.io.IOException;
 
 
@@ -48,7 +50,25 @@ public class StudentController {
     @FXML
     private Tab studentSettingsTab;
     @FXML
+    private Button acceptButton;
+
+    @FXML
+    private Button declineButton;
+
+    @FXML
+    void acceptButtonEvent(ActionEvent event) {
+
+    }
+
+
+
+    @FXML
     void changeUserInfoButton(ActionEvent event) {
+
+    }
+
+    @FXML
+    void declineButtonEvent(ActionEvent event) {
 
     }
 
@@ -63,8 +83,8 @@ public class StudentController {
     }
 
     public void initialize() throws IOException {
-
-
+        initializeInfoOfStudent(iUser);
+        initializeCreateFolders();
 
 //        FXMLLoader achievements = new  FXMLLoader(getClass().getResource("../samples/studentFXML/Achievements.fxml"));
 //        AchievementsController achievementsController = new AchievementsController();
@@ -77,6 +97,25 @@ public class StudentController {
         System.out.print(iUser.getIdUser());
         System.out.print(token);
         System.out.print(myUserCredentials.getUserLogin());
+    }
+
+    private void initializeCreateFolders() {
+        JFileChooser f = new JFileChooser();
+        f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        f.showSaveDialog(null);
+
+        File file = new File(String.valueOf(f.getSelectedFile())+"/ff");
+        file.mkdir();
+    }
+
+    private void initializeInfoOfStudent(MyUser iUser) {
+        userName.setText(iUser.getUserName());
+        userSurname.setText(iUser.getUserSurname());
+        userPatronymic.setText(iUser.getUserPatronymic());
+        userEmail.setText(iUser.getEmail());
+        userGender.setText(iUser.getGender().getNameOfGender());
+        userGroup.setText(iUser.getStudentGroup().getNumberOfGroup());
+        userType.setText(iUser.getUserType().getNameUserType());
     }
 
     private void checkForNewWorks(MyUser iUser) {

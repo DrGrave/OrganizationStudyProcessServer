@@ -79,37 +79,37 @@
                                                 <Insets left="20.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <TextField fx:id="userName" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                          <TextField fx:id="userName" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <GridPane.margin>
                                                 <Insets right="5.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField fx:id="userSurname" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                          <TextField fx:id="userSurname" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                              <GridPane.margin>
                                                 <Insets right="5.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField fx:id="userPatronymic" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                          <TextField fx:id="userPatronymic" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                              <GridPane.margin>
                                                 <Insets right="5.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField fx:id="userGender" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                          <TextField fx:id="userGender" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                              <GridPane.margin>
                                                 <Insets right="5.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField fx:id="userGroup" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                          <TextField fx:id="userGroup" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                              <GridPane.margin>
                                                 <Insets right="5.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField fx:id="userEmail" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                          <TextField fx:id="userEmail" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                              <GridPane.margin>
                                                 <Insets right="5.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <TextField fx:id="userType" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                          <TextField fx:id="userType" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                              <GridPane.margin>
                                                 <Insets right="5.0" />
                                              </GridPane.margin>
@@ -118,9 +118,9 @@
                                     </GridPane>
                                     <ButtonBar prefHeight="40.0" prefWidth="200.0">
                                       <buttons>
-                                        <Button fx:id="changeButton" mnemonicParsing="false" onAction="#changeUserInfoButton" text="Change" />
-                                          <Button mnemonicParsing="false" text="Button" />
-                                          <Button mnemonicParsing="false" text="Button" />
+                                        <Button fx:id="changeButton" mnemonicParsing="false" onAction="#changeUserInfoButton" text="Change" visible="false" />
+                                          <Button fx:id="acceptButton" mnemonicParsing="false" onAction="#acceptButtonEvent" text="Accept" visible="false" />
+                                          <Button fx:id="declineButton" mnemonicParsing="false" onAction="#declineButtonEvent" text="Decline" visible="false" />
                                       </buttons>
                                        <padding>
                                           <Insets right="5.0" top="5.0" />
