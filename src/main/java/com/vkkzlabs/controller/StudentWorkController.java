@@ -29,7 +29,7 @@ public class StudentWorkController {
         } return new ResponseEntity<M2MStudentWork>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping(value = "/subject/toStudentWorks/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/Subject/ToStudentWorks/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<M2MStudentWork>> getSubjectsToStudent(@PathVariable("id") int id) {
         List<M2MStudentWork> subjectList = studentWorkService.getListSubjectsToStudent(id);
         if (subjectList == null) {
@@ -44,6 +44,16 @@ public class StudentWorkController {
         List<M2MStudentWork> subjectList = studentWorkService.getListWorksToStudent(idUser, idSubject);
         if (subjectList == null) {
             System.out.println("works with id " + idUser + " not found");
+            return new ResponseEntity<List<M2MStudentWork>>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<List<M2MStudentWork>>(subjectList, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/Student/Works/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<M2MStudentWork>> getAllWorks(@PathVariable("id") int id) {
+        List<M2MStudentWork> subjectList = studentWorkService.getListSubjectsToStudent(id);
+        if (subjectList == null) {
+            System.out.println("User with id " + id + " not found");
             return new ResponseEntity<List<M2MStudentWork>>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<List<M2MStudentWork>>(subjectList, HttpStatus.OK);

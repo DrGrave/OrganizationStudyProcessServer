@@ -32,4 +32,12 @@ public class Faculty {
     public void setNameFaculty(String nameFaculty) {
         this.nameFaculty = nameFaculty;
     }
+
+    public University getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
+    }
 }

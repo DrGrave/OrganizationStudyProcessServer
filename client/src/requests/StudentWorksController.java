@@ -20,7 +20,7 @@ public class StudentWorksController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", token);
         HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
-        HttpEntity<M2MStudentWork[]> request =  restTemplate.exchange(REST_SERVICE_URI+"/StudentWork/subject/toStudentWorks/"+idUser, HttpMethod.GET, entity, M2MStudentWork[].class);
+        HttpEntity<M2MStudentWork[]> request =  restTemplate.exchange(REST_SERVICE_URI+"/StudentWork/Subject/ToStudentWorks/"+idUser, HttpMethod.GET, entity, M2MStudentWork[].class);
         m2MStudentWork = request.getBody();
         return m2MStudentWork;
     }
@@ -45,5 +45,16 @@ public class StudentWorksController {
         HttpEntity<Date> request = restTemplate.exchange(REST_SERVICE_URI+"/GetServerDate/Get", HttpMethod.GET, entity, Date.class);
         date = request.getBody();
         return date;
+    }
+
+    public M2MStudentWork[] getStudentWorks(int idUser, String token){
+        RestTemplate restTemplate = new RestTemplate();
+        M2MStudentWork[] m2MStudentWork;
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Authorization", token);
+        HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
+        HttpEntity<M2MStudentWork[]> request =  restTemplate.exchange(REST_SERVICE_URI+"/StudentWork/Student/Works/"+idUser, HttpMethod.GET, entity, M2MStudentWork[].class);
+        m2MStudentWork = request.getBody();
+        return m2MStudentWork;
     }
 }

@@ -20,4 +20,14 @@ public class MMUserSettingsServiceImpl implements MMUserSettingsService {
     public M2MUserSettings getUserSettingsById(int idUserSettings) {
         return mmUserSettingsDAO.getByIdM2MUserSettings(idUserSettings);
     }
+
+    @Override
+    public M2MUserSettings getUserSettingByIdUserAndIdSetting(Integer idUser, Integer idSetting) {
+        return mmUserSettingsDAO.findByMyUser_IdUserAndSetting_IdUserSettings(idUser, idSetting);
+    }
+
+    @Override
+    public void editUserSettings(M2MUserSettings userSettings) {
+        mmUserSettingsDAO.save(userSettings);
+    }
 }

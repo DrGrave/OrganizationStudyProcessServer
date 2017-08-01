@@ -1,9 +1,7 @@
 package controllers;
 
 
-import com.vkkzlabs.entity.M2MUserAchievements;
-import com.vkkzlabs.entity.MyUser;
-import com.vkkzlabs.entity.MyUserCredentials;
+import com.vkkzlabs.entity.*;
 import controllers.studentsControllers.TableOfDebitsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,12 +12,15 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.image.ImageView;
 import requests.AchievementsRequest;
+import requests.SettingsRequest;
+import requests.StudentWorksController;
 
 
 import javax.swing.*;
-import java.io.File;
-import java.io.IOException;
-
+import java.io.*;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class StudentController {
@@ -86,6 +87,7 @@ public class StudentController {
         initializeInfoOfStudent(iUser);
         initializeCreateFolders();
 
+
 //        FXMLLoader achievements = new  FXMLLoader(getClass().getResource("../samples/studentFXML/Achievements.fxml"));
 //        AchievementsController achievementsController = new AchievementsController();
 //        achievements.setController(achievementsController);
@@ -99,13 +101,55 @@ public class StudentController {
         System.out.print(myUserCredentials.getUserLogin());
     }
 
-    private void initializeCreateFolders() {
-        JFileChooser f = new JFileChooser();
-        f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        f.showSaveDialog(null);
+    private void initializeCreateFolders() throws FileNotFoundException, UnsupportedEncodingException {
+        SettingsRequest settingsRequest = new SettingsRequest();
+        M2MUserSettings m2MUserSettings = settingsRequest.getSettingByUserAndSittingId(iUser, token, 1);
+        if (settingsRequest.getSettingByUserAndSittingId(iUser, token, 1) == null) {
+            m2MUserSettings = new M2MUserSettings();
+            UserSettings userSettings = settingsRequest.getSettingById(1,token);
+            m2MUserSettings.setSetting(userSettings);
+            m2MUserSettings.setMyUser(iUser);
+            m2MUserSettings.setSettingOn(true);
+            JFileChooser f = new JFileChooser();
+            f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            f.showSaveDialog(null);
+            m2MUserSettings.setPathToDirectoty(String.valueOf(f.getSelectedFile()));
+            settingsRequest.saveUserSetting(m2MUserSettings, token);
+        }else
+        if ( !settingsRequest.getSettingByUserAndSittingId(iUser,token,1 ).isSettingOn())
+        {
+            m2MUserSettings.setSettingOn(true);
+            JFileChooser f = new JFileChooser();
+            f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            f.showSaveDialog(null);
+            m2MUserSettings.setPathToDirectoty(String.valueOf(f.getSelectedFile()));
+            settingsRequest.editUserSetting(m2MUserSettings, token);
+        }
+            StudentWorksController studentWorksController = new StudentWorksController();
+            String part;
+            Date date = studentWorksController.getServerDate(token);
+            if (date.getMonth() <= 8){
+                part = "1";
+            }else part = "2";
+            String filepath = m2MUserSettings.getPathToDirectoty() + "/" + iUser.getStudentGroup().getChair().getFaculty().getUniversity().getNameUniversity() + "/" + iUser.getStudentGroup().getChair().getFaculty().getNameFaculty() + "/" + iUser.getStudentGroup().getChair().getNameChair() + "/Course " + iUser.getStudentGroup().getCourse()+ "/Therm " + part;
+            addAllFilePaces(filepath);
 
-        File file = new File(String.valueOf(f.getSelectedFile())+"/ff");
-        file.mkdir();
+    }
+
+    private void addAllFilePaces(String filepath) throws FileNotFoundException, UnsupportedEncodingException {
+        StudentWorksController studentWorksController = new StudentWorksController();
+        M2MStudentWork[] studentWorks = studentWorksController.getStudentWorks(iUser.getIdUser(), token);
+        PrintWriter printWriter;
+        String path;
+        File file;
+        for (M2MStudentWork studentWork : studentWorks) {
+            path = filepath + "/" + studentWork.getIdOfWork().getSubject().getNameSubject() + "/Work №" + studentWork.getIdOfWork().getNumberOfWOrk();
+            file = new File(path);
+            file.mkdirs();
+            printWriter = new PrintWriter(path + "/" + studentWork.getIdOfWork().getNameOfWork(), "UTF-8");
+            printWriter.print(studentWork.getIdOfWork().getTextOfWork());
+            printWriter.close();
+        }
     }
 
     private void initializeInfoOfStudent(MyUser iUser) {

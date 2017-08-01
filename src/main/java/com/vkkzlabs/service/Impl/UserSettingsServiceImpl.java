@@ -18,6 +18,6 @@ public class UserSettingsServiceImpl implements UserSettingsService {
 
     @Override
     public UserSettings getUserSettingsById(int userSettingsId) {
-        return userSettingsDAO.getByIdUserSettings(userSettingsId);
+        return userSettingsDAO.findByIdUserSettings(userSettingsId);
     }
 }

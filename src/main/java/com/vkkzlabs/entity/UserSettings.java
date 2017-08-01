@@ -10,6 +10,22 @@ public class UserSettings {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int idUserSettings;
 
-    @Column(name = "SunSetting")
-    private boolean setting;
+    @Column(name = "SittingInfo")
+    private String sittingInfo;
+
+    public int getIdUserSettings() {
+        return idUserSettings;
+    }
+
+    public void setIdUserSettings(int idUserSettings) {
+        this.idUserSettings = idUserSettings;
+    }
+
+    public String getSittingInfo() {
+        return sittingInfo;
+    }
+
+    public void setSittingInfo(String sittingInfo) {
+        this.sittingInfo = sittingInfo;
+    }
 }

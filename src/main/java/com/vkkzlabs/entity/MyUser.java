@@ -1,6 +1,7 @@
 package com.vkkzlabs.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 
 @Entity
@@ -10,6 +11,8 @@ public class MyUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUser;
 
+    @Column(name = "DateOfEnrollment")
+    private Date dateOfEnrollment;
 
     @Column(name = "UserName", nullable = false)
     private String userName;
@@ -45,6 +48,15 @@ public class MyUser {
     }
 
     public MyUser() {
+    }
+
+
+    public Date getDateOfEnrollment() {
+        return dateOfEnrollment;
+    }
+
+    public void setDateOfEnrollment(Date dateOfEnrollment) {
+        this.dateOfEnrollment = dateOfEnrollment;
     }
 
     public String getEmail() {

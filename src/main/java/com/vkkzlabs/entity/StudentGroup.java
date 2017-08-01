@@ -1,6 +1,7 @@
 package com.vkkzlabs.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 
 @Entity
@@ -14,6 +15,9 @@ public class StudentGroup {
     @Column(name = "NumberOfGroup")
     private String numberOfGroup;
 
+    @Column(name = "Course")
+    private int course;
+
     @ManyToOne
     @JoinColumn(name = "IdChair")
     private Chair chair;
@@ -21,6 +25,22 @@ public class StudentGroup {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "IdUserStarosta", nullable = false)
     private MyUser idMyUserStarosta;
+
+    public int getCourse() {
+        return course;
+    }
+
+    public void setCourse(int course) {
+        this.course = course;
+    }
+
+    public Chair getChair() {
+        return chair;
+    }
+
+    public void setChair(Chair chair) {
+        this.chair = chair;
+    }
 
     public int getIdGroup() {
         return idGroup;
