@@ -162,12 +162,17 @@ public class TableOfDebitsController {
 
     private void initializeWorksTable(Subject subject, MyUser iUser, int position) {
         M2MStudentWork[] m2MStudentWork = studentWorksController.getWorksByUserIdAndSubjectId(iUser, subject, token);
+        debtTable.refresh();
         if (m2MStudentWork != null){
             List<M2MStudentWork> works = new ArrayList<>();
             works.addAll(Arrays.asList(m2MStudentWork));
             ObservableList<M2MStudentWork> workObservableList = FXCollections.observableList(works);
+            Date thisDate = studentWorksController.getServerDate(token);
+            LocalDate date7 = thisDate.toLocalDate().plusDays(7);
+            LocalDate date15 = thisDate.toLocalDate().minusDays(15);
 
             debtTable.setItems(workObservableList);
+
             numberOfWorkCollom.setCellValueFactory(
                     cellDate -> new SimpleStringProperty(cellDate.getValue().getIdOfWork().getNumberOfWOrk())
             );
@@ -177,6 +182,36 @@ public class TableOfDebitsController {
             lastDateCollom.setCellValueFactory(
                     cellDate -> new SimpleStringProperty(String.valueOf(cellDate.getValue().getIdOfWork().getDeadlineForWork()))
             );
+
+            debtTable.setRowFactory(new Callback<TableView<M2MStudentWork>, TableRow<M2MStudentWork>>() {
+                @Override
+                public TableRow<M2MStudentWork> call(TableView<M2MStudentWork> m2MStudentWorkTableView) {
+                    return new TableRow<M2MStudentWork>(){
+                        @Override
+                        protected void updateItem(M2MStudentWork item, boolean empty) {
+                            if (item != null){
+                                setStyle("");
+                                if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 1){
+                                    setTooltip(new Tooltip("New work"));
+                                }
+                                if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 4){
+                                    setStyle("-fx-background-color: green");
+                                }else
+                                if (item.getIdOfWork().getDeadlineForWork().before(thisDate)) {
+                                    setStyle("-fx-background-color: lightcoral;");
+                                }else
+                                if (item.getIdOfWork().getDeadlineForWork().before(java.sql.Date.valueOf(date7))){
+                                    setStyle("-fx-background-color: coral;");
+                                }else
+                                if (item.getIdOfWork().getDeadlineForWork().after(java.sql.Date.valueOf(date15))) {
+                                    setStyle("-fx-background-color: khaki;");
+                                }
+                            }
+                            super.updateItem(item, empty);
+                        }
+                    };
+                }
+            });
 //            debtTable.getSelectionModel().selectedItemProperty().addListener(
 //                    ((observable, oldValue, newValue) -> {
 //                        try {
