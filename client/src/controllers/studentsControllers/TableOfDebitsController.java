@@ -75,8 +75,8 @@ public class TableOfDebitsController {
 
     public void initialize(){
         M2MStudentWork[] studentWorks = studentWorksController.getSubjectsToList(iUser.getIdUser(), token);
+        subjectTable.refresh();
         if (studentWorks != null) {
-
             List<M2MStudentWork> subjects = new ArrayList<>();
             List<M2MStudentWork> toSort = Arrays.asList(studentWorks);
             Collections.sort(toSort, Collections.reverseOrder(M2MStudentWork.COMPARE_BY_DATE));
@@ -93,17 +93,10 @@ public class TableOfDebitsController {
                     }
                 }
             }
-
-
             Date thisDate = studentWorksController.getServerDate(token);
             LocalDate date7 = thisDate.toLocalDate().plusDays(7);
             LocalDate date15 = thisDate.toLocalDate().minusDays(15);
-
-
             Tooltip tooltip = new Tooltip("New work by this subject");
-
-
-
             ObservableList<M2MStudentWork> subjectObservableList = FXCollections.observableList(subjects);
             subjectTable.setItems(subjectObservableList);
             subjectCollom.setCellValueFactory(
