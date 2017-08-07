@@ -28,19 +28,17 @@ public class StudentWorkServiceImpl implements StudentWorkService {
     @Override
     public List<M2MStudentWork> getListSubjectsToStudent(int idUser) {
         List<M2MStudentWork> works = studentWorkDAO.findAllByIdUser_IdUser(idUser);
-        for (M2MStudentWork m2MStudentWork : works){
-            m2MStudentWork.setIdUser(null);
-        }
-
         return works;
     }
 
     @Override
     public List<M2MStudentWork> getListWorksToStudent(int idUser, int idSubject) {
         List<M2MStudentWork> works = studentWorkDAO.findAllByIdOfWork_Subject_IdSubjectAndAndIdUser_IdUserOrderByIdOfAccaptWork(idSubject, idUser);
-        for (M2MStudentWork m2MStudentWork : works){
-            m2MStudentWork.setIdUser(null);
-        }
         return works;
+    }
+
+    @Override
+    public void editStudentWork(M2MStudentWork m2MStudentWork) {
+        studentWorkDAO.save(m2MStudentWork);
     }
 }

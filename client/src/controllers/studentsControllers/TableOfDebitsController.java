@@ -1,21 +1,19 @@
 package controllers.studentsControllers;
 
 import com.vkkzlabs.entity.*;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
-import org.thymeleaf.util.DateUtils;
 import requests.StudentWorksController;
+import requests.TypeOfAcceptWorkRequest;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -236,15 +234,12 @@ public class TableOfDebitsController {
     }
 
     private void initializeInfoOfWork(M2MStudentWork studentWork, MyUser iUser) throws IOException {
-        Work work = new Work();
-        if (studentWork != null){
-            work = studentWork.getIdOfWork();
 
-            if (work != null) {
-                alert.setTitle("Work"+ work.getNumberOfWOrk());
+        if (studentWork != null){
+                alert.setTitle("Work"+ studentWork.getIdOfWork().getNumberOfWOrk());
                 DialogPane dialogPane = new DialogPane();
                 GridPane infoOfWorkGridPane = new GridPane();
-                fullGridPaneByUserWorkInfo(work, infoOfWorkGridPane);
+                fullGridPaneByUserWorkInfo(studentWork, infoOfWorkGridPane);
                 dialogPane.setContent(infoOfWorkGridPane);
 
                 dialogPane.setOnKeyPressed(keyEvent ->
@@ -252,18 +247,19 @@ public class TableOfDebitsController {
                 );
 
                 dialogPane.getButtonTypes().add(ButtonType.CLOSE);
-                alert.setHeaderText("Work №" + work.getNumberOfWOrk());
+                alert.setHeaderText("Work №" + studentWork.getIdOfWork().getNumberOfWOrk());
                 alert.setDialogPane(dialogPane);
                 alert.show();
-            }
+
         }
     }
 
 
-    private void fullGridPaneByUserWorkInfo(Work work, GridPane infoOfWorkGridPane) {
+    private void fullGridPaneByUserWorkInfo(M2MStudentWork work, GridPane infoOfWorkGridPane) {
+        TypeOfAcceptWorkRequest typeOfAcceptWorkRequest = new TypeOfAcceptWorkRequest();
         Label nameOfWorkLabel = new Label("Name");
         TextField nameOfWorkTextField = new TextField();
-        nameOfWorkTextField.setText(work.getNameOfWork());
+        nameOfWorkTextField.setText(work.getIdOfWork().getNameOfWork());
         nameOfWorkTextField.editableProperty().setValue(false);
         nameOfWorkTextField.setMinSize(120,25);
         nameOfWorkTextField.setPadding(new Insets(0,5,0,5));
@@ -272,7 +268,7 @@ public class TableOfDebitsController {
         infoOfWorkGridPane.add(nameOfWorkTextField, 1,0);
 
         TextField numberOfWorkTextField = new TextField();
-        numberOfWorkTextField.setText(work.getNumberOfWOrk());
+        numberOfWorkTextField.setText(work.getIdOfWork().getNumberOfWOrk());
         numberOfWorkTextField.setMinSize(120,25);
         numberOfWorkTextField.editableProperty().setValue(false);
         numberOfWorkTextField.setPadding(new Insets(0,5,0,5));
@@ -282,7 +278,7 @@ public class TableOfDebitsController {
         infoOfWorkGridPane.add(numberOfWorkTextField, 1,1);
 
         TextField deadlineTextField = new TextField();
-        deadlineTextField.setText(String.valueOf(work.getDeadlineForWork()));
+        deadlineTextField.setText(String.valueOf(work.getIdOfWork().getDeadlineForWork()));
         deadlineTextField.editableProperty().setValue(false);
         deadlineTextField.setMinSize(120,25);
         Label deadlineLabel = new Label("Deadline of work");
@@ -291,7 +287,7 @@ public class TableOfDebitsController {
         infoOfWorkGridPane.add(deadlineTextField,1,2);
 
         TextField typeOfWork = new TextField();
-        typeOfWork.setText(work.getTypeOfWork().getNameTypeOfWOrk());
+        typeOfWork.setText(work.getIdOfWork().getTypeOfWork().getNameTypeOfWOrk());
         typeOfWork.editableProperty().setValue(false);
         typeOfWork.setMinSize(120,25);
         Label typeOfWorkLabel = new Label("Type of work");
@@ -300,7 +296,7 @@ public class TableOfDebitsController {
         infoOfWorkGridPane.add(typeOfWork, 1,3);
 
         TextField subject = new TextField();
-        subject.setText(work.getSubject().getNameSubject());
+        subject.setText(work.getIdOfWork().getSubject().getNameSubject());
         subject.editableProperty().setValue(false);
         subject.setMinSize(120,25);
         Label subjectLabel = new Label("Subject");
@@ -309,7 +305,7 @@ public class TableOfDebitsController {
         infoOfWorkGridPane.add(subject, 1,4);
 
         TextArea textOfWork = new TextArea();
-        textOfWork.setText(work.getTextOfWork());
+        textOfWork.setText(work.getIdOfWork().getTextOfWork());
         textOfWork.editableProperty().setValue(false);
         textOfWork.setMinSize(120,80);
         textOfWork.setMaxWidth(300);
@@ -318,8 +314,17 @@ public class TableOfDebitsController {
         infoOfWorkGridPane.add(textOfWorkLabel, 0,5);
         infoOfWorkGridPane.add(textOfWork,1,5);
 
+        if (work.getIdOfAccaptWork().getIdOfAccaptWork() == 1){
+            work.setIdOfAccaptWork(typeOfAcceptWorkRequest.getTypeOfAcceptWorkById(2, token));
+            updateWork(work);
+        }
 
 
+    }
+
+    private void updateWork(M2MStudentWork work) {
+        StudentWorksController studentWorksController = new StudentWorksController();
+        studentWorksController.updateWork(work,token);
     }
 
     private boolean ifExistsInList(List<M2MStudentWork> subjects, M2MStudentWork thisSubject){

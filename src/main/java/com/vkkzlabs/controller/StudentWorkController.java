@@ -8,10 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -57,5 +55,11 @@ public class StudentWorkController {
             return new ResponseEntity<List<M2MStudentWork>>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<List<M2MStudentWork>>(subjectList, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "Edit", method = RequestMethod.POST)
+    public ResponseEntity editSetting(@RequestBody M2MStudentWork m2MStudentWork, UriComponentsBuilder ucBuilder) {
+        studentWorkService.editStudentWork(m2MStudentWork);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
