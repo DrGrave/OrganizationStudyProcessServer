@@ -18,6 +18,8 @@ import requests.StudentWorksController;
 
 import javax.swing.*;
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -149,6 +151,28 @@ public class StudentController {
             printWriter = new PrintWriter(path + "/" + studentWork.getIdOfWork().getNameOfWork(), "UTF-8");
             printWriter.print(studentWork.getIdOfWork().getTextOfWork());
             printWriter.close();
+            makeDataFile(path);
+        }
+    }
+
+    private void makeDataFile(String path) {
+        try {
+            URL url = new URL("https://docs.google.com/document/u/0/d/1xFtBGqcD7XuZM4gDH08cALrpHWeVRKbbgADkG6OhdJg/export?format=docx");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+
+            File f1 = new File(path+"/1.docx");
+            FileOutputStream fw = new FileOutputStream(f1);
+
+            byte[] b = new byte[1024];
+            int count = 0;
+
+            while ((count=bis.read(b)) != -1)
+                fw.write(b,0,count);
+
+            fw.close();
+        } catch (IOException ex) {
         }
     }
 
