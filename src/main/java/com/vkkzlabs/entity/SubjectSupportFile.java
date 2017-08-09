@@ -14,8 +14,11 @@ public class SubjectSupportFile {
     @JoinColumn(name = "IdSubject")
     private Subject subject;
 
+    @Column(name = "NameOfFile")
+    private String nameOfFile;
+
     @Column(name = "Data")
-    Blob blob;
+    private Blob blob;
 
     public int getIdSubjectSupportFile() {
         return idSubjectSupportFile;
@@ -39,5 +42,13 @@ public class SubjectSupportFile {
 
     public void setBlob(Blob blob) {
         this.blob = blob;
+    }
+
+    public String getNameOfFile() {
+        return nameOfFile;
+    }
+
+    public void setNameOfFile(String nameOfFile) {
+        this.nameOfFile = nameOfFile;
     }
 }

@@ -4,7 +4,9 @@ import com.vkkzlabs.dao.SupportingDataForWorkDAO;
 import com.vkkzlabs.entity.SupportingDataForWork;
 import com.vkkzlabs.service.SupportingDataForWorkService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SupportingDataForWorkServiceImpl implements SupportingDataForWorkService {
     @Autowired
     private SupportingDataForWorkDAO supportingDataForWorkDAO;
