@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("SubjectSupportFile")
 public class SubjectSupportFileController {
@@ -18,10 +20,10 @@ public class SubjectSupportFileController {
     SubjectSupportFileService subjectSupportFileService;
 
     @GetMapping("Subject/{id}")
-    public ResponseEntity<SubjectSupportFile> getSubjectSupportFileBySubjectIdId(@PathVariable("id") Integer id) {
-        SubjectSupportFile supportingDataForWork = subjectSupportFileService.getSubjectSupportFileByIdSubject(id);
+    public ResponseEntity<List<SubjectSupportFile>> getSubjectSupportFilesBySubjectIdId(@PathVariable("id") Integer id) {
+        List<SubjectSupportFile> supportingDataForWork = subjectSupportFileService.getSubjectSupportFileByIdSubject(id);
         if (supportingDataForWork != null) {
-            return new ResponseEntity<SubjectSupportFile>(supportingDataForWork, HttpStatus.OK);
-        } return new ResponseEntity<SubjectSupportFile>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<List<SubjectSupportFile>>(supportingDataForWork, HttpStatus.OK);
+        } return new ResponseEntity<List<SubjectSupportFile>>(HttpStatus.NOT_FOUND);
     }
 }

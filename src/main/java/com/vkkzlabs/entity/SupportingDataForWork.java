@@ -1,7 +1,7 @@
 package com.vkkzlabs.entity;
 
 import javax.persistence.*;
-import java.sql.Blob;
+import java.io.File;
 
 @Entity
 @Table(name="SupportingDataForWork")
@@ -14,8 +14,8 @@ public class SupportingDataForWork {
     @JoinColumn(name = "IdWork")
     private Work work;
 
-    @Column(name = "Data")
-    private Blob data;
+    @Column(name = "PathToFile", length = 65536)
+    private String pathToFile;
 
     @Column(name = "NameOfFile")
     private String nameOfFile;
@@ -36,12 +36,12 @@ public class SupportingDataForWork {
         this.work = work;
     }
 
-    public Blob getData() {
-        return data;
+    public String getPathToFile() {
+        return pathToFile;
     }
 
-    public void setData(Blob data) {
-        this.data = data;
+    public void setPathToFile(String pathToFile) {
+        this.pathToFile = pathToFile;
     }
 
     public String getNameOfFile() {

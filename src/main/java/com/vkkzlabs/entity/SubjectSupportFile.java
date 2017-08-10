@@ -1,7 +1,8 @@
 package com.vkkzlabs.entity;
 
 import javax.persistence.*;
-import java.sql.Blob;
+import java.io.File;
+
 
 @Entity
 @Table(name="SubjectSupportFile")
@@ -17,8 +18,8 @@ public class SubjectSupportFile {
     @Column(name = "NameOfFile")
     private String nameOfFile;
 
-    @Column(name = "Data")
-    private Blob blob;
+    @Column(name = "PathToFile", length = 65536)
+    private String path;
 
     public int getIdSubjectSupportFile() {
         return idSubjectSupportFile;
@@ -36,12 +37,12 @@ public class SubjectSupportFile {
         this.subject = subject;
     }
 
-    public Blob getBlob() {
-        return blob;
+    public String getPath() {
+        return path;
     }
 
-    public void setBlob(Blob blob) {
-        this.blob = blob;
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getNameOfFile() {

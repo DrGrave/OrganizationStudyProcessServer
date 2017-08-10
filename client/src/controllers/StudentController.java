@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import requests.AchievementsRequest;
 import requests.SettingsRequest;
 import requests.StudentWorksController;
+import requests.SupportFilesRequest;
 
 
 import javax.swing.*;
@@ -22,6 +23,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -142,38 +144,34 @@ public class StudentController {
         StudentWorksController studentWorksController = new StudentWorksController();
         M2MStudentWork[] studentWorks = studentWorksController.getStudentWorks(iUser.getIdUser(), token);
         PrintWriter printWriter;
+        String pathToSubject;
         String path;
         File file;
         for (M2MStudentWork studentWork : studentWorks) {
-            path = filepath + "/" + studentWork.getIdOfWork().getSubject().getNameSubject() + "/Work №" + studentWork.getIdOfWork().getNumberOfWOrk();
+            pathToSubject = filepath + "/" + studentWork.getIdOfWork().getSubject().getNameSubject();
+            path = pathToSubject + "/Work №" + studentWork.getIdOfWork().getNumberOfWOrk();
             file = new File(path);
             file.mkdirs();
             printWriter = new PrintWriter(path + "/" + studentWork.getIdOfWork().getNameOfWork(), "UTF-8");
             printWriter.print(studentWork.getIdOfWork().getTextOfWork());
             printWriter.close();
-            makeDataFile(path);
+            makeDataFile(pathToSubject, path);
         }
     }
 
-    private void makeDataFile(String path) {
-        try {
-            URL url = new URL("https://docs.google.com/document/u/0/d/1xFtBGqcD7XuZM4gDH08cALrpHWeVRKbbgADkG6OhdJg/export?format=docx");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    private void makeDataFile(String pathToSubject, String path) {
+    }
 
-            BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+    private void uploadDataFile(String subject, String path) {
+            SupportFilesRequest supportFilesRequest = new SupportFilesRequest();
+            
+            try {
+                supportFilesRequest.sendFile("file", token, 1);
+            }catch (IOException i){
+                i.printStackTrace();
+            }
+//           
 
-            File f1 = new File(path+"/1.docx");
-            FileOutputStream fw = new FileOutputStream(f1);
-
-            byte[] b = new byte[1024];
-            int count = 0;
-
-            while ((count=bis.read(b)) != -1)
-                fw.write(b,0,count);
-
-            fw.close();
-        } catch (IOException ex) {
-        }
     }
 
     private void initializeInfoOfStudent(MyUser iUser) {
