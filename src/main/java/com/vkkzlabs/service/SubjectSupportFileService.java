@@ -8,5 +8,6 @@ import java.util.List;
 @Service
 public interface SubjectSupportFileService {
     void saveSubjectSupportFile(SubjectSupportFile file);
-    List<SubjectSupportFile> getSubjectSupportFileByIdSubject(int idSubject);
+    List<SubjectSupportFile> getListSubjectSupportFileByIdSubject(int idSubject);
+    SubjectSupportFile getSubjectSupportFileByIdSupFile(int idSupFile);
 }

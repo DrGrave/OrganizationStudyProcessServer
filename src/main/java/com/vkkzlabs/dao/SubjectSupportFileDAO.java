@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface SubjectSupportFileDAO extends CrudRepository<SubjectSupportFile, Long>{
     List<SubjectSupportFile> findAllBySubject_IdSubject(int idSubject);
+    SubjectSupportFile findByIdSubjectSupportFile(int idSubjSupFile);
 }

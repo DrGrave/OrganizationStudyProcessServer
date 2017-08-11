@@ -21,7 +21,7 @@ public class SubjectSupportFileController {
 
     @GetMapping("Subject/{id}")
     public ResponseEntity<List<SubjectSupportFile>> getSubjectSupportFilesBySubjectIdId(@PathVariable("id") Integer id) {
-        List<SubjectSupportFile> supportingDataForWork = subjectSupportFileService.getSubjectSupportFileByIdSubject(id);
+        List<SubjectSupportFile> supportingDataForWork = subjectSupportFileService.getListSubjectSupportFileByIdSubject(id);
         if (supportingDataForWork != null) {
             return new ResponseEntity<List<SubjectSupportFile>>(supportingDataForWork, HttpStatus.OK);
         } return new ResponseEntity<List<SubjectSupportFile>>(HttpStatus.NOT_FOUND);

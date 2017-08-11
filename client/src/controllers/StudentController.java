@@ -156,6 +156,7 @@ public class StudentController {
             printWriter.print(studentWork.getIdOfWork().getTextOfWork());
             printWriter.close();
             makeDataFile(pathToSubject, path);
+            uploadDataFile("s",pathToSubject);
         }
     }
 
@@ -167,6 +168,9 @@ public class StudentController {
             
             try {
                 supportFilesRequest.sendFile("file", token, 1);
+                byte[] outputStream = supportFilesRequest.downloadFile(13,token, path);
+                System.out.println(Arrays.toString(supportFilesRequest.getSubjectSupportFileByIdSubject(13, token)));
+
             }catch (IOException i){
                 i.printStackTrace();
             }

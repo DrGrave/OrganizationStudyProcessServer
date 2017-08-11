@@ -5,22 +5,26 @@ import com.vkkzlabs.entity.SubjectSupportFile;
 import com.vkkzlabs.service.SubjectService;
 import com.vkkzlabs.service.SubjectSupportFileService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.*;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
-import org.thymeleaf.exceptions.TemplateEngineException;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 @Controller
@@ -53,6 +57,24 @@ public class FileController {
         subjectSupportFileService.saveSubjectSupportFile(subjectSupportFile);
         File dest = new File(filePath);
         uploadfile.transferTo(dest);
+    }
+
+    @RequestMapping(value = "File/Download/SubjSupF/{id}", method = RequestMethod.GET)
+    public void getLogFile(HttpSession session, HttpServletResponse response,@PathVariable(value = "id") int id) throws Exception {
+
+        try {
+            String filePathToBeServed = subjectSupportFileService.getSubjectSupportFileByIdSupFile(id).getPath();//complete file name with path;
+                    File fileToDownload = new File(filePathToBeServed);
+            InputStream inputStream = new FileInputStream(fileToDownload);
+            response.setContentType("application/force-download");
+            response.setHeader("Content-Disposition", "attachment; filename="+subjectSupportFileService.getSubjectSupportFileByIdSupFile(id).getNameOfFile());
+            IOUtils.copy(inputStream, response.getOutputStream());
+            response.flushBuffer();
+            inputStream.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
 }

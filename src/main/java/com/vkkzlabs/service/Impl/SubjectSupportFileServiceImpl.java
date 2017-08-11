@@ -19,7 +19,12 @@ public class SubjectSupportFileServiceImpl implements SubjectSupportFileService 
     }
 
     @Override
-    public List<SubjectSupportFile> getSubjectSupportFileByIdSubject(int idSubject) {
+    public List<SubjectSupportFile> getListSubjectSupportFileByIdSubject(int idSubject) {
         return subjectSupportFileDAO.findAllBySubject_IdSubject(idSubject);
+    }
+
+    @Override
+    public SubjectSupportFile getSubjectSupportFileByIdSupFile(int idSupFile) {
+        return subjectSupportFileDAO.findByIdSubjectSupportFile(idSupFile);
     }
 }

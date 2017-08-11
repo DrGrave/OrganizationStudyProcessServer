@@ -10,12 +10,11 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class SupportFilesRequest {
     private static final String REST_SERVICE_URI = "http://localhost:8080";
@@ -35,12 +34,12 @@ public class SupportFilesRequest {
     public void sendFile(String fileInputStream, String token, int id) throws IOException {
         RestTemplate restTemplate = new RestTemplate();
         MultiValueMap<String, Object> data = new LinkedMultiValueMap<String, Object>();
-        Path path = Paths.get("client/3.rar");
+        Path path = Paths.get("client/2.docx");
 
         ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path)) {
             @Override
             public String getFilename() {
-                return "f.rar";
+                return "2.docx";
             }
         };
         data.add("file", resource);
@@ -52,6 +51,24 @@ public class SupportFilesRequest {
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(data, requestHeaders);
 
         final ResponseEntity<String> responseEntity = restTemplate.exchange(REST_SERVICE_URI+"/File/Upload/Subject/"+id, HttpMethod.POST, requestEntity, String.class);
+    }
 
+    public byte[] downloadFile(int id, String token, String path) throws IOException {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.add("Authorization", token);
+        String outputStream;
+        HttpEntity<?> entity = new HttpEntity<>(requestHeaders);
+        HttpEntity<String> request =  restTemplate.exchange(REST_SERVICE_URI+"/File/Download/SubjSupF/"+id, HttpMethod.GET, entity, String.class);
+        outputStream = request.getBody();
+        HttpHeaders respHeaders = request.getHeaders();
+        if (requestHeaders.get("Content-Disposition") != null)
+        {
+        List<String> str = requestHeaders.get("Content-Disposition");
+        }
+        FileOutputStream fos = new FileOutputStream(path+"/");
+        fos.write(outputStream.getBytes());
+        fos.close();
+        return outputStream.getBytes();
     }
 }
