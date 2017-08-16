@@ -22,9 +22,8 @@ public class StudentGroup {
     @JoinColumn(name = "IdChair")
     private Chair chair;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "IdUserStarosta", nullable = false)
-    private MyUser idMyUserStarosta;
+    @Column(name = "IdUserStarosta", nullable = false)
+    private int idMyUserStarosta;
 
     public int getCourse() {
         return course;
@@ -58,12 +57,11 @@ public class StudentGroup {
         this.numberOfGroup = numberOfGroup;
     }
 
-    public MyUser getIdMyUserStarosta() {
+    public int getIdMyUserStarosta() {
         return idMyUserStarosta;
     }
 
-    public void setIdMyUserStarosta(MyUser idMyUserStarosta) {
+    public void setIdMyUserStarosta(int idMyUserStarosta) {
         this.idMyUserStarosta = idMyUserStarosta;
     }
-
 }

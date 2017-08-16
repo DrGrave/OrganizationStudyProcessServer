@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @EnableAutoConfiguration
 @SpringBootApplication
-public class SystemoforganizationstufyprocessApplication {
+public class SystemOfOrganizationStudyProcessApplication {
 
 	public static void main(String[] args) throws Throwable {
-		SpringApplication.run(SystemoforganizationstufyprocessApplication.class, args);
+		SpringApplication.run(SystemOfOrganizationStudyProcessApplication.class, args);
 	}
 
 }

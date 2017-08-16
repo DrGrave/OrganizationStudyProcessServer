@@ -1,6 +1,7 @@
 package com.vkkzlabs.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Comparator;
 
 @Entity
@@ -29,6 +30,17 @@ public class M2MStudentWork {
 
     @Column(name = "Mark")
         private int Mark;
+
+    @Column(name = "DeadlineForWork")
+    private Date deadlineForWork;
+
+    public Date getDeadlineForWork() {
+        return deadlineForWork;
+    }
+
+    public void setDeadlineForWork(Date deadlineForWork) {
+        this.deadlineForWork = deadlineForWork;
+    }
 
     public Timetable getTimetable() {
         return timetable;
@@ -81,7 +93,7 @@ public class M2MStudentWork {
     public static final Comparator<M2MStudentWork> COMPARE_BY_DATE = new Comparator<M2MStudentWork>() {
         @Override
         public int compare(M2MStudentWork lhs, M2MStudentWork rhs) {
-            return (int) (lhs.getIdOfWork().getDeadlineForWork().getTime() - rhs.getIdOfWork().getDeadlineForWork().getTime());
+            return (int) (lhs.getDeadlineForWork().getTime() - rhs.getDeadlineForWork().getTime());
         }
     };
 

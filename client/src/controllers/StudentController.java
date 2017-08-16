@@ -155,8 +155,8 @@ public class StudentController {
             printWriter = new PrintWriter(path + "/" + studentWork.getIdOfWork().getNameOfWork(), "UTF-8");
             printWriter.print(studentWork.getIdOfWork().getTextOfWork());
             printWriter.close();
-            makeDataFile(pathToSubject, path);
-            uploadDataFile("s",pathToSubject);
+//            makeDataFile(pathToSubject, path);
+//            uploadDataFile("s",pathToSubject);
         }
     }
 

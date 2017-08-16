@@ -20,9 +20,6 @@ public class Work {
     @Column(name = "TextOfWork")
     private String textOfWork;
 
-    @Column(name = "DeadlineForWork")
-    private Date deadlineForWork;
-
     @ManyToOne
     @JoinColumn(name = "IdTypeOfWork")
     private TypeOfWork typeOfWork;
@@ -35,13 +32,7 @@ public class Work {
     @JoinColumn(name = "IdUser")
     private MyUser MyUser;
 
-    public Date getDeadlineForWork() {
-        return deadlineForWork;
-    }
 
-    public void setDeadlineForWork(Date deadlineForWork) {
-        this.deadlineForWork = deadlineForWork;
-    }
 
     public int getIdOfWork() {
         return idOfWork;

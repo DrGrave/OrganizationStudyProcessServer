@@ -64,7 +64,7 @@ public class SupportFilesRequest {
         HttpHeaders respHeaders = request.getHeaders();
         if (requestHeaders.get("Content-Disposition") != null)
         {
-        List<String> str = requestHeaders.get("Content-Disposition");
+            List<String> str = requestHeaders.get("Content-Disposition");
         }
         FileOutputStream fos = new FileOutputStream(path+"/");
         fos.write(outputStream.getBytes());

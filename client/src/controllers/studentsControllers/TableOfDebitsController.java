@@ -117,13 +117,13 @@ public class TableOfDebitsController {
                                 if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 4){
                                     setStyle("-fx-background-color: green");
                                 }else
-                                if (item.getIdOfWork().getDeadlineForWork().before(thisDate)) {
+                                if (item.getDeadlineForWork().before(thisDate)) {
                                     setStyle("-fx-background-color: lightcoral;");
                                 }else
-                                if (item.getIdOfWork().getDeadlineForWork().before(java.sql.Date.valueOf(date7))){
+                                if (item.getDeadlineForWork().before(java.sql.Date.valueOf(date7))){
                                     setStyle("-fx-background-color: coral;");
                                 }else
-                                if (item.getIdOfWork().getDeadlineForWork().after(java.sql.Date.valueOf(date15))){
+                                if (item.getDeadlineForWork().after(java.sql.Date.valueOf(date15))){
                                     setStyle("-fx-background-color: khaki;");
                                 }
                             }
@@ -171,7 +171,7 @@ public class TableOfDebitsController {
                     cellDate -> new SimpleStringProperty(cellDate.getValue().getIdOfWork().getNameOfWork())
             );
             lastDateCollom.setCellValueFactory(
-                    cellDate -> new SimpleStringProperty(String.valueOf(cellDate.getValue().getIdOfWork().getDeadlineForWork()))
+                    cellDate -> new SimpleStringProperty(String.valueOf(cellDate.getValue().getDeadlineForWork()))
             );
 
             debtTable.setRowFactory(new Callback<TableView<M2MStudentWork>, TableRow<M2MStudentWork>>() {
@@ -188,13 +188,13 @@ public class TableOfDebitsController {
                                 if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 4){
                                     setStyle("-fx-background-color: green");
                                 }else
-                                if (item.getIdOfWork().getDeadlineForWork().before(thisDate)) {
+                                if (item.getDeadlineForWork().before(thisDate)) {
                                     setStyle("-fx-background-color: lightcoral;");
                                 }else
-                                if (item.getIdOfWork().getDeadlineForWork().before(java.sql.Date.valueOf(date7))){
+                                if (item.getDeadlineForWork().before(java.sql.Date.valueOf(date7))){
                                     setStyle("-fx-background-color: coral;");
                                 }else
-                                if (item.getIdOfWork().getDeadlineForWork().after(java.sql.Date.valueOf(date15))) {
+                                if (item.getDeadlineForWork().after(java.sql.Date.valueOf(date15))) {
                                     setStyle("-fx-background-color: khaki;");
                                 }
                             }
@@ -278,7 +278,7 @@ public class TableOfDebitsController {
         infoOfWorkGridPane.add(numberOfWorkTextField, 1,1);
 
         TextField deadlineTextField = new TextField();
-        deadlineTextField.setText(String.valueOf(work.getIdOfWork().getDeadlineForWork()));
+        deadlineTextField.setText(String.valueOf(work.getDeadlineForWork()));
         deadlineTextField.editableProperty().setValue(false);
         deadlineTextField.setMinSize(120,25);
         Label deadlineLabel = new Label("Deadline of work");
