@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * Класс предназначен для маппинга запросов связанных с комментариями на работу студента
+ */
+
 @Controller
 @RequestMapping("CommentToWork")
 public class CommentToWorkController {

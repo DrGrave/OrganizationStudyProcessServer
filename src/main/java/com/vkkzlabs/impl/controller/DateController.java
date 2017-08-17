@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.sql.Date;
+/**
+ * Данный класс возвращает актуальную дату сервера
+ */
 
 @Controller
 @RequestMapping("GetServerDate")

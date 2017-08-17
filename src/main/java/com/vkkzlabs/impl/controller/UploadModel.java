@@ -2,6 +2,10 @@ package com.vkkzlabs.impl.controller;
 
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ *  Для передачи файла
+ */
+
 public class UploadModel {
 
     private String extraField;

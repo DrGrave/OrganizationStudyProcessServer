@@ -9,6 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+/**
+ *  Данный класс предназначен для мапинга запросов связанных с персоональными настройками юзверя
+ */
+
 @Controller
 @RequestMapping("UserSettings")
 public class MMUserSettingsController {

@@ -18,6 +18,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ *  Данный класс предназначен для работы с скачкой и выкачкой  файлов
+ */
+
 
 @Controller
 public class FileController {

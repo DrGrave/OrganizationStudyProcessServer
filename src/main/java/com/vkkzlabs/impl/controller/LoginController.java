@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+/**Возвращает юзверя по его логину.
+ * **/
+
 @Controller
 public class LoginController {
     @Autowired

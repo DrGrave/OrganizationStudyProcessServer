@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ *  Данный класс предназначен для мапинга запросов файлов к работам студентов
+ */
+
 @Controller
 @RequestMapping("SupportingDataForWork")
 public class SupportingDataForWorkController {

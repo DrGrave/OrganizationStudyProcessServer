@@ -9,8 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.util.List;
+
+/** Класс предназначен для мапинга запросов по работам студента
+ * **/
 
 @Controller
 @RequestMapping("StudentWork")

@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+/**
+ *  Данный класс предназначен для работы с путями файлов предназначенных для предметов
+ */
+
 @Controller
 @RequestMapping("SubjectSupportFile")
 public class SubjectSupportFileController {

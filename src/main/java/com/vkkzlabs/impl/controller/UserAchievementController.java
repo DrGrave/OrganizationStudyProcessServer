@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+/**
+ *  Работа с ачивками пользователя
+ */
+
 @Controller
 @RequestMapping("UserAchievement")
 public class UserAchievementController {

@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ *  Данный класс предназначен для мапинга запросов связанных с работами и вопросами
+ */
+
 @Controller
 @RequestMapping("QuestionWork")
 public class QuestionWorkController {
