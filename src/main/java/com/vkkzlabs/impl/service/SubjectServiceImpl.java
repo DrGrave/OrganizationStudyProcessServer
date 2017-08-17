@@ -6,6 +6,10 @@ import com.vkkzlabs.api.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы с предметами
+ */
+
 @Service
 public class SubjectServiceImpl implements SubjectService {
     @Autowired

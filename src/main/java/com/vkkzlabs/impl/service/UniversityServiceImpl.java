@@ -8,6 +8,10 @@ import com.vkkzlabs.api.service.UniversityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы с университетом
+ */
+
 @Service
 public class UniversityServiceImpl implements UniversityService {
     @Autowired

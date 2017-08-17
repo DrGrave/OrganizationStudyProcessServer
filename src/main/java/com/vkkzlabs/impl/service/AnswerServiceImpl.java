@@ -6,6 +6,10 @@ import com.vkkzlabs.api.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы с ответами пользователей
+ */
+
 @Service
 public class AnswerServiceImpl implements AnswerService {
     @Autowired

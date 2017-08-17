@@ -5,6 +5,9 @@ import com.vkkzlabs.api.entity.InClass;
 import com.vkkzlabs.api.service.InClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+/**
+ *  Сервис для работы с посещениями
+ */
 
 @Service
 public class InClassServiceImpl implements InClassService {

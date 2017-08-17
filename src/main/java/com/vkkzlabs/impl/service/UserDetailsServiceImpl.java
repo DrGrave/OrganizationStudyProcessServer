@@ -14,6 +14,10 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ *  Сервис для работы с логином пользователя
+ */
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

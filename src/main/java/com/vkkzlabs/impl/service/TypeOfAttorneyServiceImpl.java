@@ -6,6 +6,10 @@ import com.vkkzlabs.api.service.TypeOfAttorneyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы с типами доверенностей
+ */
+
 @Service
 public class TypeOfAttorneyServiceImpl implements TypeOfAttorneyService {
     @Autowired

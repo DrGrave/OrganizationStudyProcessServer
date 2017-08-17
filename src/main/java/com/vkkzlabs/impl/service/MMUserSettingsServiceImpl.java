@@ -6,6 +6,10 @@ import com.vkkzlabs.api.service.MMUserSettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы с связью юзверя и его настроек
+ */
+
 @Service
 public class MMUserSettingsServiceImpl implements MMUserSettingsService {
     @Autowired

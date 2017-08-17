@@ -6,6 +6,10 @@ import com.vkkzlabs.api.service.QuestionWorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы со связью работ и вопросов
+ */
+
 @Service
 public class QuestionWorkServiceImpl implements QuestionWorkService {
     @Autowired

@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ *  Сервис для работы с ачивками юзверя
+ */
+
 @Service
 public class UserAchievementServiceImpl implements UserAchievementService {
     @Autowired

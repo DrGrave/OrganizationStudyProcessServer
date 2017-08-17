@@ -6,6 +6,10 @@ import com.vkkzlabs.api.service.AttorneyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Для работы с доверенностью на студента
+ */
+
 @Service
 public class AttorneyServiceImpl implements AttorneyService {
     @Autowired

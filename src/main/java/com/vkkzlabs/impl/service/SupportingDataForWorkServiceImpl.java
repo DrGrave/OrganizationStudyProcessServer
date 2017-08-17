@@ -6,6 +6,10 @@ import com.vkkzlabs.api.service.SupportingDataForWorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы с файлами для работ
+ */
+
 @Service
 public class SupportingDataForWorkServiceImpl implements SupportingDataForWorkService {
     @Autowired

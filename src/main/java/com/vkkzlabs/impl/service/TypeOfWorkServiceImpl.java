@@ -6,6 +6,10 @@ import com.vkkzlabs.api.service.TypeOfWorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы с типами работ
+ */
+
 @Service
 public class TypeOfWorkServiceImpl implements TypeOfWorkService {
     @Autowired

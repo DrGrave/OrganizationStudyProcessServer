@@ -6,6 +6,10 @@ import com.vkkzlabs.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы с информацией юзверя
+ */
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired

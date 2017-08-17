@@ -6,6 +6,10 @@ import com.vkkzlabs.api.service.UserCredentialsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы с пользовательскими данными
+ */
+
 @Service
 public class UserCredentialsServiceImpl implements UserCredentialsService {
     @Autowired

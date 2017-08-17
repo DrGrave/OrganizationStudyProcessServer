@@ -7,6 +7,10 @@ import com.vkkzlabs.api.service.UserTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы с типами пользователей
+ */
+
 @Service
 public class UserTypeServiceImpl implements UserTypeService {
     @Autowired

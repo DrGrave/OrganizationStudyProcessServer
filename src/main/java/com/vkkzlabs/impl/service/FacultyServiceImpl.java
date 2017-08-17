@@ -6,6 +6,10 @@ import com.vkkzlabs.api.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы с факультетами
+ */
+
 @Service
 public class FacultyServiceImpl implements FacultyService{
     @Autowired

@@ -6,6 +6,10 @@ import com.vkkzlabs.api.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы с очередью
+ */
+
 @Service
 public class QueueServiceImpl implements QueueService {
     @Autowired

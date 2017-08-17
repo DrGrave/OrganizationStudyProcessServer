@@ -6,6 +6,9 @@ import com.vkkzlabs.api.service.CommentToWorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  сервис для работы с комментариями на работы студента
+ */
 
 @Service
 public class CommentToWorkServiceImpl implements CommentToWorkService {

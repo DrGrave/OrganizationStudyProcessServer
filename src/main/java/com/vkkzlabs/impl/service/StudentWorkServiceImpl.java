@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ *  Сервис для работы со связью студентов и их работ
+ */
+
 @Service
 public class StudentWorkServiceImpl implements StudentWorkService {
     @Autowired

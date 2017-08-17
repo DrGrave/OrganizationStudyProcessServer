@@ -6,6 +6,10 @@ import com.vkkzlabs.api.service.TopicsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы с темами
+ */
+
 @Service
 public class TopicsServiceImpl implements TopicsService {
     @Autowired

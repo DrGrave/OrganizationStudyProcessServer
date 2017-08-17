@@ -6,6 +6,10 @@ import com.vkkzlabs.api.service.UserSettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы с настройками пользователя
+ */
+
 @Service
 public class UserSettingsServiceImpl implements UserSettingsService {
     @Autowired

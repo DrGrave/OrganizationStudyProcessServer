@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ *  Сервис для работы с файлами прикрепрёнными к предмету
+ */
+
 @Service
 public class SubjectSupportFileServiceImpl implements SubjectSupportFileService {
     @Autowired

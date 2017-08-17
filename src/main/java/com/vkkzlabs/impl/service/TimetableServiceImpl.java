@@ -6,6 +6,10 @@ import com.vkkzlabs.api.service.TimetableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы с расписаниями
+ */
+
 @Service
 public class TimetableServiceImpl implements TimetableService{
     @Autowired

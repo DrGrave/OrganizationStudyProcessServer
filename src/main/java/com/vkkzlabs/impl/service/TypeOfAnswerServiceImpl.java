@@ -6,6 +6,10 @@ import com.vkkzlabs.api.service.TypeOfAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы с типом ответа
+ */
+
 @Service
 public class TypeOfAnswerServiceImpl implements TypeOfAnswerService {
     @Autowired

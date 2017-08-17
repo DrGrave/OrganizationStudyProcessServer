@@ -7,6 +7,10 @@ import com.vkkzlabs.api.service.AchievementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *  Сервис для работы с ачивками
+ */
+
 @Service
 public class AchievementServiceImpl implements AchievementService {
     @Autowired
