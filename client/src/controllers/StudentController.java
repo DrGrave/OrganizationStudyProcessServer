@@ -185,7 +185,8 @@ public class StudentController {
     }
 
     private void checkForNewWorks(MyUser iUser) {
-
+        StudentWorksController studentWorksController = new StudentWorksController();
+        M2MStudentWork[] studentWorks = studentWorksController.getAllNewWork(iUser.getIdUser(), token);
     }
 
     private void checkForAchievement(MyUser iUser) {

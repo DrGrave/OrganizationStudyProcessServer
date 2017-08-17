@@ -39,4 +39,9 @@ public class StudentWorkServiceImpl implements StudentWorkService {
     public void editStudentWork(M2MStudentWork m2MStudentWork) {
         studentWorkDAO.save(m2MStudentWork);
     }
+
+    @Override
+    public List<M2MStudentWork> getListOfNewWorks(int id) {
+        return studentWorkDAO.findAllByIdOfWork_Subject_IdSubjectAndAndIdUser_IdUserOrderByIdOfAccaptWork(1, id);
+    }
 }

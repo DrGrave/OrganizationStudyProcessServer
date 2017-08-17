@@ -16,4 +16,6 @@ public interface StudentWorkService {
     List<M2MStudentWork> getListWorksToStudent(int idUser, int idSubject);
 
     void editStudentWork(M2MStudentWork m2MStudentWork);
+
+    List<M2MStudentWork> getListOfNewWorks(int id);
 }

@@ -61,4 +61,10 @@ public class StudentWorkController {
         studentWorkService.editStudentWork(m2MStudentWork);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/GetNewWorks/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<M2MStudentWork>> getAllNewWork(@PathVariable("id") int id){
+        List<M2MStudentWork> studentWorks = studentWorkService.getListOfNewWorks(id);
+        return new ResponseEntity<List<M2MStudentWork>>(studentWorks, HttpStatus.OK);
+    }
 }
