@@ -1,10 +1,7 @@
 package requests;
 
-import com.vkkzlabs.entity.SubjectSupportFile;
-import org.springframework.core.ParameterizedTypeReference;
+import com.vkkzlabs.api.entity.SubjectSupportFile;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.PathResource;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;

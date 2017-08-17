@@ -1,6 +1,6 @@
 package controllers.studentsControllers;
 
-import com.vkkzlabs.entity.*;
+import com.vkkzlabs.api.entity.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

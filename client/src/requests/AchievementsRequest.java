@@ -1,15 +1,12 @@
 package requests;
 
 
-import com.vkkzlabs.entity.Achievements;
-import com.vkkzlabs.entity.M2MUserAchievements;
-import com.vkkzlabs.entity.MyUser;
+import com.vkkzlabs.api.entity.M2MUserAchievements;
+import com.vkkzlabs.api.entity.MyUser;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
 
 public class AchievementsRequest {
     private static final String REST_SERVICE_URI = "http://localhost:8080";

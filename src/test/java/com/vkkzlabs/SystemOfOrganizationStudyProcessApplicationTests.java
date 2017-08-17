@@ -1,8 +1,7 @@
 package com.vkkzlabs;
 
-import com.vkkzlabs.dao.UserTypeDAO;
-import com.vkkzlabs.entity.*;
-import com.vkkzlabs.service.*;
+import com.vkkzlabs.api.service.*;
+import com.vkkzlabs.api.entity.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

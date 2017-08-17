@@ -1,10 +1,10 @@
 package requests;
 
 
-import com.vkkzlabs.entity.M2MStudentWork;
-import com.vkkzlabs.entity.MyUser;
-import com.vkkzlabs.entity.Subject;
-import com.vkkzlabs.entity.Work;
+import com.vkkzlabs.api.entity.M2MStudentWork;
+import com.vkkzlabs.api.entity.MyUser;
+import com.vkkzlabs.api.entity.Subject;
+import com.vkkzlabs.api.entity.Work;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;

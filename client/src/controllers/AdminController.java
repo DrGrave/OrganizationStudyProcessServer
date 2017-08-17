@@ -1,6 +1,6 @@
 package controllers;
-import com.vkkzlabs.entity.MyUser;
-import com.vkkzlabs.entity.MyUserCredentials;
+import com.vkkzlabs.api.entity.MyUser;
+import com.vkkzlabs.api.entity.MyUserCredentials;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
