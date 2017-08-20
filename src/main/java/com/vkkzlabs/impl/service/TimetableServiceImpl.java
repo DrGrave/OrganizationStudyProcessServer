@@ -22,6 +22,6 @@ public class TimetableServiceImpl implements TimetableService{
 
     @Override
     public Timetable getTimetableByIdTimetable(int idTimetable) {
-        return timetableDAO.getByIdTimeteable(idTimetable);
+        return timetableDAO.getByIdTimetable(idTimetable);
     }
 }
