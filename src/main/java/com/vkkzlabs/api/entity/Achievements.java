@@ -3,6 +3,10 @@ package com.vkkzlabs.api.entity;
 import javax.persistence.*;
 import javax.swing.*;
 
+/**
+ * Обьект ачивка
+ */
+
 @Entity
 @Table(name = "Achievements")
 public class Achievements {
@@ -10,12 +14,21 @@ public class Achievements {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idOfAchievement;
 
+    /**
+     * Название ачивки
+     */
     @Column(name = "NameOfAchievement")
     private String nameOfAchievement;
 
+    /**
+     * Картинка ачивки
+     */
     @Column(name = "ImageOfAchievement")
     private ImageIcon imageIcon;
 
+    /**
+     * Текст ачивки
+     */
     @Column(name = "TextOfAchievement")
     private String textOfAchievement;
 

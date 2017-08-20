@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект комментарий на студента оставленный преподавателем
+ */
 
 @Entity
 @Table(name = "CommentToStudent")
@@ -10,12 +13,24 @@ public class CommentToStudent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCommentOfStudent;
 
+    /**
+     * текст комментария на студента
+     */
+
     @Column(name = "TextOfComment")
     private String textOfComment;
+
+    /**
+     * Объект профессор который написал комментарий
+     */
 
     @OneToOne
     @JoinColumn(name = "IdUserProfessor")
     private MyUser professor;
+
+    /**
+     * Объект студент на которого написан комментарий
+     */
 
     @OneToOne
     @JoinColumn(name = "IdUserStudent")

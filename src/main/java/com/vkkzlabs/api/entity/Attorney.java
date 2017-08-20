@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект доверенность
+ */
 
 @Entity
 @Table(name="Attorney")
@@ -10,20 +13,36 @@ public class Attorney {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAttorney;
 
+    /**
+     * объект тип доверенности
+     */
     @ManyToOne
         @JoinColumn(name = "IdTypeOfAttorney")
     private
     TypeOfAttorney typeOfAttorney;
 
+
+    /**
+     * объект предмет
+     */
     @ManyToOne
         @JoinColumn(name = "IdSubject")
     private
     Subject subject;
 
+
+    /**
+     * объект профессор который выдал доверенность
+     */
+
     @ManyToOne
         @JoinColumn(name = "IdUserProfessor")
     private
     MyUser idMyUserProfessor;
+
+    /**
+     * объект студент на которого выданна доверенность
+     */
 
     @ManyToOne
         @JoinColumn(name = "IdUserStudent")

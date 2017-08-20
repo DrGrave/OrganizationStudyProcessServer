@@ -3,6 +3,9 @@ package com.vkkzlabs.api.entity;
 import javax.persistence.*;
 import java.sql.Date;
 
+/**
+ * Объект комментарий на работу
+ */
 
 @Entity
 @Table(name = "CommentToWork")
@@ -11,19 +14,39 @@ public class CommentToWork {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCommentToWork;
 
+    /**
+     * Текст комментария
+     */
+
     @Column(name = "TextOfCommentWork")
     private String textOfCommentWork;
 
+    /**
+     * Дата комментария
+     */
+
     @Column(name = "DateOfComment")
     private Date date;
+
+    /**
+     * Объект профессора который написал коментарий на работу
+     */
 
     @OneToOne
     @JoinColumn(name = "IdUserProfessor")
     private MyUser professor;
 
+    /**
+     * Объект студента на работу которого написан комментарий
+     */
+
     @OneToOne
     @JoinColumn(name = "IdUserStudent")
     private MyUser student;
+
+    /**
+     * Объект работы на которую сделан комментарий
+     */
 
     @OneToOne
     @JoinColumn(name = "IdOfWork")

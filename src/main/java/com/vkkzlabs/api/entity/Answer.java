@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Обьект ответ на вопрос
+ */
 
 @Entity
 @Table(name = "Answer")
@@ -10,13 +13,22 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAnswer;
 
+    /**
+     * текст ответа
+     */
     @Column(name = "TextOfAnswer")
     private String textOfAnswer;
 
+    /**
+     * объект вопрос
+     */
     @ManyToOne
     @JoinColumn(name = "idQuestion")
     private Question idQuestion;
 
+    /**
+     * объект тип ответа
+     */
     @ManyToOne
     @JoinColumn(name = "idTypeOfAnswer")
     private TypeOfAnswer typeOfAnswer;

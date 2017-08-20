@@ -10,6 +10,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * Фильтр JWT
+ */
+
 public class JWTAuthenticationFilter extends GenericFilterBean {
 
     @Override

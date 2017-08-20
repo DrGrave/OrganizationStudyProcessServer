@@ -12,6 +12,10 @@ import java.util.Date;
 
 import static java.util.Collections.emptyList;
 
+/**
+ * Работа с токеном
+ */
+
 class TokenAuthenticationService {
     static final long EXPIRATIONTIME = 300000; // 300 seconds
     static final String SECRET = "ThisIsASecret";
