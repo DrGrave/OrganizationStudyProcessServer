@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-
-<html xmlns:v-on="http://www.w3.org/1999/xhtml">
-<head>
-    <title>СОУП</title>
-    <link rel="stylesheet" href="/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/styles.css"/>
-</head>
-<body>
-
-
-
-<div id="app">
-<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
+ <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -27,29 +14,19 @@
                 <a class="nav-link" href="#">Link</a>
             </li>
         </ul>
-        <div class="form-inline my-2 my-lg-0">
+        <!-- <div class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" v-model="login" type="text" placeholder="Логин" />
             <input class="form-control mr-sm-2" v-model="password" type="text" placeholder="Пароль" />
             <button class="btn btn-outline my-2 my-sm-0" v-on:click="singIn">Войти</button>
-        </div>
+        </div> -->
     </div>
 </nav>
 
-<div class="container">
+<!-- <div class="container">
 
     <div class="starter-template">
         <h1> {{ title }} </h1>
         <p> {{ message }} </p>
     </div>
 
-</div>
-</div>
-
-<script src="/jquery-3.2.1.slim.min.js"></script>
-<script src="/tether.min.js"></script>
-<script src="/bootstrap.min.js"></script>
-<script src="/vue.js"></script>
-<script src="/vue-router.min.js"></script>
-<script src="/app.js"></script>
-</body>
-</html>
+</div> -->
