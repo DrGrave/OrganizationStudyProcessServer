@@ -6,11 +6,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.util.Callback;
 import requests.StudentWorksController;
 import requests.TypeOfAcceptWorkRequest;
@@ -63,12 +63,12 @@ public class TableOfDebitsController {
 
     @FXML
     void stayInQueueAction(ActionEvent event) {
-
+        
     }
 
     @FXML
-    void watchWorkAction(ActionEvent event) {
-
+    void watchWorkAction(ActionEvent event) throws IOException {
+        initializeInfoOfWork(debtTable.getSelectionModel().getSelectedItem(), iUser);
     }
 
     public void initialize(){
@@ -236,20 +236,33 @@ public class TableOfDebitsController {
     private void initializeInfoOfWork(M2MStudentWork studentWork, MyUser iUser) throws IOException {
 
         if (studentWork != null){
-                alert.setTitle("Work"+ studentWork.getIdOfWork().getNumberOfWOrk());
-                DialogPane dialogPane = new DialogPane();
-                GridPane infoOfWorkGridPane = new GridPane();
-                fullGridPaneByUserWorkInfo(studentWork, infoOfWorkGridPane);
-                dialogPane.setContent(infoOfWorkGridPane);
+            VBox vBox = new VBox();
+            alert.setTitle("Work"+ studentWork.getIdOfWork().getNumberOfWOrk());
+            DialogPane dialogPane = new DialogPane();
+            GridPane infoOfWorkGridPane = new GridPane();
+            fullGridPaneByUserWorkInfo(studentWork, infoOfWorkGridPane);
 
-                dialogPane.setOnKeyPressed(keyEvent ->
-                    alert.close()
-                );
+            FXMLLoader commentToWorkTable = new  FXMLLoader(getClass().getResource("../../samples/studentFXML/CommentToWork.fxml"));
+            CommentToWorkController commentToWorkController = new CommentToWorkController(iUser, token, myUserCredentials, studentWork.getIdOfWork().getIdOfWork());
+            commentToWorkTable.setController(commentToWorkController);
 
-                dialogPane.getButtonTypes().add(ButtonType.CLOSE);
-                alert.setHeaderText("Work №" + studentWork.getIdOfWork().getNumberOfWOrk());
-                alert.setDialogPane(dialogPane);
-                alert.show();
+
+            vBox.getChildren().add(0, infoOfWorkGridPane);
+            vBox.setSpacing(10);
+            vBox.getChildren().add(1, commentToWorkTable.load());
+
+            dialogPane.setContent(vBox);
+
+            dialogPane.setOnKeyPressed(keyEvent -> {
+                if (keyEvent.getCode() == KeyCode.ESCAPE){
+                    alert.close();
+                }
+            });
+
+            dialogPane.getButtonTypes().add(ButtonType.CLOSE);
+            alert.setHeaderText("Work №" + studentWork.getIdOfWork().getNumberOfWOrk());
+            alert.setDialogPane(dialogPane);
+            alert.show();
 
         }
     }

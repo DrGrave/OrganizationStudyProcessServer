@@ -6,6 +6,8 @@ import com.vkkzlabs.api.service.CommentToWorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  *  сервис для работы с комментариями на работы студента
  */
@@ -23,5 +25,10 @@ public class CommentToWorkServiceImpl implements CommentToWorkService {
     @Override
     public CommentToWork getCommentToWorkByIdCommentToWork(int idCommentToWork) {
         return commentToWorkDAO.getByIdCommentToWork(idCommentToWork);
+    }
+
+    @Override
+    public List<CommentToWork> getAllCommentsToWork(Integer idUser, Integer idWork) {
+        return commentToWorkDAO.findAllByStudent_IdUserAndWork_IdOfWork(idUser, idWork);
     }
 }

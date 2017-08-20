@@ -52,10 +52,12 @@ public class StudentController {
     private Tab studentSettingsTab;
     @FXML
     private Button acceptButton;
-
     @FXML
     private Button declineButton;
-
+    @FXML
+    private Tab queueTab;
+    @FXML
+    private Tab marksTab;
     @FXML
     void acceptButtonEvent(ActionEvent event) {
 

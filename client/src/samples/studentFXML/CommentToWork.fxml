@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+
+<TableView fx:id="commentToWorkTable" prefHeight="441.0" prefWidth="461.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <columns>
+      <TableColumn fx:id="dateOfCommentToWorkCollom" prefWidth="167.0" text="Date of comment" />
+      <TableColumn fx:id="whoLeftCommentCollom" prefWidth="290.0" text="Who left comment" />
+   </columns>
+</TableView>
