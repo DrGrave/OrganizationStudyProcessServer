@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект данные пользователя
+ */
 
 @Entity
 @Table(name = "MyUserCredentials")
@@ -10,11 +13,23 @@ public class MyUserCredentials {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUserCredential;
 
+    /**
+     * Логин
+     */
+
     @Column(name = "UserLogin")
     private String userLogin;
 
+    /**
+     * Пароль
+     */
+
     @Column(name = "UserPassword")
     private String userPassword;
+
+    /**
+     * Объект пользователь
+     */
 
     @OneToOne
     @JoinColumn(name = "IdUser")

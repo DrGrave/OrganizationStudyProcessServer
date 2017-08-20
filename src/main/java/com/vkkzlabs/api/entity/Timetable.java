@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.sql.Time;
 import java.util.Date;
 
+/**
+ * Объект расписание
+ */
 
 @Entity
 @Table(name = "Timetable")
@@ -11,34 +14,58 @@ public class Timetable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idTimeteable;
+    private int idTimetable;
+
+    /**
+     * Дата работы
+     */
 
     @Column(name = "DateOfWork")
     private Date date;
 
+    /**
+     * Время начала работы
+     */
+
     @Column(name = "TimeOfWork")
     private Time time;
+
+    /**
+     * Время окончания работы
+     */
 
     @Column(name = "TimeOfEndWork")
     private Time timeToEnd;
 
+    /**
+     * Аудитория пары
+     */
+
     @Column(name = "Auditory")
     private String auditory;
+
+    /**
+     * Объект профессор который ведёт пару
+     */
 
     @OneToOne
     @JoinColumn(name = "IdUser")
     private MyUser MyUser;
 
+    /**
+     * Объект предмет по которому проходит пара
+     */
+
     @OneToOne
     @JoinColumn(name = "IdSubject")
     private Subject subject;
 
-    public int getIdTimeteable() {
-        return idTimeteable;
+    public int getIdTimetable() {
+        return idTimetable;
     }
 
-    public void setIdTimeteable(int idTimeteable) {
-        this.idTimeteable = idTimeteable;
+    public void setIdTimetable(int idTimetable) {
+        this.idTimetable = idTimetable;
     }
 
     public Date getDate() {
@@ -92,7 +119,7 @@ public class Timetable {
     @Override
     public String toString() {
         return "Timeteable{" +
-                "idTimeteable=" + idTimeteable +
+                "idTimeteable=" + idTimetable +
                 ", date=" + date +
                 ", time=" + time +
                 ", timeToEnd=" + timeToEnd +

@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект предмет
+ */
 
 @Entity
 @Table(name="Subject")
@@ -10,8 +13,16 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idSubject;
 
+    /**
+     * Название предмета
+     */
+
     @Column(name = "NameSubject")
     private String nameSubject;
+
+    /**
+     * Объект кафедра
+     */
 
     @ManyToOne
     @JoinColumn(name = "IdChair")

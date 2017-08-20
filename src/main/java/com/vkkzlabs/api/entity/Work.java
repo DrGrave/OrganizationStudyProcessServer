@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект работа
+ */
 
 @Entity
 @Table(name = "Work")
@@ -10,22 +13,46 @@ public class Work {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idOfWork;
 
+    /**
+     * Номер работы
+     */
+
     @Column(name = "NumberOfWork")
     private String numberOfWOrk;
+
+    /**
+     * Название работы
+     */
 
     @Column(name = "NameOfWork")
     private String nameOfWork;
 
+    /**
+     * Текст работы
+     */
+
     @Column(name = "TextOfWork")
     private String textOfWork;
+
+    /**
+     * Объект типа работы
+     */
 
     @ManyToOne
     @JoinColumn(name = "IdTypeOfWork")
     private TypeOfWork typeOfWork;
 
+    /**
+     * Объект предмета по работе
+     */
+
     @ManyToOne
     @JoinColumn(name = "IdSubject")
     private Subject subject;
+
+    /**
+     * Объект пользователя создавшего работу
+     */
 
     @ManyToOne
     @JoinColumn(name = "IdUser")

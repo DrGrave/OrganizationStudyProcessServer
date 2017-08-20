@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект для хранения файла предмета
+ */
 
 @Entity
 @Table(name="SubjectSupportFile")
@@ -10,12 +13,24 @@ public class SubjectSupportFile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idSubjectSupportFile;
 
+    /**
+     * Объект предмет
+     */
+
     @ManyToOne
     @JoinColumn(name = "IdSubject")
     private Subject subject;
 
+    /**
+     * Название файла
+     */
+
     @Column(name = "NameOfFile")
     private String nameOfFile;
+
+    /**
+     * Путь к файлуу
+     */
 
     @Column(name = "PathToFile", length = 65536)
     private String path;

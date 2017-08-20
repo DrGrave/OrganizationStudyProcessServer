@@ -2,6 +2,10 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Настройки пользователя
+ */
+
 @Entity
 @Table(name = "UserSettings")
 public class UserSettings {
@@ -9,6 +13,10 @@ public class UserSettings {
     @Column(name="IdUserSettings")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int idUserSettings;
+
+    /**
+     * Название настройки
+     */
 
     @Column(name = "SittingInfo")
     private String sittingInfo;

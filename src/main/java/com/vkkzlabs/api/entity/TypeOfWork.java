@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект тип работы
+ */
 
 @Entity
 @Table(name = "TypeOfWork")
@@ -9,6 +12,10 @@ public class TypeOfWork {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idTypeOfWOrk;
+
+    /**
+     * название типа работы
+     */
 
     @Column(name = "NameOfTypeWork")
     private String nameTypeOfWOrk;

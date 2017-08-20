@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект тип пользователя
+ */
 
 @Entity
 @Table(name="UserType")

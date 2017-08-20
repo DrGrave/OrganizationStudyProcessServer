@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект для связи професора и предмета
+ */
 
 @Entity
 @Table(name = "M2MProfessorSubject")
@@ -10,10 +13,18 @@ public class M2MProfessorSubject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idM2MProfessorSubject;
 
+    /**
+     * Объект преподаватель
+     */
+
     @ManyToOne
     @JoinColumn(name = "IdUser")
     private
     MyUser idUser;
+
+    /**
+     * Объект предмет
+     */
 
     @ManyToOne
     @JoinColumn(name = "IdSubject")

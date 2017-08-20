@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект вопрос
+ */
 
 @Entity
 @Table(name="Question")
@@ -11,12 +14,24 @@ public class Question {
     private
     int idQuestion;
 
+    /**
+     * Текст вопроса
+     */
+
     @Column(name = "TextOfQuestion")
     private String textOfQuestion;
+
+    /**
+     * Объект тема
+     */
 
     @ManyToOne
     @JoinColumn(name = "IdTopic")
     private Topics topics;
+
+    /**
+     * Объект тип вопроса
+     */
 
     @ManyToOne
     @JoinColumn(name = "IdTypeQuestion")

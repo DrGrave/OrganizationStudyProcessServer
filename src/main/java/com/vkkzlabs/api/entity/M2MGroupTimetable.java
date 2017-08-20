@@ -2,9 +2,12 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект для связи студенческих групп и расписания
+ */
 
 @Entity
-@Table(name = "M2MGroupTimeteable")
+@Table(name = "M2MGroupTimetable")
 public class M2MGroupTimetable {
 
     @Id
@@ -12,13 +15,21 @@ public class M2MGroupTimetable {
     private
     int idGroupTimetable;
 
+    /**
+     * Объект студенческой группы
+     */
+
     @ManyToOne
         @JoinColumn(name = "IdGroup")
     private
     StudentGroup idGroup;
 
+    /**
+     * Объект расписания
+     */
+
     @ManyToOne
-        @JoinColumn(name = "IdTimeteable")
+        @JoinColumn(name = "IdTimetable")
     private
     Timetable idTimetable;
 

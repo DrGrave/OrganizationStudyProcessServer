@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект группа студента
+ */
 
 @Entity
 @Table(name="StudentGroup")
@@ -11,15 +14,31 @@ public class StudentGroup {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int idGroup;
 
+    /**
+     * Номер группы
+     */
+
     @Column(name = "NumberOfGroup")
     private String numberOfGroup;
+
+    /**
+     * Курс студентов
+     */
 
     @Column(name = "Course")
     private int course;
 
+    /**
+     * Объект кафедра
+     */
+
     @ManyToOne
     @JoinColumn(name = "IdChair")
     private Chair chair;
+
+    /**
+     * ид старосты
+     */
 
     @Column(name = "IdUserStarosta", nullable = false)
     private int idMyUserStarosta;

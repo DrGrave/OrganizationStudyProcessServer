@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Тип доверенности
+ */
 
 @Entity
 @Table(name="TypeOfAttorney")
@@ -10,6 +13,10 @@ public class TypeOfAttorney {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private
     int idTypeOfAttorney;
+
+    /**
+     * Название типа доверенности
+     */
 
     @Column(name = "NameOfTypeAttorney")
     private String nameOfTypeAttorney;

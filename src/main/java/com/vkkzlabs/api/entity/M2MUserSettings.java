@@ -2,6 +2,10 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект для связи пользователя и его наастроек
+ */
+
 @Entity
 @Table(name = "M2MUserSettings")
 public class M2MUserSettings {
@@ -10,16 +14,32 @@ public class M2MUserSettings {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idM2MUserSettings;
 
+    /**
+     * Путь к файлу
+     */
+
     @Column(name = "PathToDirectory")
     private String pathToDirectoty;
+
+    /**
+     * Объект пользователя
+     */
 
     @ManyToOne
         @JoinColumn(name = "idUser")
     private MyUser myUser;
 
+    /**
+     * Объект настройки
+     */
+
     @ManyToOne
         @JoinColumn(name = "idSetting")
     private UserSettings setting;
+
+    /**
+     * Включена ли настройка
+     */
 
     @Column(name = "isSettingOn")
     private boolean isSettingOn;

@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект для связи вопроса и работы
+ */
 
 @Entity
 @Table(name = "M2MQuestionWork")
@@ -11,9 +14,17 @@ public class M2MQuestionWork {
     private
     int idM2MQuestionWork;
 
+    /**
+     * Объект работа
+     */
+
     @ManyToOne
     @JoinColumn(name = "idWork")
     private Work work;
+
+    /**
+     * Объект вопрос
+     */
 
     @ManyToOne
     @JoinColumn(name = "idQuestion")

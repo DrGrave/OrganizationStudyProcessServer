@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект посещение студентом пары
+ */
 
 @Entity
 @Table(name = "InClass")
@@ -10,13 +13,25 @@ public class InClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idInClass;
 
+    /**
+     * Объект пары на которой проходит проверка
+     */
+
     @OneToOne
-    @JoinColumn(name = "IdTimeteable")
+    @JoinColumn(name = "IdTimetable")
     private Timetable timetable;
+
+    /**
+     * Объект студент на которого ставится посещения
+     */
 
     @OneToOne
     @JoinColumn(name = "IdUser")
     private MyUser MyUser;
+
+    /**
+     *  Объект тип посещения
+     */
 
     @OneToOne
     @JoinColumn(name = "IdTypeInClass")

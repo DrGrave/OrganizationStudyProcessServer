@@ -4,6 +4,10 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Comparator;
 
+/**
+ * Объект для связи студента и работы
+ */
+
 @Entity
 @Table(name = "M2MStudentWork")
 public class M2MStudentWork {
@@ -11,22 +15,41 @@ public class M2MStudentWork {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int idM2MStudentWork;
 
+    /**
+     * Объект работа
+     */
+
     @ManyToOne
         @JoinColumn(name = "IdOfWork")
         private Work idOfWork;
+
+    /**
+     * Объект пользователь которому выдана работа
+     */
 
     @ManyToOne
         @JoinColumn(name = "IdUser")
         private MyUser idUser;
 
+    /**
+     * Объект тип принятия работы
+     */
+
     @ManyToOne
         @JoinColumn(name = "IdTypeOfAccepted")
         private TypeOfAcceptWork idOfAccaptWork;
 
+    /**
+     * Объект пара (нужен для привязки сданой работы к паре)
+     */
 
     @ManyToOne
         @JoinColumn(name = "IdTimetable")
         private Timetable timetable;
+
+    /**
+     * Оценка по работе
+     */
 
     @Column(name = "Mark")
         private int Mark;

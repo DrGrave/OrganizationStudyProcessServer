@@ -2,6 +2,10 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект университет
+ */
+
 @Entity
 @Table(name = "University")
 public class University {
@@ -9,6 +13,9 @@ public class University {
     @Column(name="IdUniversity")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int idUniversity;
+    /**
+     * Название университета
+     */
 
     @Column(name = "NameUniversity")
     private String nameUniversity;

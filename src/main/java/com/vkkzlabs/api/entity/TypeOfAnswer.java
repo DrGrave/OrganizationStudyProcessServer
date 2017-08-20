@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Тип ответа на вопрос
+ */
 
 @Entity
 @Table(name = "TypeOfAnswer")
@@ -11,6 +14,10 @@ public class TypeOfAnswer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private
     int idTypeOfAnswer;
+
+    /**
+     * Название типа ответа
+     */
 
     @Column(name = "NameTypeOfAnswer")
     private String nameTypeOfAnswer;

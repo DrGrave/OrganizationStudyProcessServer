@@ -3,6 +3,10 @@ package com.vkkzlabs.api.entity;
 import javax.persistence.*;
 import java.sql.Date;
 
+/**
+ *
+ */
+
 @Entity
 @Table(name = "M2MUserAchievements")
 public class M2MUserAchievements {

@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект тип посещения
+ */
 
 @Entity
 @Table(name="TypeInClass")
@@ -11,6 +14,10 @@ public class TypeInClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private
     int idTypeInClass;
+
+    /**
+     * Название посещения
+     */
 
     @Column(name = "NameTypeInClass")
     private

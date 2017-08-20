@@ -2,6 +2,9 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект элемент очереди
+ */
 
 @Entity
 @Table(name = "Queue")
@@ -10,13 +13,25 @@ public class Queue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idQueue;
 
+    /**
+     * Объект студент
+     */
+
     @ManyToOne
     @JoinColumn(name = "IdUSer")
     private MyUser MyUser;
 
+    /**
+     * Объект расписание
+     */
+
     @ManyToOne
-    @JoinColumn(name = "IdTimeteable")
+    @JoinColumn(name = "IdTimetable")
     private Timetable timetable;
+
+    /**
+     * Объект работа
+     */
 
     @ManyToOne
     @JoinColumn(name = "IdOfWork")

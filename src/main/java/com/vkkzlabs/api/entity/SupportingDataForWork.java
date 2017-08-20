@@ -2,6 +2,10 @@ package com.vkkzlabs.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * Объект для хранения файла для работы
+ */
+
 @Entity
 @Table(name="SupportingDataForWork")
 public class SupportingDataForWork {
@@ -9,12 +13,24 @@ public class SupportingDataForWork {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idSupportingDataForWork;
 
+    /**
+     * Объект работы
+     */
+
     @ManyToOne
     @JoinColumn(name = "IdWork")
     private Work work;
 
+    /**
+     * Путь к файлу
+     */
+
     @Column(name = "PathToFile", length = 65536)
     private String pathToFile;
+
+    /**
+     * Название файла
+     */
 
     @Column(name = "NameOfFile")
     private String nameOfFile;
