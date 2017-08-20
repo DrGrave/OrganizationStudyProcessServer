@@ -1,7 +1,7 @@
 package controllers;
 
 
-import com.vkkzlabs.entity.*;
+import com.vkkzlabs.api.entity.*;
 import controllers.studentsControllers.TableOfDebitsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,12 +19,8 @@ import requests.SupportFilesRequest;
 
 import javax.swing.*;
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 
 public class StudentController {
@@ -189,7 +185,8 @@ public class StudentController {
     }
 
     private void checkForNewWorks(MyUser iUser) {
-
+        StudentWorksController studentWorksController = new StudentWorksController();
+        M2MStudentWork[] studentWorks = studentWorksController.getAllNewWork(iUser.getIdUser(), token);
     }
 
     private void checkForAchievement(MyUser iUser) {

@@ -1,6 +1,6 @@
 package requests;
 
-import com.vkkzlabs.entity.TypeOfAcceptWork;
+import com.vkkzlabs.api.entity.TypeOfAcceptWork;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;

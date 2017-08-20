@@ -1,6 +1,6 @@
 package requests;
-import com.vkkzlabs.entity.MyUser;
-import com.vkkzlabs.entity.MyUserCredentials;
+import com.vkkzlabs.api.entity.MyUser;
+import com.vkkzlabs.api.entity.MyUserCredentials;
 import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;

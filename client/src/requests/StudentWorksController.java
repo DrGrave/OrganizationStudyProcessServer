@@ -1,10 +1,10 @@
 package requests;
 
 
-import com.vkkzlabs.entity.M2MStudentWork;
-import com.vkkzlabs.entity.MyUser;
-import com.vkkzlabs.entity.Subject;
-import com.vkkzlabs.entity.Work;
+import com.vkkzlabs.api.entity.M2MStudentWork;
+import com.vkkzlabs.api.entity.MyUser;
+import com.vkkzlabs.api.entity.Subject;
+import com.vkkzlabs.api.entity.Work;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -65,5 +65,15 @@ public class StudentWorksController {
         httpHeaders.add("Authorization", token);
         HttpEntity<?> entity = new HttpEntity<>(work, httpHeaders);
         HttpEntity<Work> request = restTemplate.exchange(REST_SERVICE_URI+"/StudentWork/Edit", HttpMethod.POST, entity, Work.class);
+    }
+
+    public M2MStudentWork[] getAllNewWork(int idUser, String token) {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Authorization", token);
+        HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
+        HttpEntity<M2MStudentWork[]> request = restTemplate.exchange(REST_SERVICE_URI+"/StudentWork/GetNewWorks/"+idUser, HttpMethod.GET, entity, M2MStudentWork[].class);
+        M2MStudentWork[] works = request.getBody();
+        return works;
     }
 }

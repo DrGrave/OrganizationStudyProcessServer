@@ -1,9 +1,7 @@
 package controllers;
-import com.vkkzlabs.entity.MyUser;
-import com.vkkzlabs.entity.MyUserCredentials;
-import javafx.event.ActionEvent;
+import com.vkkzlabs.api.entity.MyUser;
+import com.vkkzlabs.api.entity.MyUserCredentials;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;

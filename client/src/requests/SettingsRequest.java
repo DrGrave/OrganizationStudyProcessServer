@@ -1,8 +1,8 @@
 package requests;
 
-import com.vkkzlabs.entity.M2MUserSettings;
-import com.vkkzlabs.entity.MyUser;
-import com.vkkzlabs.entity.UserSettings;
+import com.vkkzlabs.api.entity.M2MUserSettings;
+import com.vkkzlabs.api.entity.MyUser;
+import com.vkkzlabs.api.entity.UserSettings;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;

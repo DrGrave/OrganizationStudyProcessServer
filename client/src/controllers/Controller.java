@@ -1,16 +1,14 @@
 package controllers;
 
 
-import com.vkkzlabs.entity.MyUser;
-import com.vkkzlabs.entity.MyUserCredentials;
+import com.vkkzlabs.api.entity.MyUser;
+import com.vkkzlabs.api.entity.MyUserCredentials;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import requests.LoginController;
 
