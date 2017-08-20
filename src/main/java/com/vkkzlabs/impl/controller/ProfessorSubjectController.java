@@ -20,6 +20,10 @@ public class ProfessorSubjectController {
     @Autowired
     private ProfessorSubjectService professorSubjectService;
 
+    /**
+     * по запросу /ProfessorSubject/{id} возвращает объект по его Id
+     */
+
     @GetMapping("{id}")
     public ResponseEntity<M2MProfessorSubject> getProfessorSubjectById(@PathVariable("id") Integer id) {
         M2MProfessorSubject professorSubject = professorSubjectService.getProfessorSubjectByIdProfessorSubject(id);

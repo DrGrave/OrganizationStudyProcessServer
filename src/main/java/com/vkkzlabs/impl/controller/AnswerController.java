@@ -20,6 +20,10 @@ public class AnswerController {
     @Autowired
     private AnswerService answerService;
 
+    /**
+     * по запросу /Answer/{id} возвращает объект Answer
+     */
+
     @GetMapping("{id}")
     public ResponseEntity<Answer> getAnswerById(@PathVariable("id") Integer id) {
         Answer answer = answerService.getAnswerByIdAnswer(id);

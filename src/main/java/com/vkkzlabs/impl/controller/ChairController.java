@@ -20,6 +20,10 @@ public class ChairController {
     @Autowired
     private ChairService chairService;
 
+    /**
+     * по запросу /Chair/{id} возвращает объект Chair
+     */
+
     @GetMapping("{id}")
     public ResponseEntity<Chair> getChairById(@PathVariable("id") Integer id) {
         Chair chair = chairService.getChairById(id);

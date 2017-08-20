@@ -20,6 +20,10 @@ public class CommentToStudentController {
     @Autowired
     private CommentToStudentService commentToStudentService;
 
+    /**
+     * по запросу /CommentToStudent/{id} возвращает объект CommentToStudent
+     */
+
     @GetMapping("{id}")
     public ResponseEntity<CommentToStudent> getCommentToStudentById(@PathVariable("id") Integer id) {
         CommentToStudent attorney = commentToStudentService.getCommentToStudentByIdCommentToStudent(id);

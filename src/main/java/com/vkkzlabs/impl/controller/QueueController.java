@@ -20,6 +20,10 @@ public class QueueController {
     @Autowired
     private QueueService queueService;
 
+    /**
+     * по запросу /Queue/{id} возвращает объект по его Id
+     */
+
     @GetMapping("{id}")
     public ResponseEntity<Queue> getQueueById(@PathVariable("id") Integer id) {
         Queue queue = queueService.getQueueByIdQueue(id);

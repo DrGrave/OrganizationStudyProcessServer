@@ -20,6 +20,10 @@ public class StudentWorkController {
     @Autowired
     private StudentWorkService studentWorkService;
 
+    /**
+     * по запросу /StudentWork/{id} возвращает объект по его Id
+     */
+
     @GetMapping("{id}")
     public ResponseEntity<M2MStudentWork> getStudentWorkById(@PathVariable("id") Integer id) {
         M2MStudentWork studentWork = studentWorkService.getStudentWorkByIdStudentWork(id);
@@ -27,6 +31,10 @@ public class StudentWorkController {
             return new ResponseEntity<M2MStudentWork>(studentWork, HttpStatus.OK);
         } return new ResponseEntity<M2MStudentWork>(HttpStatus.NOT_FOUND);
     }
+
+    /**
+     * по запросу /StudentWork/ToStudentWork/{Id} возвращает объект по его Id
+     */
 
     @GetMapping(value = "/Subject/ToStudentWorks/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<M2MStudentWork>> getSubjectsToStudent(@PathVariable("id") int id) {
@@ -38,6 +46,10 @@ public class StudentWorkController {
         return new ResponseEntity<List<M2MStudentWork>>(subjectList, HttpStatus.OK);
     }
 
+    /**
+     * по запросу /StudentWork/User/{idUser}/Subject/{idSubject} возвращает объект по id пользователя и id предмета
+     */
+
     @GetMapping(value = "/User/{idUser}/Subject/{idSubject}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<M2MStudentWork>> getWorkToStudent(@PathVariable("idUser") int idUser, @PathVariable("idSubject") int idSubject) {
         List<M2MStudentWork> subjectList = studentWorkService.getListWorksToStudent(idUser, idSubject);
@@ -47,6 +59,10 @@ public class StudentWorkController {
         }
         return new ResponseEntity<List<M2MStudentWork>>(subjectList, HttpStatus.OK);
     }
+
+    /**
+     * по запросу /StudentWork/Student/Works/{id} возвращает объект по id пользователя
+     */
 
     @GetMapping(value = "/Student/Works/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<M2MStudentWork>> getAllWorks(@PathVariable("id") int id) {

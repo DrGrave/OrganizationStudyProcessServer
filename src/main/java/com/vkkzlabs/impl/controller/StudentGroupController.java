@@ -20,6 +20,10 @@ public class StudentGroupController {
     @Autowired
     private StudentGroupService studentGroupService;
 
+    /**
+     * по запросу /Group/{id} возвращает объект по его Id
+     */
+
     @GetMapping("{id}")
     public ResponseEntity<StudentGroup> getStudentGroupById(@PathVariable("id") Integer id) {
         StudentGroup studentGroup = studentGroupService.getStudentGroupByIdStudentGroup(id);

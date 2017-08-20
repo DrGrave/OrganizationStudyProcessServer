@@ -21,6 +21,10 @@ public class QuestionWorkController {
     @Autowired
     private QuestionWorkService questionWorkService;
 
+    /**
+     * по запросу /QuestionWork/{id} возвращает объект по его Id
+     */
+
     @GetMapping("{id}")
     public ResponseEntity<M2MQuestionWork> getQuestionWorkById(@PathVariable("id") Integer id) {
         M2MQuestionWork questionWork = questionWorkService.getQuestionWorkByIdQuestionWork(id);

@@ -35,6 +35,10 @@ public class FileController {
     private SubjectSupportFileService subjectSupportFileService;
 
 
+    /**
+     * по запросу /File/Upload/Subject/{id} принимает файл и сохраняет его по предмету
+     */
+
     @RequestMapping(value = "File/Upload/Subject/{id}", method = RequestMethod.POST)
     @ResponseBody
     public void uploadFile(@RequestParam("file") MultipartFile uploadfile, @PathVariable(value = "id") int id) throws IOException {
@@ -54,6 +58,10 @@ public class FileController {
         File dest = new File(filePath);
         uploadfile.transferTo(dest);
     }
+
+    /**
+     * по запросу /File/Download/Subject/{id} возвращает файл с предметом
+     */
 
     @RequestMapping(value = "File/Download/SubjSupF/{id}", method = RequestMethod.GET)
     public void getLogFile(HttpSession session, HttpServletResponse response,@PathVariable(value = "id") int id) throws Exception {

@@ -15,6 +15,10 @@ import java.sql.Date;
 @Controller
 @RequestMapping("GetServerDate")
 public class DateController {
+
+    /**
+     * по запросу /GetServerDate/Date возвращает серверное время
+     */
     @GetMapping("Get")
     public ResponseEntity<Date> getDateOfServer() {
         Date date = new Date(System.currentTimeMillis());

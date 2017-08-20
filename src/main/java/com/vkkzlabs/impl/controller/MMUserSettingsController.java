@@ -19,6 +19,10 @@ public class MMUserSettingsController {
     @Autowired
     private MMUserSettingsService mmUserSettingsService;
 
+    /**
+     * по запросу /UserSettings/{id} возвращает объект по его Id
+     */
+
     @GetMapping("{id}")
     public ResponseEntity<M2MUserSettings> getUserSettingsById(@PathVariable("id") Integer id) {
         M2MUserSettings userSettings = mmUserSettingsService.getUserSettingsById(id);
@@ -26,6 +30,10 @@ public class MMUserSettingsController {
             return new ResponseEntity<M2MUserSettings>(userSettings, HttpStatus.OK);
         } return new ResponseEntity<M2MUserSettings>(HttpStatus.NOT_FOUND);
     }
+
+    /**
+     * по запросу /User/{idUser}/Setting/{idSetting} возвращает объект по id юзера и id предмета
+     */
 
     @GetMapping("User/{idUser}/Setting/{idSetting}")
     public ResponseEntity<M2MUserSettings> getUserSettingsByIdUserAndIdSetting(@PathVariable("idUser") Integer idUser, @PathVariable("idSetting") Integer idSetting) {

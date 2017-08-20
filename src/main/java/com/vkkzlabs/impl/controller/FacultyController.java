@@ -20,6 +20,10 @@ public class FacultyController {
     @Autowired
     private FacultyService facultyService;
 
+    /**
+     * по запросу /Faculty/{id} возвращает объект Faculty
+     */
+
     @GetMapping("{id}")
     public ResponseEntity<Faculty> getFacultyById(@PathVariable("id") Integer id) {
         Faculty faculty = facultyService.getFacultyById(id);

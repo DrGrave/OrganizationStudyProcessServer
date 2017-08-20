@@ -20,6 +20,10 @@ public class InClassController {
     @Autowired
     private InClassService inClassService;
 
+    /**
+     * по запросу /InClass/{id} возвращает объект по его Id
+     */
+
     @GetMapping("{id}")
     public ResponseEntity<InClass> getCommentToWork(@PathVariable("id") Integer id) {
         InClass inClass = inClassService.getInClassByIdInClass(id);

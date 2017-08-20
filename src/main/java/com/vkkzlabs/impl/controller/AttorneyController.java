@@ -20,6 +20,10 @@ public class AttorneyController {
     @Autowired
     private AttorneyService attorneyService;
 
+    /**
+     * по запросу /Attorney/{id} возвращает объект Attorney
+     */
+
     @GetMapping("{id}")
     public ResponseEntity<Attorney> getAttorneyById(@PathVariable("id") Integer id) {
         Attorney attorney = attorneyService.getAttorneyByIdAttorney(id);

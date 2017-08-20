@@ -19,6 +19,10 @@ public class LoginController {
     @Autowired
     private UserCredentialsService userCredentialsService;
 
+    /**
+     * по запросу /GetUser и полю логина юзера возвращает объект пользователь
+     */
+
     @RequestMapping(value = "GetUser", method = RequestMethod.POST)
     public ResponseEntity<MyUser> getUserByLogin(@RequestBody MyUserCredentials userCredentials, UriComponentsBuilder ucBuilder) {
 

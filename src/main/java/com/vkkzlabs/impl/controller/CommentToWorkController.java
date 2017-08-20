@@ -20,6 +20,10 @@ public class CommentToWorkController {
     @Autowired
     private CommentToWorkService commentToWorkService;
 
+    /**
+     * по запросу /CommentToWork/{id} возвращает объект CommentToWork
+     */
+
     @GetMapping("{id}")
     public ResponseEntity<CommentToWork> getCommentToWork(@PathVariable("id") Integer id) {
         CommentToWork commentToWork = commentToWorkService.getCommentToWorkByIdCommentToWork(id);

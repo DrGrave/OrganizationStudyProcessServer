@@ -20,6 +20,10 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
+    /**
+     * по запросу /Question/{id} возвращает объект по его Id
+     */
+
     @GetMapping("{id}")
     public ResponseEntity<Question> getQuestionById(@PathVariable("id") Integer id) {
         Question question = questionService.getQuestionByIdQuestion(id);

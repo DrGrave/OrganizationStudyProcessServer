@@ -20,6 +20,10 @@ public class GroupTimetableController {
     @Autowired
     private GroupTimetableService groupTimetableService;
 
+    /**
+     * по запросу /GroupTimetable/{id} возвращает объект по его Id
+     */
+
     @GetMapping("{id}")
     public ResponseEntity<M2MGroupTimetable> getGroupTimetableById(@PathVariable("id") Integer id) {
         M2MGroupTimetable groupTimetable = groupTimetableService.getGroupTimetableByIdGroupTimetable(id);

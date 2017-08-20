@@ -20,6 +20,10 @@ public class GenderController {
     @Autowired
     private GenderService genderService;
 
+    /**
+     * по запросу /Gender/{id} возвращает объект пол по его Id
+     */
+
     @GetMapping("{id}")
     public ResponseEntity<Gender> getGenderById(@PathVariable("id") Integer id) {
         Gender gender = genderService.getGenderById(id);

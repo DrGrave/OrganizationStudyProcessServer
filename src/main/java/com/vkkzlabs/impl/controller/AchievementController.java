@@ -20,6 +20,11 @@ public class AchievementController {
     @Autowired
     private AchievementService achievementService;
 
+
+    /**
+     * по запросу /Achievement/{id} возвращает объект Achievement
+     */
+
     @GetMapping("{id}")
     public ResponseEntity<Achievements> getAchievementById(@PathVariable("id") int id) {
         Achievements achievements = achievementService.getAchievementByIdAnswer(id);
