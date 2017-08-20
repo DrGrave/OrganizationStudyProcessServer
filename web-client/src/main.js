@@ -1,16 +1,24 @@
-var app = new Vue({
-    el: '#app',
-    data: {
-        title: 'Главная',
-        message: 'Здароу пользователь',
-        login: '',
-        password: '',
-        user: null,
-        currentRoute: window.location.pathname
-    },
-    methods: {
+import Vue from 'vue'
+
+import homepage from './pages/home.vue'
+
+Vue.component('pagebody', {
+  template: homepage
+})
+
+new Vue({
+  el: '#app',
+  data: {
+      title: 'Главная',
+      message: 'Здароу пользователь',
+      login: '',
+      password: '',
+      user: null,
+      currentRoute: window.location.pathname
+  }/*,
+  methods: {
         singIn: function () {
-              	fetch('/login',{
+              	fetch('localhost:8080/login',{
               		method: "POST",
               		body: JSON.stringify( {userLogin:this.login, userPassword:this.password} )
               	}).then(function(response) {
@@ -26,19 +34,17 @@ var app = new Vue({
               		console.log(err);
               	});
         }
-    }
+    },
+    render (h) {
+      return h(homepage)
+    }*/
 });
-
-
-if(localStorage.getItem('userLogin')){
-  getUser(localStorage.getItem('userLogin'));
-}
-
+/*
 function getUser(userLogin){
     var myHeaders = new Headers();
     myHeaders.append("Authorization", localStorage.getItem("Auth"));
     myHeaders.append("Content-Type", "application/json");
-    fetch('/GetUser', {
+    fetch('localhost:8080/GetUser', {
       method: "POST",
       headers: myHeaders,
       body: JSON.stringify({userLogin:userLogin})
@@ -49,4 +55,4 @@ function getUser(userLogin){
     }).catch(function(err){
         console.log(err);
     });
-}
+}*/

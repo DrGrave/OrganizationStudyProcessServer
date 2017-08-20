@@ -8,11 +8,13 @@
   </body>
   <script type="text/javascript">
   	function test(){
-  	var data = new FormData();
-	data.append( "json", JSON.stringify( {userLogin:"Login", userPassword:"Password"} ) );
-  	fetch('/login',{
+  	    headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+    	fetch('/login',{
   		method: "POST",
-  		body: data
+  		body: JSON.stringify( {userLogin:"Login", userPassword:"Password"} )
   	}).then(function(response) {
   	  return response;
  	 }).then(function(res){
