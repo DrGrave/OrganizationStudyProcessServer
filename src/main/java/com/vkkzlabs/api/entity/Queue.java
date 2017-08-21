@@ -18,7 +18,7 @@ public class Queue {
      */
 
     @ManyToOne
-    @JoinColumn(name = "IdUSer")
+    @JoinColumn(name = "IdUser")
     private MyUser MyUser;
 
     /**

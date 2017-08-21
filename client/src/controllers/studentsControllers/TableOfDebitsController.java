@@ -1,6 +1,8 @@
 package controllers.studentsControllers;
 
 import com.vkkzlabs.api.entity.*;
+import com.vkkzlabs.api.entity.Queue;
+import controllers.StudentController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +14,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.util.Callback;
+import requests.QueueRequest;
 import requests.StudentWorksController;
+import requests.TimetableRequest;
 import requests.TypeOfAcceptWorkRequest;
 
 import java.io.IOException;
@@ -53,17 +57,38 @@ public class TableOfDebitsController {
     private MyUser iUser;
     private String token;
     private MyUserCredentials myUserCredentials;
+    private Pane queuePane;
+    private Tab queueTab;
     private Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-    public TableOfDebitsController(MyUser iUser, String token, MyUserCredentials myUserCredentials) {
+    public TableOfDebitsController(MyUser iUser, String token, MyUserCredentials myUserCredentials, Pane queuePane, Tab queueTab) {
         this.iUser = iUser;
         this.myUserCredentials = myUserCredentials;
         this.token = token;
+        this.queuePane = queuePane;
+        this.queueTab = queueTab;
     }
 
     @FXML
-    void stayInQueueAction(ActionEvent event) {
-        
+    void stayInQueueAction(ActionEvent event) throws IOException {
+        QueueRequest queueRequest = new QueueRequest();
+        TimetableRequest timetableRequest = new TimetableRequest();
+        Timetable timetable = timetableRequest.getTimetableByProfessorIdAndSubjectId(debtTable.getSelectionModel().getSelectedItem().getIdOfWork().getMyUser(), debtTable.getSelectionModel().getSelectedItem().getIdOfWork().getSubject().getIdSubject(), token);
+        Queue queue = new Queue();
+        queue.setTimetable(timetable);
+        queue.setMyUser(iUser);
+        queue.setWork(debtTable.getSelectionModel().getSelectedItem().getIdOfWork());
+        Queue[] queues = queueRequest.stayInQueue(queue, token);
+        StudentController studentController = new StudentController(iUser, myUserCredentials, token);
+        initializeQueueTab(queues);
+
+    }
+
+    private void initializeQueueTab(Queue[] queues) throws IOException {
+        FXMLLoader queueTabs = new  FXMLLoader(getClass().getResource("../../samples/studentFXML/QueueToStudent.fxml"));
+        QueueTabController queueTabController = new QueueTabController(iUser, token, myUserCredentials);
+        queueTabs.setController(queueTabController);
+        queuePane.getChildren().add(queueTabs.load());
     }
 
     @FXML

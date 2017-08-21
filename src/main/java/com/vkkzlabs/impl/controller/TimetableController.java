@@ -27,4 +27,12 @@ public class TimetableController {
             return new ResponseEntity<Timetable>(timetable, HttpStatus.OK);
         } return new ResponseEntity<Timetable>(HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("GetToStudent/IdProfessor/{professorId}/IdSubject/{subjectId}")
+    public ResponseEntity<Timetable> getTimetableByIdProfessorAndIdSubjectToAddQueue(@PathVariable("professorId") int professorId, @PathVariable("subjectId") int subjectId){
+        Timetable timetable = timetableService.getTimetableByProfessorIdAndSubjectId(professorId, subjectId);
+        if (timetable != null){
+            return new ResponseEntity<Timetable>(timetable, HttpStatus.OK);
+        } return new ResponseEntity<Timetable>(HttpStatus.NOT_FOUND);
+    }
 }

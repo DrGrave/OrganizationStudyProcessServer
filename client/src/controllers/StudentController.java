@@ -2,6 +2,7 @@ package controllers;
 
 
 import com.vkkzlabs.api.entity.*;
+import controllers.studentsControllers.QueueTabController;
 import controllers.studentsControllers.TableOfDebitsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,6 +56,8 @@ public class StudentController {
     @FXML
     private Button declineButton;
     @FXML
+    private Pane queuePane;
+    @FXML
     private Tab queueTab;
     @FXML
     private Tab marksTab;
@@ -79,7 +82,7 @@ public class StudentController {
     private MyUserCredentials myUserCredentials;
     private String token;
 
-    StudentController(MyUser iUser, MyUserCredentials myUserCredentials, String token) {
+    public StudentController(MyUser iUser, MyUserCredentials myUserCredentials, String token) {
         this.iUser = iUser;
         this.myUserCredentials = myUserCredentials;
         this.token = token;
@@ -186,6 +189,13 @@ public class StudentController {
         userType.setText(iUser.getUserType().getNameUserType());
     }
 
+    public void initializeQueueTab(Queue[] queues) throws IOException {
+        FXMLLoader queueTabs = new  FXMLLoader(getClass().getResource("../samples/studentFXML/QueueToStudent.fxml"));
+        QueueTabController queueTabController = new QueueTabController(iUser, token, myUserCredentials);
+        queueTabs.setController(queueTabController);
+        queuePane.getChildren().add(queueTabs.load());
+    }
+
     private void checkForNewWorks(MyUser iUser) {
         StudentWorksController studentWorksController = new StudentWorksController();
         M2MStudentWork[] studentWorks = studentWorksController.getAllNewWork(iUser.getIdUser(), token);
@@ -243,7 +253,7 @@ public class StudentController {
 
     private void checkForBadStudent(MyUser iUser) throws IOException {
         FXMLLoader debtTable = new  FXMLLoader(getClass().getResource("../samples/studentFXML/DebtTable.fxml"));
-        TableOfDebitsController tableOfDebitsController = new TableOfDebitsController(iUser, token, myUserCredentials);
+        TableOfDebitsController tableOfDebitsController = new TableOfDebitsController(iUser, token, myUserCredentials, queuePane, queueTab);
         debtTable.setController(tableOfDebitsController);
         hBoxStudentInfo.getChildren().add(debtTable.load());
     }

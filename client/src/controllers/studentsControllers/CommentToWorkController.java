@@ -21,7 +21,7 @@ public class CommentToWorkController {
     private final MyUser iUser;
     private final MyUserCredentials myUserCredentials;
     private final String token;
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    private Alert alert = new Alert(Alert.AlertType.INFORMATION);
     private final int idOfWork;
     @FXML
     private TableView<CommentToWork> commentToWorkTable;
