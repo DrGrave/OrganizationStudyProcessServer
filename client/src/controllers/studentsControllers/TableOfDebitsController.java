@@ -86,7 +86,7 @@ public class TableOfDebitsController {
 
     private void initializeQueueTab(Queue[] queues) throws IOException {
         FXMLLoader queueTabs = new  FXMLLoader(getClass().getResource("../../samples/studentFXML/QueueToStudent.fxml"));
-        QueueTabController queueTabController = new QueueTabController(iUser, token, myUserCredentials);
+        QueueTabController queueTabController = new QueueTabController(iUser, token, myUserCredentials, queues);
         queueTabs.setController(queueTabController);
         queuePane.getChildren().add(queueTabs.load());
     }

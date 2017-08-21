@@ -189,12 +189,6 @@ public class StudentController {
         userType.setText(iUser.getUserType().getNameUserType());
     }
 
-    public void initializeQueueTab(Queue[] queues) throws IOException {
-        FXMLLoader queueTabs = new  FXMLLoader(getClass().getResource("../samples/studentFXML/QueueToStudent.fxml"));
-        QueueTabController queueTabController = new QueueTabController(iUser, token, myUserCredentials);
-        queueTabs.setController(queueTabController);
-        queuePane.getChildren().add(queueTabs.load());
-    }
 
     private void checkForNewWorks(MyUser iUser) {
         StudentWorksController studentWorksController = new StudentWorksController();
