@@ -65,16 +65,16 @@ public class QueueTabController {
         ObservableList<Queue> queueObservableList = FXCollections.observableList(queueList);
         studentTable.setItems(queueObservableList);
         studentNameCollom.setCellValueFactory(
-                cellDate -> new SimpleStringProperty(cellDate.getValue().getMyUser().getUserName())
+                cellDate -> new SimpleStringProperty(cellDate.getValue().getStudent().getUserName())
         );
         studentSurnameCollom.setCellValueFactory(
-                cellDate -> new SimpleStringProperty(cellDate.getValue().getMyUser().getUserSurname())
+                cellDate -> new SimpleStringProperty(cellDate.getValue().getStudent().getUserSurname())
         );
     }
 
     private boolean ifExistsInList(List<Queue> queues, Queue thisQueue){
         for (Queue queue : queues) {
-            if (queue.getWork().getIdOfWork() == thisQueue.getWork().getIdOfWork() || queue.getMyUser().getIdUser() == thisQueue.getMyUser().getIdUser()) {
+            if (queue.getWork().getIdOfWork() == thisQueue.getWork().getIdOfWork() || queue.getStudent().getIdUser() == thisQueue.getStudent().getIdUser()) {
                 return true;
             }
         }

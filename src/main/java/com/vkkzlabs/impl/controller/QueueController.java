@@ -38,11 +38,16 @@ public class QueueController {
 
     @PostMapping("StayInQueue")
     public  ResponseEntity<List<Queue>> getListToQueue(@RequestBody Queue queue, UriComponentsBuilder uriComponentsBuilder){
-        queueService.saveQueue(queue);
-        List<Queue> queues = queueService.getAllQueueToStudent(queue);
-        if (queues != null) {
-            return new ResponseEntity<List<Queue>>(queues, HttpStatus.OK);
-        } return new ResponseEntity<List<Queue>>(HttpStatus.NOT_FOUND);
+        if (queueService.checkIfExists(queue)){
+            return new ResponseEntity<List<Queue>>(HttpStatus.CONFLICT);
+        }else {
+            queueService.saveQueue(queue);
+            List<Queue> queues = queueService.getAllQueueToStudent(queue);
+            if (queues != null) {
+                return new ResponseEntity<List<Queue>>(queues, HttpStatus.OK);
+            }
+            return new ResponseEntity<List<Queue>>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }

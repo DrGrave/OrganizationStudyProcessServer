@@ -12,4 +12,6 @@ public interface QueueService {
     Queue getQueueByIdQueue(int idQueue);
 
     List<Queue> getAllQueueToStudent(Queue queue);
+
+    boolean checkIfExists(Queue queue);
 }

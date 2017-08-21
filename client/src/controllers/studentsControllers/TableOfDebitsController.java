@@ -72,16 +72,19 @@ public class TableOfDebitsController {
     @FXML
     void stayInQueueAction(ActionEvent event) throws IOException {
         QueueRequest queueRequest = new QueueRequest();
-        TimetableRequest timetableRequest = new TimetableRequest();
-        Timetable timetable = timetableRequest.getTimetableByProfessorIdAndSubjectId(debtTable.getSelectionModel().getSelectedItem().getIdOfWork().getMyUser(), debtTable.getSelectionModel().getSelectedItem().getIdOfWork().getSubject().getIdSubject(), token);
-        Queue queue = new Queue();
-        queue.setTimetable(timetable);
-        queue.setMyUser(iUser);
-        queue.setWork(debtTable.getSelectionModel().getSelectedItem().getIdOfWork());
-        Queue[] queues = queueRequest.stayInQueue(queue, token);
-        StudentController studentController = new StudentController(iUser, myUserCredentials, token);
-        initializeQueueTab(queues);
-
+        if (debtTable.getSelectionModel().getSelectedItem() != null) {
+            TimetableRequest timetableRequest = new TimetableRequest();
+            Timetable timetable = timetableRequest.getTimetableByProfessorIdAndSubjectId(debtTable.getSelectionModel().getSelectedItem().getIdOfWork().getMyUser(), debtTable.getSelectionModel().getSelectedItem().getIdOfWork().getSubject().getIdSubject(), token);
+            Queue queue = new Queue();
+            queue.setTimetable(timetable);
+            queue.setStudent(iUser);
+            queue.setWork(debtTable.getSelectionModel().getSelectedItem().getIdOfWork());
+            Queue[] queues = queueRequest.stayInQueue(queue, token);
+            StudentController studentController = new StudentController(iUser, myUserCredentials, token);
+            initializeQueueTab(queues);
+        } else {
+            //TODO print select work!
+        }
     }
 
     private void initializeQueueTab(Queue[] queues) throws IOException {

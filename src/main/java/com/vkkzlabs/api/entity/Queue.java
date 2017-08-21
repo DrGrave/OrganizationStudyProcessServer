@@ -18,8 +18,8 @@ public class Queue {
      */
 
     @ManyToOne
-    @JoinColumn(name = "IdUser")
-    private MyUser MyUser;
+    @JoinColumn(name = "IdStudent")
+    private MyUser student;
 
     /**
      * Объект расписание
@@ -45,12 +45,12 @@ public class Queue {
         this.idQueue = idQueue;
     }
 
-    public MyUser getMyUser() {
-        return MyUser;
+    public MyUser getStudent() {
+        return student;
     }
 
-    public void setMyUser(MyUser MyUser) {
-        this.MyUser = MyUser;
+    public void setStudent(MyUser student) {
+        this.student = student;
     }
 
     public Timetable getTimetable() {
@@ -73,7 +73,7 @@ public class Queue {
     public String toString() {
         return "Queue{" +
                 "idQueue=" + idQueue +
-                ", MyUser=" + MyUser +
+                ", MyUser=" + student +
                 ", timeteable=" + timetable +
                 ", work=" + work +
                 '}';
