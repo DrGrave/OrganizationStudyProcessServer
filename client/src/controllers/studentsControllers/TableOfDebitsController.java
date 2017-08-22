@@ -75,15 +75,19 @@ public class TableOfDebitsController {
         if (debtTable.getSelectionModel().getSelectedItem() != null) {
             TimetableRequest timetableRequest = new TimetableRequest();
             Timetable timetable = timetableRequest.getTimetableByProfessorIdAndSubjectId(debtTable.getSelectionModel().getSelectedItem().getIdOfWork().getMyUser(), debtTable.getSelectionModel().getSelectedItem().getIdOfWork().getSubject().getIdSubject(), token);
-            Queue queue = new Queue();
-            queue.setTimetable(timetable);
-            queue.setStudent(iUser);
-            queue.setWork(debtTable.getSelectionModel().getSelectedItem().getIdOfWork());
-            Queue[] queues = queueRequest.stayInQueue(queue, token);
-            if (queues != null) {
-                initializeQueueTab(queues);
-            } else {
-                initializeQueueTab(queueRequest.getAllQueueToUser(queue, token));
+            if (timetable != null) {
+                Queue queue = new Queue();
+                queue.setTimetable(timetable);
+                queue.setStudent(iUser);
+                queue.setWork(debtTable.getSelectionModel().getSelectedItem().getIdOfWork());
+                Queue[] queues = queueRequest.stayInQueue(queue, token);
+                if (queues != null) {
+                    initializeQueueTab(queues);
+                } else {
+                    initializeQueueTab(queueRequest.getAllQueueToUser(queue, token));
+                }
+            }else {
+                //TODO нет пары для сдачи работы!
             }
         } else {
             //TODO print select work!

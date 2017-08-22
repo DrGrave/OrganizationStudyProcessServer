@@ -2,6 +2,7 @@ package requests;
 
 import com.vkkzlabs.api.entity.MyUser;
 import com.vkkzlabs.api.entity.Queue;
+import com.vkkzlabs.api.entity.Subject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -44,4 +45,19 @@ public class QueueRequest {
             return null;
         }
     }
+
+    public Queue[] getSubjectsToStudent(int idTimetable, int idUser, String token) {
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add("Authorization", token);
+            HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
+            HttpEntity<Queue[]> myUserCredentialsHttpEntity = restTemplate.exchange(REST_SERVICE_URI + "/Queue/GetSubjects/"+idUser+"/Timetable/"+idTimetable, HttpMethod.GET, entity, Queue[].class);
+            Queue[] getSubject = myUserCredentialsHttpEntity.getBody();
+            return getSubject;
+        } catch (HttpClientErrorException ex) {
+            return null;
+        }
+    }
+
 }

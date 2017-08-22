@@ -11,4 +11,5 @@ import java.util.List;
 public interface TimetableDAO extends CrudRepository<Timetable, Long>{
     Timetable getByIdTimetable(int idTimetable);
     List<Timetable> findAllByProfessor_IdUserAndSubject_IdSubject(int idProfessor, int idSubject);
+    List<Timetable> findAllByProfessor_IdUser(int idProfessor);
 }

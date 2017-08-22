@@ -38,4 +38,9 @@ public class QueueServiceImpl implements QueueService {
             return false;
         }else return true;
     }
+
+    @Override
+    public List<Queue> getQueueToSubject(int idTimetable, int idStudent) {
+        return queueDAO.findAllByTimetable_IdTimetableAndStudent_IdUser(idTimetable, idStudent);
+    }
 }

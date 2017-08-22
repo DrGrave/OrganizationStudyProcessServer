@@ -58,4 +58,11 @@ public class QueueController {
         } return new ResponseEntity<List<Queue>>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("GetSubjects/{idUser}/Timetable/{idTimetable}")
+    public ResponseEntity<List<Queue>> getToStudentSubjects(@PathVariable("idTimetable") int idTimetable, @PathVariable("idUser") int idStudent){
+        List<Queue> queues = queueService.getQueueToSubject(idTimetable, idStudent);
+        if (queues != null) {
+            return new ResponseEntity<List<Queue>>(queues, HttpStatus.OK);
+        } return new ResponseEntity<List<Queue>>(HttpStatus.NOT_FOUND);
+    }
 }

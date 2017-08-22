@@ -15,13 +15,9 @@
           <TableColumn fx:id="studentSurnameCollom" prefWidth="75.0" text="Surname" />
         </columns>
       </TableView>
-      <TableView fx:id="subjectTable" prefHeight="400.0" prefWidth="86.0">
+      <TableView fx:id="subjectTable" prefHeight="562.0" prefWidth="169.0">
         <columns>
           <TableColumn fx:id="subjectCollom" prefWidth="75.0" text="Subject" />
-        </columns>
-      </TableView>
-      <TableView fx:id="workTable" prefHeight="400.0" prefWidth="101.0">
-        <columns>
           <TableColumn fx:id="workCollom" prefWidth="75.0" text="Work №" />
         </columns>
       </TableView>

@@ -14,4 +14,6 @@ public interface QueueService {
     List<Queue> getAllQueueToStudent(int idTimetable);
 
     boolean checkIfExists(Queue queue);
+
+    List<Queue> getQueueToSubject(int idTimetable, int idStudent);
 }
