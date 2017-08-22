@@ -80,8 +80,11 @@ public class TableOfDebitsController {
             queue.setStudent(iUser);
             queue.setWork(debtTable.getSelectionModel().getSelectedItem().getIdOfWork());
             Queue[] queues = queueRequest.stayInQueue(queue, token);
-            StudentController studentController = new StudentController(iUser, myUserCredentials, token);
-            initializeQueueTab(queues);
+            if (queues != null) {
+                initializeQueueTab(queues);
+            } else {
+                initializeQueueTab(queueRequest.getAllQueueToUser(queue, token));
+            }
         } else {
             //TODO print select work!
         }

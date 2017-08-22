@@ -16,7 +16,7 @@ import java.util.List;
 public class QueueServiceImpl implements QueueService {
     @Autowired
     private QueueDAO queueDAO;
-    // TODO: 21.08.17  добавить провеерку на существование объекта в бд
+
     @Override
     public void saveQueue(Queue queue) {
         queueDAO.save(queue);
@@ -28,8 +28,8 @@ public class QueueServiceImpl implements QueueService {
     }
 
     @Override
-    public List<Queue> getAllQueueToStudent(Queue queue) {
-        return queueDAO.findAllByTimetable_IdTimetable(queue.getTimetable().getIdTimetable());
+    public List<Queue> getAllQueueToStudent(int idTimetable) {
+        return queueDAO.findAllByTimetable_IdTimetable(idTimetable);
     }
 
     @Override

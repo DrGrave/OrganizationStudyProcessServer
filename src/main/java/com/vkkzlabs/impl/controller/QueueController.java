@@ -39,15 +39,23 @@ public class QueueController {
     @PostMapping("StayInQueue")
     public  ResponseEntity<List<Queue>> getListToQueue(@RequestBody Queue queue, UriComponentsBuilder uriComponentsBuilder){
         if (queueService.checkIfExists(queue)){
-            return new ResponseEntity<List<Queue>>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }else {
             queueService.saveQueue(queue);
-            List<Queue> queues = queueService.getAllQueueToStudent(queue);
+            List<Queue> queues = queueService.getAllQueueToStudent(queue.getTimetable().getIdTimetable());
             if (queues != null) {
                 return new ResponseEntity<List<Queue>>(queues, HttpStatus.OK);
             }
-            return new ResponseEntity<List<Queue>>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("GetToStudent/{idTimetable}")
+    public ResponseEntity<List<Queue>> getToStudentQueue(@PathVariable("idTimetable") int idTimetable){
+        List<Queue> queues = queueService.getAllQueueToStudent(idTimetable);
+        if (queues != null) {
+            return new ResponseEntity<List<Queue>>(queues, HttpStatus.OK);
+        } return new ResponseEntity<List<Queue>>(HttpStatus.NOT_FOUND);
     }
 
 }

@@ -5,7 +5,11 @@ import com.vkkzlabs.api.entity.Queue;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import javax.xml.ws.http.HTTPException;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by vadim on 21.08.17.
@@ -14,12 +18,30 @@ public class QueueRequest {
     private static final String REST_SERVICE_URI = "http://localhost:8080";
 
     public Queue[] stayInQueue(Queue queue, String token){
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Authorization", token);
-        HttpEntity<?> entity = new HttpEntity<>(queue, httpHeaders);
-        HttpEntity<Queue[]> myUserCredentialsHttpEntity = restTemplate.exchange(REST_SERVICE_URI+"/Queue/StayInQueue", HttpMethod.POST, entity, Queue[].class);
-        Queue[] getQueue = myUserCredentialsHttpEntity.getBody();
-        return getQueue;
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add("Authorization", token);
+            HttpEntity<?> entity = new HttpEntity<>(queue, httpHeaders);
+            HttpEntity<Queue[]> myUserCredentialsHttpEntity = restTemplate.exchange(REST_SERVICE_URI + "/Queue/StayInQueue", HttpMethod.POST, entity, Queue[].class);
+            Queue[] getQueue = myUserCredentialsHttpEntity.getBody();
+            return getQueue;
+        } catch (HttpClientErrorException exception){
+            return null;
+        }
+    }
+
+    public Queue[] getAllQueueToUser(Queue queue, String token) {
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add("Authorization", token);
+            HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
+            HttpEntity<Queue[]> myUserCredentialsHttpEntity = restTemplate.exchange(REST_SERVICE_URI + "/Queue/GetToStudent/"+queue.getTimetable().getIdTimetable(), HttpMethod.GET, entity, Queue[].class);
+            Queue[] getQueue = myUserCredentialsHttpEntity.getBody();
+            return getQueue;
+        } catch (HttpClientErrorException ex){
+            return null;
+        }
     }
 }

@@ -11,7 +11,7 @@ public interface QueueService {
     void saveQueue(Queue queue);
     Queue getQueueByIdQueue(int idQueue);
 
-    List<Queue> getAllQueueToStudent(Queue queue);
+    List<Queue> getAllQueueToStudent(int idTimetable);
 
     boolean checkIfExists(Queue queue);
 }
