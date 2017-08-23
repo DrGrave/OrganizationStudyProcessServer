@@ -1,18 +1,22 @@
 package controllers.studentsControllers;
 
 import com.vkkzlabs.api.entity.*;
+import com.vkkzlabs.api.entity.Queue;
+import controllers.StudentController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.util.Callback;
+import requests.QueueRequest;
 import requests.StudentWorksController;
+import requests.TimetableRequest;
 import requests.TypeOfAcceptWorkRequest;
 
 import java.io.IOException;
@@ -53,22 +57,53 @@ public class TableOfDebitsController {
     private MyUser iUser;
     private String token;
     private MyUserCredentials myUserCredentials;
+    private Pane queuePane;
+    private Tab queueTab;
     private Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-    public TableOfDebitsController(MyUser iUser, String token, MyUserCredentials myUserCredentials) {
+    public TableOfDebitsController(MyUser iUser, String token, MyUserCredentials myUserCredentials, Pane queuePane, Tab queueTab) {
         this.iUser = iUser;
         this.myUserCredentials = myUserCredentials;
         this.token = token;
+        this.queuePane = queuePane;
+        this.queueTab = queueTab;
     }
 
     @FXML
-    void stayInQueueAction(ActionEvent event) {
+    void stayInQueueAction(ActionEvent event) throws IOException {
+        QueueRequest queueRequest = new QueueRequest();
+        if (debtTable.getSelectionModel().getSelectedItem() != null) {
+            TimetableRequest timetableRequest = new TimetableRequest();
+            Timetable timetable = timetableRequest.getTimetableByProfessorIdAndSubjectId(debtTable.getSelectionModel().getSelectedItem().getIdOfWork().getMyUser(), debtTable.getSelectionModel().getSelectedItem().getIdOfWork().getSubject().getIdSubject(), token);
+            if (timetable != null) {
+                Queue queue = new Queue();
+                queue.setTimetable(timetable);
+                queue.setStudent(iUser);
+                queue.setWork(debtTable.getSelectionModel().getSelectedItem().getIdOfWork());
+                Queue[] queues = queueRequest.stayInQueue(queue, token);
+                if (queues != null) {
+                    initializeQueueTab(queues);
+                } else {
+                    initializeQueueTab(queueRequest.getAllQueueToUser(queue, token));
+                }
+            }else {
+                //TODO нет пары для сдачи работы!
+            }
+        } else {
+            //TODO print select work!
+        }
+    }
 
+    private void initializeQueueTab(Queue[] queues) throws IOException {
+        FXMLLoader queueTabs = new  FXMLLoader(getClass().getResource("../../samples/studentFXML/QueueToStudent.fxml"));
+        QueueTabController queueTabController = new QueueTabController(iUser, token, myUserCredentials, queues);
+        queueTabs.setController(queueTabController);
+        queuePane.getChildren().add(queueTabs.load());
     }
 
     @FXML
-    void watchWorkAction(ActionEvent event) {
-
+    void watchWorkAction(ActionEvent event) throws IOException {
+        initializeInfoOfWork(debtTable.getSelectionModel().getSelectedItem(), iUser);
     }
 
     public void initialize(){
@@ -114,7 +149,7 @@ public class TableOfDebitsController {
                                 if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 1){
                                     setTooltip(tooltip);
                                 }
-                                if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 4){
+                                if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 5){
                                     setStyle("-fx-background-color: green");
                                 }else
                                 if (item.getDeadlineForWork().before(thisDate)) {
@@ -236,20 +271,33 @@ public class TableOfDebitsController {
     private void initializeInfoOfWork(M2MStudentWork studentWork, MyUser iUser) throws IOException {
 
         if (studentWork != null){
-                alert.setTitle("Work"+ studentWork.getIdOfWork().getNumberOfWOrk());
-                DialogPane dialogPane = new DialogPane();
-                GridPane infoOfWorkGridPane = new GridPane();
-                fullGridPaneByUserWorkInfo(studentWork, infoOfWorkGridPane);
-                dialogPane.setContent(infoOfWorkGridPane);
+            VBox vBox = new VBox();
+            alert.setTitle("Work"+ studentWork.getIdOfWork().getNumberOfWOrk());
+            DialogPane dialogPane = new DialogPane();
+            GridPane infoOfWorkGridPane = new GridPane();
+            fullGridPaneByUserWorkInfo(studentWork, infoOfWorkGridPane);
 
-                dialogPane.setOnKeyPressed(keyEvent ->
-                    alert.close()
-                );
+            FXMLLoader commentToWorkTable = new  FXMLLoader(getClass().getResource("../../samples/studentFXML/CommentToWork.fxml"));
+            CommentToWorkController commentToWorkController = new CommentToWorkController(iUser, token, myUserCredentials, studentWork.getIdOfWork().getIdOfWork());
+            commentToWorkTable.setController(commentToWorkController);
 
-                dialogPane.getButtonTypes().add(ButtonType.CLOSE);
-                alert.setHeaderText("Work №" + studentWork.getIdOfWork().getNumberOfWOrk());
-                alert.setDialogPane(dialogPane);
-                alert.show();
+
+            vBox.getChildren().add(0, infoOfWorkGridPane);
+            vBox.setSpacing(10);
+            vBox.getChildren().add(1, commentToWorkTable.load());
+
+            dialogPane.setContent(vBox);
+
+            dialogPane.setOnKeyPressed(keyEvent -> {
+                if (keyEvent.getCode() == KeyCode.ESCAPE){
+                    alert.close();
+                }
+            });
+
+            dialogPane.getButtonTypes().add(ButtonType.CLOSE);
+            alert.setHeaderText("Work №" + studentWork.getIdOfWork().getNumberOfWOrk());
+            alert.setDialogPane(dialogPane);
+            alert.show();
 
         }
     }
