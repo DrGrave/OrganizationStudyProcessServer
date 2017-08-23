@@ -7,9 +7,9 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1130.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView prefHeight="640.0" prefWidth="134.0">
+      <TableView fx:id="subjectTable" prefHeight="640.0" prefWidth="134.0">
         <columns>
-          <TableColumn prefWidth="132.0" text="Subject" />
+          <TableColumn fx:id="subjectCollom" prefWidth="132.0" text="Subject" />
         </columns>
       </TableView>
       <TableView prefHeight="640.0" prefWidth="367.0">
