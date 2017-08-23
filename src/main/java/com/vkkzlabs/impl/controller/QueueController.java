@@ -65,4 +65,12 @@ public class QueueController {
             return new ResponseEntity<List<Queue>>(queues, HttpStatus.OK);
         } return new ResponseEntity<List<Queue>>(HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("TryGetQueueToStudent/{idUser}")
+    public ResponseEntity<List<Queue>> tryToGetQueueToStudent(@PathVariable("idUser") int idUser){
+        List<Queue> queues = queueService.tryToGetQueue(idUser);
+        if (queues != null){
+            return new ResponseEntity<List<Queue>>(queues, HttpStatus.OK);
+        } return new ResponseEntity<List<Queue>>(HttpStatus.NOT_FOUND);
+    }
 }

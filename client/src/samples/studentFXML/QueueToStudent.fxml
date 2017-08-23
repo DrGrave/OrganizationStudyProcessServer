@@ -1,41 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="1249.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1123.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="studentTable" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="studentTable" prefHeight="692.0" prefWidth="229.0">
         <columns>
-          <TableColumn fx:id="studentNameCollom" prefWidth="75.0" text="Name" />
-          <TableColumn fx:id="studentSurnameCollom" prefWidth="75.0" text="Surname" />
+          <TableColumn fx:id="studentNameCollom" prefWidth="106.0" text="Name" />
+          <TableColumn fx:id="studentSurnameCollom" prefWidth="119.00003051757812" text="Surname" />
         </columns>
       </TableView>
-      <TableView fx:id="subjectTable" prefHeight="562.0" prefWidth="169.0">
+      <TableView fx:id="subjectTable" prefHeight="692.0" prefWidth="209.0">
         <columns>
-          <TableColumn fx:id="subjectCollom" prefWidth="75.0" text="Subject" />
-          <TableColumn fx:id="workCollom" prefWidth="75.0" text="Work №" />
+          <TableColumn fx:id="subjectCollom" prefWidth="117.0" text="Subject" />
+          <TableColumn fx:id="workCollom" prefWidth="89.0" text="Work №" />
         </columns>
       </TableView>
-      <TableView fx:id="commentTable" prefHeight="400.0" prefWidth="90.0">
+      <TableView fx:id="commentTable" prefHeight="692.0" prefWidth="105.0">
         <columns>
-          <TableColumn fx:id="commentToWorkCollom" prefWidth="75.0" text="Date of comment" />
+          <TableColumn fx:id="commentToWorkCollom" prefWidth="101.0" text="Date of comment" />
         </columns>
       </TableView>
-      <GridPane>
+      <GridPane prefHeight="562.0" prefWidth="392.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
+         <children>
+            <Label text="Professor name" GridPane.rowIndex="1" />
+            <Label text="Professor surname" GridPane.rowIndex="2" />
+            <Label text="Professor patronymic" GridPane.rowIndex="3" />
+            <Label text="Subject" GridPane.rowIndex="5" />
+            <Label text="Time when wotk start" GridPane.rowIndex="6" />
+            <TextField fx:id="professorName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="professorSurname" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="professorPatronimyc" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="professorSubject" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="timeToStartWork" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="timeToEndWork" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="Time when wotk end" GridPane.rowIndex="7" />
+            <Label text="Auditory" GridPane.rowIndex="4" />
+            <TextField fx:id="numberOfAuditory" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+         <HBox.margin>
+            <Insets left="5.0" />
+         </HBox.margin>
       </GridPane>
    </children>
 </HBox>

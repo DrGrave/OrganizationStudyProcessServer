@@ -24,9 +24,8 @@ public class QueueRequest {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.add("Authorization", token);
             HttpEntity<?> entity = new HttpEntity<>(queue, httpHeaders);
-            HttpEntity<Queue[]> myUserCredentialsHttpEntity = restTemplate.exchange(REST_SERVICE_URI + "/Queue/StayInQueue", HttpMethod.POST, entity, Queue[].class);
-            Queue[] getQueue = myUserCredentialsHttpEntity.getBody();
-            return getQueue;
+            HttpEntity<Queue[]> queueEntity = restTemplate.exchange(REST_SERVICE_URI + "/Queue/StayInQueue", HttpMethod.POST, entity, Queue[].class);
+            return queueEntity.getBody();
         } catch (HttpClientErrorException exception){
             return null;
         }
@@ -38,9 +37,8 @@ public class QueueRequest {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.add("Authorization", token);
             HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
-            HttpEntity<Queue[]> myUserCredentialsHttpEntity = restTemplate.exchange(REST_SERVICE_URI + "/Queue/GetToStudent/"+queue.getTimetable().getIdTimetable(), HttpMethod.GET, entity, Queue[].class);
-            Queue[] getQueue = myUserCredentialsHttpEntity.getBody();
-            return getQueue;
+            HttpEntity<Queue[]> queueEntity = restTemplate.exchange(REST_SERVICE_URI + "/Queue/GetToStudent/"+queue.getTimetable().getIdTimetable(), HttpMethod.GET, entity, Queue[].class);
+            return queueEntity.getBody();
         } catch (HttpClientErrorException ex){
             return null;
         }
@@ -52,12 +50,23 @@ public class QueueRequest {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.add("Authorization", token);
             HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
-            HttpEntity<Queue[]> myUserCredentialsHttpEntity = restTemplate.exchange(REST_SERVICE_URI + "/Queue/GetSubjects/"+idUser+"/Timetable/"+idTimetable, HttpMethod.GET, entity, Queue[].class);
-            Queue[] getSubject = myUserCredentialsHttpEntity.getBody();
-            return getSubject;
+            HttpEntity<Queue[]> queueEntity = restTemplate.exchange(REST_SERVICE_URI + "/Queue/GetSubjects/"+idUser+"/Timetable/"+idTimetable, HttpMethod.GET, entity, Queue[].class);
+            return queueEntity.getBody();
         } catch (HttpClientErrorException ex) {
             return null;
         }
     }
 
+    public Queue[] tryToGetQueueToUser(MyUser iUser, String token) {
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add("Authorization", token);
+            HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
+            HttpEntity<Queue[]> queueEntity = restTemplate.exchange(REST_SERVICE_URI + "/Queue/TryGetQueueToStudent/"+iUser.getIdUser(), HttpMethod.GET, entity, Queue[].class);
+            return queueEntity.getBody();
+        }catch (HttpClientErrorException ex){
+            return null;
+        }
+    }
 }

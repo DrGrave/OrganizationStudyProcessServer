@@ -149,7 +149,7 @@ public class TableOfDebitsController {
                                 if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 1){
                                     setTooltip(tooltip);
                                 }
-                                if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 4){
+                                if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 5){
                                     setStyle("-fx-background-color: green");
                                 }else
                                 if (item.getDeadlineForWork().before(thisDate)) {

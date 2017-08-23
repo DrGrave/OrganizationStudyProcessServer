@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import requests.CommentToWorkRequest;
 import requests.QueueRequest;
@@ -41,6 +42,27 @@ public class QueueTabController {
     @FXML
     private TableColumn<CommentToWork, String> commentToWorkCollom;
 
+    @FXML
+    private TextField professorName;
+
+    @FXML
+    private TextField professorSurname;
+
+    @FXML
+    private TextField professorPatronimyc;
+
+    @FXML
+    private TextField professorSubject;
+
+    @FXML
+    private TextField timeToStartWork;
+
+    @FXML
+    private TextField timeToEndWork;
+
+    @FXML
+    private TextField numberOfAuditory;
+
     private final MyUser iUser;
     private final MyUserCredentials myUserCredentials;
     private final String token;
@@ -54,6 +76,7 @@ public class QueueTabController {
     }
 
     public void initialize(){
+        initializeProfessorInfo(queues);
         List<Queue> queueList = new ArrayList<>();
         for (Queue queu : queues){
             if (!ifExistsInList(queueList, queu)) {
@@ -87,6 +110,17 @@ public class QueueTabController {
                 }
             }
         });
+    }
+
+    private void initializeProfessorInfo(Queue[] queues) {
+        Timetable timetable = queues[0].getTimetable();
+        professorName.setText(timetable.getProfessor().getUserName());
+        professorSurname.setText(timetable.getProfessor().getUserSurname());
+        professorPatronimyc.setText(timetable.getProfessor().getUserPatronymic());
+        professorSubject.setText(timetable.getSubject().getNameSubject());
+        timeToStartWork.setText(String.valueOf(timetable.getDate()));
+        timeToEndWork.setText(String.valueOf(timetable.getTimeOfEndWork()));
+        numberOfAuditory.setText(timetable.getAuditory());
     }
 
     private void initializeSubjectsList(Timetable timetable, int idUser, int position) {

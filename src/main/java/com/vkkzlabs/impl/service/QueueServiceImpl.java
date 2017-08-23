@@ -2,10 +2,12 @@ package com.vkkzlabs.impl.service;
 
 import com.vkkzlabs.api.dao.QueueDAO;
 import com.vkkzlabs.api.entity.Queue;
+import com.vkkzlabs.api.entity.Timetable;
 import com.vkkzlabs.api.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -42,5 +44,17 @@ public class QueueServiceImpl implements QueueService {
     @Override
     public List<Queue> getQueueToSubject(int idTimetable, int idStudent) {
         return queueDAO.findAllByTimetable_IdTimetableAndStudent_IdUser(idTimetable, idStudent);
+    }
+
+    @Override
+    public List<Queue> tryToGetQueue(int idUser) {
+        List<Queue> queue = queueDAO.findAllByStudent_IdUser(idUser);
+        Date date = new Date(System.currentTimeMillis());
+        for (Queue queu : queue){
+            if (queue != null && queu.getTimetable().getTimeOfEndWork().getTime() >= date.getTime()){
+                return queueDAO.findAllByTimetable_IdTimetable(queu.getTimetable().getIdTimetable());
+            }
+        }
+        return null;
     }
 }

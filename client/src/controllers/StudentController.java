@@ -4,6 +4,7 @@ package controllers;
 import com.vkkzlabs.api.entity.*;
 import controllers.studentsControllers.QueueTabController;
 import controllers.studentsControllers.TableOfDebitsController;
+import controllers.studentsControllers.TableOfMarksController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,10 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.image.ImageView;
-import requests.AchievementsRequest;
-import requests.SettingsRequest;
-import requests.StudentWorksController;
-import requests.SupportFilesRequest;
+import requests.*;
 
 
 import javax.swing.*;
@@ -91,19 +89,32 @@ public class StudentController {
     public void initialize() throws IOException {
         initializeInfoOfStudent(iUser);
         initializeCreateFolders();
-
-
-//        FXMLLoader achievements = new  FXMLLoader(getClass().getResource("../samples/studentFXML/Achievements.fxml"));
-//        AchievementsController achievementsController = new AchievementsController();
-//        achievements.setController(achievementsController);
-//        hBoxStudentInfo.getChildren().add(achievements.load());
-
+        initializeMarksTab();
+        tryToGetQueue();
         checkForAchievement(iUser);
         checkForBadStudent(iUser);
         checkForNewWorks(iUser);
         System.out.print(iUser.getIdUser());
         System.out.print(token);
         System.out.print(myUserCredentials.getUserLogin());
+    }
+
+    private void tryToGetQueue() throws IOException {
+        QueueRequest queueRequest = new QueueRequest();
+        Queue[] queues = queueRequest.tryToGetQueueToUser(iUser, token);
+        if (queues != null){
+            FXMLLoader queueTabs = new  FXMLLoader(getClass().getResource("../samples/studentFXML/QueueToStudent.fxml"));
+            QueueTabController queueTabController = new QueueTabController(iUser, token, myUserCredentials, queues);
+            queueTabs.setController(queueTabController);
+            queuePane.getChildren().add(queueTabs.load());
+        }
+    }
+
+    private void initializeMarksTab() throws IOException {
+        FXMLLoader marksTabFx = new  FXMLLoader(getClass().getResource("../samples/studentFXML/MarksTab.fxml"));
+        TableOfMarksController tableOfMarksController = new TableOfMarksController(iUser, token, myUserCredentials);
+        marksTabFx.setController(tableOfMarksController);
+        marksTab.setContent(marksTabFx.load());
     }
 
     private void initializeCreateFolders() throws FileNotFoundException, UnsupportedEncodingException {
