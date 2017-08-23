@@ -127,11 +127,7 @@ public class QueueTabController {
         QueueRequest queueRequest = new QueueRequest();
         Queue[] queueArray = queueRequest.getSubjectsToStudent(timetable.getIdTimetable(), idUser, token);
         List<Queue> subjects = new ArrayList<>();
-        for (Queue queue : queueArray){
-            if (!ifExistsinListBySubjects(subjects, queue)){
-                subjects.add(queue);
-            }
-        }
+        subjects = Arrays.asList(queueArray);
         ObservableList<Queue> queueObservableList = FXCollections.observableList(subjects);
         subjectTable.setItems(queueObservableList);
         subjectCollom.setCellValueFactory(

@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 @RunWith(SpringRunner.class)
@@ -155,6 +156,11 @@ public class SystemOfOrganizationStudyProcessApplicationTests {
 		subject.setNameSubject("POVS");
 		subjectService.saveSubject(subject);
 
+		subject = new Subject();
+		subject.setChair(chair);
+		subject.setNameSubject("POTSP");
+		subjectService.saveSubject(subject);
+
 		Work work = new Work();
 		work.setMyUser(userService.getUserById(2));
 		work.setNameOfWork("Masses");
@@ -164,12 +170,43 @@ public class SystemOfOrganizationStudyProcessApplicationTests {
 		work.setSubject(subject);
 		workService.saveWork(work);
 
+		work = new Work();
+		work.setMyUser(userService.getUserById(2));
+		work.setNameOfWork("Works");
+		work.setNumberOfWOrk("1");
+		work.setTextOfWork("Do sum work");
+		work.setTypeOfWork(typeOfWork);
+		work.setSubject(subjectService.getSubjectByIdSubject(1));
+		workService.saveWork(work);
+
+		work = new Work();
+		work.setMyUser(userService.getUserById(2));
+		work.setNameOfWork("Works");
+		work.setNumberOfWOrk("1");
+		work.setTextOfWork("Do sum work");
+		work.setTypeOfWork(typeOfWork);
+		work.setSubject(subject);
+		workService.saveWork(work);
+
+
 		TypeOfAcceptWork typeOfAcceptWork = new TypeOfAcceptWork();
 		typeOfAcceptWork.setNameOfAccaptWork("Not watched");
 		typeOfAcceptWorkService.saveTypeOfAcceptWork(typeOfAcceptWork);
 
 		typeOfAcceptWork = new TypeOfAcceptWork();
 		typeOfAcceptWork.setNameOfAccaptWork("Watched");
+		typeOfAcceptWorkService.saveTypeOfAcceptWork(typeOfAcceptWork);
+
+		typeOfAcceptWork = new TypeOfAcceptWork();
+		typeOfAcceptWork.setNameOfAccaptWork("Under construction");
+		typeOfAcceptWorkService.saveTypeOfAcceptWork(typeOfAcceptWork);
+
+		typeOfAcceptWork = new TypeOfAcceptWork();
+		typeOfAcceptWork.setNameOfAccaptWork("In queue");
+		typeOfAcceptWorkService.saveTypeOfAcceptWork(typeOfAcceptWork);
+
+		typeOfAcceptWork = new TypeOfAcceptWork();
+		typeOfAcceptWork.setNameOfAccaptWork("Accepted");
 		typeOfAcceptWorkService.saveTypeOfAcceptWork(typeOfAcceptWork);
 
 		M2MStudentWork m2MStudentWork = new M2MStudentWork();
@@ -180,6 +217,45 @@ public class SystemOfOrganizationStudyProcessApplicationTests {
 		m2MStudentWork.setDeadlineForWork(new Date(calendar.getTime().getTime()));
 		studentWorkService.saveStudentWork(m2MStudentWork);
 
+		m2MStudentWork = new M2MStudentWork();
+		m2MStudentWork.setIdOfAccaptWork(typeOfAcceptWorkService.getTypeOfAcceptWorkByIdAcceptWork(1));
+		m2MStudentWork.setIdOfWork(workService.getWorkByIdWork(2));
+		m2MStudentWork.setIdUser(userService.getUserById(3));
+		m2MStudentWork.setMark(0);
+		m2MStudentWork.setDeadlineForWork(new Date(calendar.getTime().getTime()));
+		studentWorkService.saveStudentWork(m2MStudentWork);
+
+		m2MStudentWork = new M2MStudentWork();
+		m2MStudentWork.setIdOfAccaptWork(typeOfAcceptWorkService.getTypeOfAcceptWorkByIdAcceptWork(1));
+		m2MStudentWork.setIdOfWork(workService.getWorkByIdWork(3));
+		m2MStudentWork.setIdUser(userService.getUserById(3));
+		m2MStudentWork.setMark(0);
+		m2MStudentWork.setDeadlineForWork(new Date(calendar.getTime().getTime()));
+		studentWorkService.saveStudentWork(m2MStudentWork);
+
+		CommentToWork commentToWork = new CommentToWork();
+		commentToWork.setDate(new Date(calendar.getTime().getTime()));
+		commentToWork.setProfessor(userService.getUserById(2));
+		commentToWork.setStudent(userService.getUserById(3));
+		commentToWork.setWork(workService.getWorkByIdWork(1));
+		commentToWork.setTextOfCommentWork("BadWork");
+		commentToWorkService.saveCommentToWork(commentToWork);
+
+		commentToWork = new CommentToWork();
+		commentToWork.setDate(new Date(calendar.getTime().getTime()));
+		commentToWork.setProfessor(userService.getUserById(2));
+		commentToWork.setStudent(userService.getUserById(3));
+		commentToWork.setWork(workService.getWorkByIdWork(1));
+		commentToWork.setTextOfCommentWork("Wary bad work");
+		commentToWorkService.saveCommentToWork(commentToWork);
+
+		commentToWork = new CommentToWork();
+		commentToWork.setDate(new Date(calendar.getTime().getTime()));
+		commentToWork.setProfessor(userService.getUserById(2));
+		commentToWork.setStudent(userService.getUserById(3));
+		commentToWork.setWork(workService.getWorkByIdWork(2));
+		commentToWork.setTextOfCommentWork("Wary bad work");
+		commentToWorkService.saveCommentToWork(commentToWork);
 
 	}
 

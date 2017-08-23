@@ -107,30 +107,19 @@ public class TableOfDebitsController {
     }
 
     public void initialize(){
+        initializeDebtTable();
+
+    }
+
+    private void initializeDebtTable() {
         M2MStudentWork[] studentWorks = studentWorksController.getSubjectsToList(iUser.getIdUser(), token);
         subjectTable.refresh();
         if (studentWorks != null) {
             List<M2MStudentWork> subjects = new ArrayList<>();
-            List<M2MStudentWork> toSort = Arrays.asList(studentWorks);
-            Collections.sort(toSort, Collections.reverseOrder(M2MStudentWork.COMPARE_BY_DATE));
-            studentWorks = toSort.toArray(studentWorks);
-            for (M2MStudentWork m2MStudentWork : studentWorks) {
-                if (!ifExistsInList(subjects, m2MStudentWork)) {
-                    subjects.add(m2MStudentWork);
-                }else{
-                    for (M2MStudentWork studentWork : subjects){
-                        if (studentWork.getIdOfWork().getSubject().getIdSubject() == m2MStudentWork.getIdOfWork().getSubject().getIdSubject() && 4 > m2MStudentWork.getIdOfAccaptWork().getIdOfAccaptWork()){
-                            subjects.remove(studentWork);
-                            subjects.add(m2MStudentWork);
-                        }
-                    }
-                }
-            }
             Date thisDate = studentWorksController.getServerDate(token);
             LocalDate date7 = thisDate.toLocalDate().plusDays(7);
-            LocalDate date15 = thisDate.toLocalDate().minusDays(15);
             Tooltip tooltip = new Tooltip("New work by this subject");
-            ObservableList<M2MStudentWork> subjectObservableList = FXCollections.observableList(subjects);
+            ObservableList<M2MStudentWork> subjectObservableList = FXCollections.observableList(sortSubjects(subjects, thisDate, date7, studentWorks));
             subjectTable.setItems(subjectObservableList);
             subjectCollom.setCellValueFactory(
                     cellDate -> new SimpleStringProperty(cellDate.getValue().getIdOfWork().getSubject().getNameSubject())
@@ -158,7 +147,7 @@ public class TableOfDebitsController {
                                 if (item.getDeadlineForWork().before(java.sql.Date.valueOf(date7))){
                                     setStyle("-fx-background-color: coral;");
                                 }else
-                                if (item.getDeadlineForWork().after(java.sql.Date.valueOf(date15))){
+                                if (item.getDeadlineForWork().after(java.sql.Date.valueOf(date7))){
                                     setStyle("-fx-background-color: khaki;");
                                 }
                             }
@@ -183,8 +172,10 @@ public class TableOfDebitsController {
             });
 
         }
-
     }
+
+
+
 
     private void initializeWorksTable(Subject subject, MyUser iUser, int position) {
         M2MStudentWork[] m2MStudentWork = studentWorksController.getWorksByUserIdAndSubjectId(iUser, subject, token);
@@ -385,8 +376,35 @@ public class TableOfDebitsController {
     }
 
 
-
-
+    private List<M2MStudentWork> sortSubjects(List<M2MStudentWork> subjects, Date thisDate, LocalDate date7, M2MStudentWork[] studentWorks) {
+        List<M2MStudentWork> sorted = new ArrayList<>();
+        for (M2MStudentWork m2MStudentWork : studentWorks) {
+            if (m2MStudentWork.getDeadlineForWork().before(thisDate) && 4 > m2MStudentWork.getIdOfAccaptWork().getIdOfAccaptWork()) {
+                subjects.add(m2MStudentWork);
+            }
+        }
+        for (M2MStudentWork m2MStudentWork : studentWorks) {
+            if (m2MStudentWork.getDeadlineForWork().before(java.sql.Date.valueOf(date7)) && m2MStudentWork.getDeadlineForWork().after(thisDate) && 4 > m2MStudentWork.getIdOfAccaptWork().getIdOfAccaptWork()) {
+                subjects.add(m2MStudentWork);
+            }
+        }
+        for (M2MStudentWork m2MStudentWork : studentWorks) {
+            if (m2MStudentWork.getDeadlineForWork().after(java.sql.Date.valueOf(date7)) && 4 > m2MStudentWork.getIdOfAccaptWork().getIdOfAccaptWork()) {
+                subjects.add(m2MStudentWork);
+            }
+        }
+        for (M2MStudentWork m2MStudentWork : studentWorks) {
+            if (5 == m2MStudentWork.getIdOfAccaptWork().getIdOfAccaptWork()) {
+                subjects.add(m2MStudentWork);
+            }
+        }
+        for (M2MStudentWork m2MStudentWork :subjects){
+            if (!ifExistsInList(sorted, m2MStudentWork)){
+                sorted.add(m2MStudentWork);
+            }
+        }
+        return sorted;
+    }
 }
 
 

@@ -29,13 +29,13 @@ public class StudentWorkServiceImpl implements StudentWorkService {
 
     @Override
     public List<M2MStudentWork> getListSubjectsToStudent(int idUser) {
-        List<M2MStudentWork> works = studentWorkDAO.findAllByIdUser_IdUser(idUser);
+        List<M2MStudentWork> works = studentWorkDAO.findAllByIdUser_IdUserOrderByIdOfAccaptWork(idUser);
         return works;
     }
 
     @Override
     public List<M2MStudentWork> getListWorksToStudent(int idUser, int idSubject) {
-        List<M2MStudentWork> works = studentWorkDAO.findAllByIdOfWork_Subject_IdSubjectAndAndIdUser_IdUserOrderByIdOfAccaptWork(idSubject, idUser);
+        List<M2MStudentWork> works = studentWorkDAO.findAllByIdOfWork_Subject_IdSubjectAndAndIdUser_IdUserOrderByDeadlineForWork(idSubject, idUser);
         return works;
     }
 
@@ -46,6 +46,6 @@ public class StudentWorkServiceImpl implements StudentWorkService {
 
     @Override
     public List<M2MStudentWork> getListOfNewWorks(int id) {
-        return studentWorkDAO.findAllByIdOfWork_Subject_IdSubjectAndAndIdUser_IdUserOrderByIdOfAccaptWork(1, id);
+        return studentWorkDAO.findAllByIdOfWork_Subject_IdSubjectAndAndIdUser_IdUserOrderByDeadlineForWork(1, id);
     }
 }
