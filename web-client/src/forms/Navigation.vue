@@ -7,11 +7,11 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Домашняя </a>
+            <li class="nav-item">
+                <v-link href="/">Главная</v-link>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">О системе</a>
+                <v-link href="/about">О системе</v-link>
             </li>
         </ul>
 
@@ -22,10 +22,11 @@
 
 <script>
     import AuthForm from './AuthForm.vue'
+    import VLink from './VLink.vue'
 
     module.exports = {
         components: {
-            AuthForm
+            AuthForm, VLink
         }
     }
 </script>
