@@ -66,7 +66,7 @@ public class CalendarController {
     private Calendar calendar = Calendar.getInstance();
     private Calendar calendarNextWeek = Calendar.getInstance();
     @FXML
-    void nextWeekAction(ActionEvent event) {
+    void nextWeekAction(ActionEvent event) throws IOException {
         clearEvents();
         if (calendar.get(Calendar.WEEK_OF_YEAR) == calendarNextWeek.get(Calendar.WEEK_OF_YEAR)){
             calendarNextWeek.set(Calendar.WEEK_OF_YEAR, calendar.get(Calendar.WEEK_OF_YEAR)+1);
@@ -79,7 +79,7 @@ public class CalendarController {
     }
 
     @FXML
-    void prevWeekAction(ActionEvent event) {
+    void prevWeekAction(ActionEvent event) throws IOException {
         clearEvents();
         if (calendar.get(Calendar.WEEK_OF_YEAR) == calendarNextWeek.get(Calendar.WEEK_OF_YEAR)){
             calendarNextWeek.set(Calendar.WEEK_OF_YEAR, calendar.get(Calendar.WEEK_OF_YEAR)-1);
@@ -91,14 +91,14 @@ public class CalendarController {
 
     }
 
-    private void clearEvents() {
-
-
+    private void clearEvents() throws IOException {
+       vBox.getChildren().remove(vBox.getChildren().get(2));
+        initialize();
     }
 
 
     @FXML
-    void thisDayAction(ActionEvent event) {
+    void thisDayAction(ActionEvent event) throws IOException {
         clearEvents();
         calendar = Calendar.getInstance();
         calendarNextWeek = Calendar.getInstance();
@@ -110,14 +110,17 @@ public class CalendarController {
         initializeLabelsTextSize();
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
         initializeWeeks(calendar);
+
         FXMLLoader gridEvent = new  FXMLLoader(getClass().getResource("../samples/GridPaneOfEvents.fxml"));
         PaneOfEventsController paneOfEventsController = new PaneOfEventsController(calendar, mondayLabel,tuesdayLabel,wednesdayLabel,thursdayLabel,fridayLabel,saturdayLabel,sundayLabel,dateLabel);
         gridEvent.setController(paneOfEventsController);
         vBox.getChildren().add(gridEvent.load());
-
     }
 
-    private void initializeWeeks(Calendar calendar) {
+    private void initializeWeeks(Calendar calendar) throws IOException {
+
+
+
         getDate(calendar);
         getWeek(calendar);
         //getTimeLine(calendar);
