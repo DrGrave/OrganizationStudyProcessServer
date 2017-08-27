@@ -9,12 +9,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+
 public class CreateEventController {
     @FXML
     private DatePicker dateOfStart;
-
-    @FXML
-    private DatePicker dateOfEnd;
 
     @FXML
     private Slider howersOfStart;
@@ -42,10 +44,12 @@ public class CreateEventController {
 
     private int row;
     private int col;
+    private Calendar calendar;
 
-    public CreateEventController(int row, int col) {
+    public CreateEventController(int row, int col, Calendar calendar) {
         this.row = row;
         this.col = col;
+        this.calendar = calendar;
     }
 
     @FXML
@@ -75,9 +79,14 @@ public class CreateEventController {
         if (minutes == 0){
             timeOfStartLabel.setText(String.valueOf(hour)+":"+"00");
         }else timeOfStartLabel.setText(String.valueOf(hour)+":"+String.valueOf(minutes*15));
+        Date dateTime = new Date(calendar.getTimeInMillis());
+        LocalDate localDate = dateTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();;
+        dateOfStart.setValue(localDate);
         houersOfEnd.setValue((hour+1)*4.16);
         minutesOfEnd.setValue(minutes*15*1.667);
-        timeOfEndLabel.setText(String.valueOf(hour+1)+":"+String.valueOf(minutes*15));
+        if (minutes == 0){
+            timeOfEndLabel.setText(String.valueOf(hour+1)+":"+"00");
+        }else timeOfEndLabel.setText(String.valueOf(hour+1)+":"+String.valueOf(minutes*15));
         howersOfStart.valueProperty().addListener((observableValue, number, t1) -> {
             Double howers = howersOfStart.getValue()/4.16;
             Double minutes12 = minutesOfStart.getValue()/8.3;
@@ -96,6 +105,7 @@ public class CreateEventController {
             }else strHour = String.valueOf(hour12);
             timeOfStartLabel.textProperty().setValue(strHour+":"+strMinutes);
         });
+
         minutesOfStart.valueProperty().addListener((observableValue, number, t1) -> {
             Double howers = howersOfStart.getValue()/4.16;
             Double minutes1 = minutesOfStart.getValue()/8.3;
@@ -114,6 +124,7 @@ public class CreateEventController {
             }else strHour = String.valueOf(hour1);
             timeOfStartLabel.textProperty().setValue(strHour+":"+strMinutes);
         });
+
         houersOfEnd.valueProperty().addListener((observableValue, number, t1) -> {
             Double howers = houersOfEnd.getValue()/4.16;
             Double minutes12 = minutesOfEnd.getValue()/8.3;
@@ -132,6 +143,7 @@ public class CreateEventController {
             }else strHour = String.valueOf(hour12);
             timeOfEndLabel.textProperty().setValue(strHour+":"+strMinutes);
         });
+
         minutesOfEnd.valueProperty().addListener((observableValue, number, t1) -> {
             Double howers = houersOfEnd.getValue()/4.16;
             Double minutes1 = minutesOfEnd.getValue()/8.3;

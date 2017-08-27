@@ -38,13 +38,7 @@
                </GridPane.margin>
             </Label>
             <DatePicker fx:id="dateOfStart" GridPane.columnIndex="1" />
-            <DatePicker fx:id="dateOfEnd" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Time of start" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </Label>
-            <Label text="Date of end" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>

@@ -3,17 +3,15 @@ package controllers;
 import com.vkkzlabs.api.entity.Subject;
 import com.vkkzlabs.api.entity.Timetable;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.TextFlow;
+import javafx.scene.text.Font;
+
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -61,24 +59,70 @@ public class CalendarController {
     @FXML
     private GridPane eventGridPane;
 
+    private Label textOfEvent = new Label();
+    private Pane startPane = new Pane();
+    private Pane endPane = new Pane();
+    private Pane middlePane = new Pane();
+    private Pane paneToText = new Pane();
+
+    private Calendar calendar = Calendar.getInstance();
+    private Calendar calendarNextWeek = Calendar.getInstance();
     @FXML
     void nextWeekAction(ActionEvent event) {
+        clearEvents();
+        if (calendar.get(Calendar.WEEK_OF_YEAR) == calendarNextWeek.get(Calendar.WEEK_OF_YEAR)){
+            calendarNextWeek.set(Calendar.WEEK_OF_YEAR, calendar.get(Calendar.WEEK_OF_YEAR)+1);
+            initializeWeeks(calendarNextWeek);
+        }else {
+            calendarNextWeek.set(Calendar.WEEK_OF_YEAR, calendarNextWeek.get(Calendar.WEEK_OF_YEAR)+1);
+            initializeWeeks(calendarNextWeek);
+        }
 
     }
 
     @FXML
     void prevWeekAction(ActionEvent event) {
+        clearEvents();
+        if (calendar.get(Calendar.WEEK_OF_YEAR) == calendarNextWeek.get(Calendar.WEEK_OF_YEAR)){
+            calendarNextWeek.set(Calendar.WEEK_OF_YEAR, calendar.get(Calendar.WEEK_OF_YEAR)-1);
+            initializeWeeks(calendarNextWeek);
+        }else {
+            calendarNextWeek.set(Calendar.WEEK_OF_YEAR, calendarNextWeek.get(Calendar.WEEK_OF_YEAR)-1);
+            initializeWeeks(calendarNextWeek);
+        }
 
     }
 
+    private void clearEvents() {
+        textOfEvent.setText(null);
+        eventGridPane.getChildren().removeAll(startPane);
+        eventGridPane.getChildren().removeAll(endPane);
+        eventGridPane.getChildren().removeAll(middlePane);
+        eventGridPane.getChildren().removeAll(middlePane);
+        eventGridPane.getChildren().removeAll(middlePane);
+        eventGridPane.getChildren().removeAll(middlePane);
+        eventGridPane.getChildren().removeAll(paneToText);
+        eventGridPane.getChildren().clear();
+
+    }
+
+
     @FXML
     void thisDayAction(ActionEvent event) {
+        clearEvents();
+        calendar = Calendar.getInstance();
+        calendarNextWeek = Calendar.getInstance();
+        initializeWeeks(calendar);
 
     }
 
     public void initialize(){
-        Calendar calendar = Calendar.getInstance();
+        initializeLabelsTextSize();
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        initializeWeeks(calendar);
+    }
+
+    private void initializeWeeks(Calendar calendar) {
         getDate(calendar);
         getWeek(calendar);
         getTimeLine(calendar);
@@ -86,27 +130,12 @@ public class CalendarController {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem item1 = new MenuItem("Menu Item 1");
         Label label = new Label();
-        item1.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                label.setText("Select Menu Item 1");
-            }
-        });
+        item1.setOnAction(event -> label.setText("Select Menu Item 1"));
         MenuItem item2 = new MenuItem("Menu Item 2");
-        item2.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                label.setText("Select Menu Item 2");
-            }
-        });
+        item2.setOnAction(event -> label.setText("Select Menu Item 2"));
         contextMenu.getItems().addAll(item1,item2);
-        eventGridPane.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
-            @Override
-            public void handle(ContextMenuEvent contextMenuEvent) {
+        eventGridPane.setOnContextMenuRequested(contextMenuEvent -> {
 
-            }
         });
         List<Integer> rowSel = new ArrayList<>();
         List<Integer> colSel = new ArrayList<>();
@@ -117,14 +146,11 @@ public class CalendarController {
                 int col = i;
                 int row = j;
 
-                pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        try {
-                            createEvent(row, col, rowSel, colSel);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                pane.setOnMouseClicked(mouseEvent -> {
+                    try {
+                        createEvent(row, col, rowSel, colSel);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 });
                 eventGridPane.add(pane, i, j);
@@ -132,9 +158,19 @@ public class CalendarController {
         }
     }
 
+    private void initializeLabelsTextSize() {
+        dateLabel.setFont(new Font(20));
+        mondayLabel.setFont(new Font(15));
+        tuesdayLabel.setFont(new Font(15));
+        wednesdayLabel.setFont(new Font(15));
+        thursdayLabel.setFont(new Font(15));
+        fridayLabel.setFont(new Font(15));
+        saturdayLabel.setFont(new Font(15));
+        sundayLabel.setFont(new Font(15));
+    }
+
     private void createEvent(int row, int col, List<Integer> rowSel, List<Integer> colSel) throws IOException {
 
-        Date date = new Date();
         String[] dates = {mondayLabel.getText(), tuesdayLabel.getText(), wednesdayLabel.getText(),thursdayLabel.getText(),fridayLabel.getText(),saturdayLabel.getText(),sundayLabel.getText()};
         List<Integer> parsedDates = new ArrayList<>();
         for (String str :dates){
@@ -150,6 +186,7 @@ public class CalendarController {
         int month = Integer.parseInt(dateLabel.getText().substring(0,2).replaceAll("[\\D]", ""));
         int day = selectDate;
         Calendar calendar = Calendar.getInstance();
+
         calendar.set(Calendar.YEAR,year);
         calendar.set(Calendar.MONTH, month-1);
         calendar.set(Calendar.DAY_OF_MONTH, day);
@@ -161,17 +198,17 @@ public class CalendarController {
             rowSel.clear();
             rowSel.add(0);
             colSel.clear();
-            showCreateEventDialog(row,col, date);
+            showCreateEventDialog(row,col, calendar);
             System.out.println(row);
             System.out.println(col);
         }
     }
 
-    private void showCreateEventDialog(int row, int col, Date date) throws IOException {
+    private void showCreateEventDialog(int row, int col, Calendar calendar) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         DialogPane dialogPane = new DialogPane();
         FXMLLoader createEvent = new  FXMLLoader(getClass().getResource("../samples/CreateEvent.fxml"));
-        CreateEventController createEventController = new CreateEventController(row,col);
+        CreateEventController createEventController = new CreateEventController(row,col, calendar);
         createEvent.setController(createEventController);
         dialogPane.getChildren().add(createEvent.load());
         dialogPane.setOnKeyPressed(keyEvent -> {
@@ -212,7 +249,8 @@ public class CalendarController {
         for (String str :dates){
             parsedDates.add(Integer.parseInt(str.replaceAll("[\\D]", "")));
         }
-        if (parsedDates.contains(dateOfStart.getDate())){
+        int month = Integer.parseInt(dateLabel.getText().substring(0,2).replaceAll("[\\D]", ""));
+        if (parsedDates.contains(dateOfStart.getDate()) && dateOfStart.getMonth() == month-1){
             int column = parsedDates.indexOf(dateOfStart.getDate());
             int rowStart = dateOfStart.getHours()*4+1;
             int rowEnd = dateofEnd.getHours()*4+1;
@@ -222,17 +260,16 @@ public class CalendarController {
             rowStart = rowStart+minuteStart;
             drawEvent(rowStart, rowEnd, column, text);
         }
-        System.out.println(parsedDates.get(1));
     }
 
     private void drawEvent(int rowStart,int rowEnd, int column, String text) {
-        Pane startPane = new Pane();
+        startPane = new Pane();
         startPane.setOpacity(0.6F);
         startPane.setStyle("-fx-background-color: #3c763d; -fx-border-radius: 10 10 0 0; -fx-background-radius: 10 10 0 0;");
         eventGridPane.setMargin(startPane, new Insets(0,1,0,0));
         eventGridPane.add(startPane, column+1, rowStart);
         printMiddle(rowStart,rowEnd,column, text);
-        Pane endPane = new Pane();
+        endPane = new Pane();
         endPane.setOpacity(0.6F);
         endPane.setStyle("-fx-background-color: #3c763d;-fx-border-radius: 0 0 10 10; -fx-background-radius: 0 0 10 10;");
         eventGridPane.setMargin(endPane, new Insets(0,1,0,0));
@@ -243,27 +280,21 @@ public class CalendarController {
         int col = (rowEnd-rowStart-1)/2;
         int rowToText = rowStart+col;
         for (int i = rowStart+1; i<rowEnd; i++ ){
-            if (i == rowToText){
-                Pane paneToText = new Pane();
-                Pane pane = new Pane();
-                Label label = new Label();
-                label.setMaxWidth(75);
-                label.setWrapText(true);
-                label.setText(text);
-                paneToText.getChildren().add(label);
-                pane.setOpacity(0.6F);
-                pane.setStyle("-fx-background-color: #3c763d");
-                eventGridPane.add(pane, column+1,i);
-                eventGridPane.setMargin(pane, new Insets(0,1,0,0));
-                eventGridPane.add(paneToText, column+1,i-1);
-            }else {
-                Pane middlePane = new Pane();
+                middlePane = new Pane();
                 middlePane.setOpacity(0.6F);
                 middlePane.setStyle("-fx-background-color: #3c763d");
                 eventGridPane.add(middlePane, column + 1, i);
                 eventGridPane.setMargin(middlePane, new Insets(0,1,0,0));
-            }
         }
+        paneToText = new Pane();
+        textOfEvent = new Label();
+        textOfEvent.setFont(new Font(10));
+        textOfEvent.setMaxWidth(75);
+        textOfEvent.setWrapText(true);
+        textOfEvent.setText(text);
+        textOfEvent.setPadding(new Insets(0,0,0,10));
+        paneToText.getChildren().add(textOfEvent);
+        eventGridPane.add(paneToText, column+1,rowToText-1);
         System.out.println(col);
     }
 
@@ -289,8 +320,30 @@ public class CalendarController {
     private void getWeek(Calendar calendar) {
         DateFormat dateFormat = new SimpleDateFormat("u");
         Date date = new Date();
+        Calendar thisCalendar = Calendar.getInstance();
+        thisCalendar.setTime(date);
         int dateOfWeek = Integer.parseInt(dateFormat.format(date));
-        if (dateOfWeek == 1){
+        if (calendar.get(Calendar.WEEK_OF_YEAR) != thisCalendar.get(Calendar.WEEK_OF_YEAR)){
+            clearLabel();
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+            sundayLabel.setStyle("-fx-text-fill: #c9302c");
+            sundayLabel.setText("  Sun " +calendar.get(Calendar.DAY_OF_MONTH));
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+            saturdayLabel.setStyle("-fx-text-fill: #c9302c");
+            saturdayLabel.setText("  Sat "+ calendar.get(Calendar.DAY_OF_MONTH));
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+            fridayLabel.setText("  Fri "+ calendar.get(Calendar.DAY_OF_MONTH));
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+            thursdayLabel.setText("  Thu "+calendar.get(Calendar.DAY_OF_MONTH));
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+            wednesdayLabel.setText("  Wed "+calendar.get(Calendar.DAY_OF_MONTH));
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+            tuesdayLabel.setText("  Tue "+calendar.get(Calendar.DAY_OF_MONTH));
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+            mondayLabel.setText("  Mon "+ calendar.get(Calendar.DAY_OF_MONTH));
+            return;
+        }else if (dateOfWeek == 1){
+            clearLabel();
             mondayLabel.setStyle("-fx-background-color: palevioletred; -fx-background-radius: 3;");
             mondayLabel.setText("  Mon "+ calendar.get(Calendar.DAY_OF_MONTH));
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
@@ -309,6 +362,7 @@ public class CalendarController {
             saturdayLabel.setStyle("-fx-text-fill: #c9302c");
 
         }if (dateOfWeek ==2){
+            clearLabel();
             tuesdayLabel.setStyle("-fx-background-color: palevioletred; -fx-background-radius: 3;");
             tuesdayLabel.setText("  Tue "+calendar.get(Calendar.DAY_OF_MONTH));
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
@@ -327,6 +381,7 @@ public class CalendarController {
             saturdayLabel.setStyle("-fx-text-fill: #c9302c");
 
         }if (dateOfWeek == 3){
+            clearLabel();
             wednesdayLabel.setStyle("-fx-background-color: palevioletred; -fx-background-radius: 3;");
             wednesdayLabel.setText("  Wed "+calendar.get(Calendar.DAY_OF_MONTH));
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
@@ -344,6 +399,7 @@ public class CalendarController {
             sundayLabel.setStyle("-fx-text-fill: #c9302c");
             saturdayLabel.setStyle("-fx-text-fill: #c9302c");
         }if (dateOfWeek == 4){
+            clearLabel();
             thursdayLabel.setStyle("-fx-background-color: palevioletred; -fx-background-radius: 3;");
             thursdayLabel.setText("  Thu "+calendar.get(Calendar.DAY_OF_MONTH));
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
@@ -361,6 +417,7 @@ public class CalendarController {
             sundayLabel.setStyle("-fx-text-fill: #c9302c");
             saturdayLabel.setStyle("-fx-text-fill: #c9302c");
         }if (dateOfWeek == 5){
+            clearLabel();
             fridayLabel.setText("  Fri "+calendar.get(Calendar.DAY_OF_MONTH));
             fridayLabel.setStyle("-fx-background-color: palevioletred; -fx-background-radius: 3;");
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
@@ -379,6 +436,7 @@ public class CalendarController {
             saturdayLabel.setStyle("-fx-text-fill: #c9302c");
 
         }if (dateOfWeek == 6){
+            clearLabel();
             saturdayLabel.setStyle("-fx-background-color: palevioletred; -fx-background-radius: 3 ; -fx-text-fill: #c9302c");
             saturdayLabel.setText("  Sat "+calendar.get(Calendar.DAY_OF_MONTH) );
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
@@ -395,6 +453,7 @@ public class CalendarController {
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
             mondayLabel.setText("  Mon "+ calendar.get(Calendar.DAY_OF_MONTH));
         }if (dateOfWeek == 7){
+            clearLabel();
             sundayLabel.setStyle("-fx-background-color: palevioletred; -fx-text-fill: #c9302c; -fx-background-radius: 3;");
             sundayLabel.setText("  Sun " +calendar.get(Calendar.DAY_OF_MONTH));
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
@@ -411,6 +470,16 @@ public class CalendarController {
             calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
             mondayLabel.setText("  Mon "+ calendar.get(Calendar.DAY_OF_MONTH));
         }
+    }
+
+    private void clearLabel() {
+        mondayLabel.setStyle(null);
+        thursdayLabel.setStyle(null);
+        tuesdayLabel.setStyle(null);
+        wednesdayLabel.setStyle(null);
+        fridayLabel.setStyle(null);
+        sundayLabel.setStyle(null);
+        saturdayLabel.setStyle(null);
     }
 
 }
