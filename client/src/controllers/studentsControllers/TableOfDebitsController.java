@@ -87,10 +87,32 @@ public class TableOfDebitsController {
                     initializeQueueTab(queueRequest.getAllQueueToUser(queue, token));
                 }
             }else {
-                //TODO нет пары для сдачи работы!
+                Alert noTimetableAlert = new Alert(Alert.AlertType.INFORMATION);
+                noTimetableAlert.setTitle("No timetable");
+                DialogPane dialogPane = new DialogPane();
+                dialogPane.setContent(new Label("There is no timetable to accept work!"));
+                dialogPane.setOnKeyPressed(keyEvent -> {
+                    if (keyEvent.getCode() == KeyCode.ESCAPE){
+                        noTimetableAlert.close();
+                    }
+                });
+                dialogPane.getButtonTypes().add(ButtonType.CLOSE);
+                noTimetableAlert.setDialogPane(dialogPane);
+                noTimetableAlert.show();
             }
         } else {
-            //TODO print select work!
+            Alert noWorkAlert = new Alert(Alert.AlertType.INFORMATION);
+            noWorkAlert.setTitle("No work selected");
+            DialogPane dialogPane = new DialogPane();
+            dialogPane.setContent(new Label("No work selected to stay in queue"));
+            dialogPane.setOnKeyPressed(keyEvent -> {
+                if (keyEvent.getCode() == KeyCode.ESCAPE){
+                    noWorkAlert.close();
+                }
+            });
+            dialogPane.getButtonTypes().add(ButtonType.CLOSE);
+            noWorkAlert.setDialogPane(dialogPane);
+            noWorkAlert.show();
         }
     }
 
@@ -103,12 +125,26 @@ public class TableOfDebitsController {
 
     @FXML
     void watchWorkAction(ActionEvent event) throws IOException {
-        initializeInfoOfWork(debtTable.getSelectionModel().getSelectedItem(), iUser);
+        if (debtTable.getSelectionModel().getSelectedItem() != null) {
+            initializeInfoOfWork(debtTable.getSelectionModel().getSelectedItem(), iUser);
+        } else {
+            Alert noWorkAlert = new Alert(Alert.AlertType.INFORMATION);
+            noWorkAlert.setTitle("No work selected");
+            DialogPane dialogPane = new DialogPane();
+            dialogPane.setContent(new Label("No work selected to watch work"));
+            dialogPane.setOnKeyPressed(keyEvent -> {
+                if (keyEvent.getCode() == KeyCode.ESCAPE){
+                    noWorkAlert.close();
+                }
+            });
+            dialogPane.getButtonTypes().add(ButtonType.CLOSE);
+            noWorkAlert.setDialogPane(dialogPane);
+            noWorkAlert.show();
+        }
     }
 
     public void initialize(){
         initializeDebtTable();
-
     }
 
     private void initializeDebtTable() {

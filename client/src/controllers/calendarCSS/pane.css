@@ -1,0 +1,7 @@
+.anchor-rectangle {
+    /* top-left, top-right, bottom-right, and bottom-left corners, in that order. */
+    -fx-border-radius: 30 30 30 30;
+    -fx-background-radius: 30 30 30 30;
+    -fx-background-color: white;
+    -fx-border-color: green;
+}

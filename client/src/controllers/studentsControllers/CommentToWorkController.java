@@ -38,13 +38,16 @@ public class CommentToWorkController {
 
     private void initializeCommentsToWork() {
         CommentToWorkRequest commentToWorkRequest = new CommentToWorkRequest();
-        List<CommentToWork> list = Arrays.asList(commentToWorkRequest.getCommentsToWorkByIdUserAndIdWork(iUser,idOfWork,token));
+        List<CommentToWork> list = Arrays.asList(commentToWorkRequest.getCommentsToWorkByIdUserAndIdWork(iUser, idOfWork, token));
         commentToWorkTable.setItems(FXCollections.observableList(list));
         dateOfCommentToWorkCollom.setCellValueFactory(
                 cellDate -> new SimpleStringProperty(String.valueOf(cellDate.getValue().getDate()))
         );
         whoLeftCommentCollom.setCellValueFactory(
                 cellDate -> new SimpleStringProperty(cellDate.getValue().getProfessor().getUserSurname() +" "+ cellDate.getValue().getProfessor().getUserSurname())
+        );
+        commentToWorkTable.getSelectionModel().selectedItemProperty().addListener(
+                ((observable, oldValue, newValue) -> initializeCommentToWork(newValue, iUser))
         );
         commentToWorkTable.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.RIGHT) {

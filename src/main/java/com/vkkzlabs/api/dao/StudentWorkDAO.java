@@ -16,4 +16,6 @@ public interface StudentWorkDAO extends CrudRepository<M2MStudentWork, Long>{
     List<M2MStudentWork> findAllByIdOfWork_Subject_IdSubjectAndAndIdUser_IdUserOrderByDeadlineForWork(int idSubject, int idUser);
 
     List<M2MStudentWork> findAllByIdOfAccaptWork_IdOfAccaptWorkAndIdUser_IdUser(int idAcceptWork, int idUser);
+
+    List<M2MStudentWork> findAllByIdUser_IdUserAndIdOfWork_Subject_IdSubjectAndIdOfAccaptWork_IdOfAccaptWork(int idUser, int idSubject, int idOfAcceptWork);
 }
