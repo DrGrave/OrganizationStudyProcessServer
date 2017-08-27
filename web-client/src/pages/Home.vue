@@ -1,17 +1,23 @@
 <template>
-	<div class="container">
+	<main-page>
+		<div class="container">
 
-    	<div class="starter-template">
-        	<h1> {{ title }} </h1>
-        	<p> {{ message }} </p>
-    	</div>
+    		<div class="starter-template">
+        		<h1> {{ title }} </h1>
+        		<p> {{ message }} </p>
+    		</div>
 
-	</div>
-
+		</div>
+	</main-page>
 </template>
 
 <script>
-module.exports = {
+import MainPage from '../MainPage.vue'
+
+export default {
+	components: {
+      MainPage
+    },
     data(){
         return {
             title: 'Главная',

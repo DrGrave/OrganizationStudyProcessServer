@@ -1,27 +1,14 @@
 <template>
     <div>
         <navigation></navigation>
-        <page></page>
+        <slot></slot>
     </div>
 </template>
 
 <script>
-import routes from './routes'
 import Navigation from './forms/Navigation.vue'
 
-let currentRoute = window.location.pathname
-const matchingView = routes[currentRoute]
-console.log(matchingView);
-let Page = require('./pages/404.vue')
-if(matchingView){
-    Page = require('./pages/'+ matchingView +'.vue')
-}
-
-window.addEventListener('popstate', () => {
-  currentRoute = window.location.pathname
-})
-
-module.exports = {
+export default {
     data(){
         return {
             title: 'Главная',
@@ -31,8 +18,7 @@ module.exports = {
         }
     },
     components: {
-        Navigation,
-        Page
+        Navigation
     }
 }
 
