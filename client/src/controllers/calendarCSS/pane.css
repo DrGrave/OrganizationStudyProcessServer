@@ -1,7 +1,11 @@
-.anchor-rectangle {
+
+#pane{
+
+    -fx-border-radius: 10 10 0 0;
+    -fx-background-radius: 10 10 0 0;
+    -fx-background-color: #3c763d;
+
     /* top-left, top-right, bottom-right, and bottom-left corners, in that order. */
-    -fx-border-radius: 30 30 30 30;
-    -fx-background-radius: 30 30 30 30;
-    -fx-background-color: white;
-    -fx-border-color: green;
 }
+
+

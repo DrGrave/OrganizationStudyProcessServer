@@ -10,7 +10,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("samples/Timetable.fxml")); // Login
         primaryStage.setTitle("Login");
-        primaryStage.setScene(new Scene(root, 616, 430)); // 300 158
+        primaryStage.setScene(new Scene(root, 668, 430)); // 300 158
         primaryStage.show();
     }
 
