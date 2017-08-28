@@ -65,15 +65,16 @@ public class CalendarController {
 
     private Calendar calendar = Calendar.getInstance();
     private Calendar calendarNextWeek = Calendar.getInstance();
+
     @FXML
     void nextWeekAction(ActionEvent event) throws IOException {
         clearEvents();
         if (calendar.get(Calendar.WEEK_OF_YEAR) == calendarNextWeek.get(Calendar.WEEK_OF_YEAR)){
             calendarNextWeek.set(Calendar.WEEK_OF_YEAR, calendar.get(Calendar.WEEK_OF_YEAR)+1);
-            initializeWeeks(calendarNextWeek);
+            initialize();
         }else {
             calendarNextWeek.set(Calendar.WEEK_OF_YEAR, calendarNextWeek.get(Calendar.WEEK_OF_YEAR)+1);
-            initializeWeeks(calendarNextWeek);
+            initialize();
         }
 
     }
@@ -83,17 +84,23 @@ public class CalendarController {
         clearEvents();
         if (calendar.get(Calendar.WEEK_OF_YEAR) == calendarNextWeek.get(Calendar.WEEK_OF_YEAR)){
             calendarNextWeek.set(Calendar.WEEK_OF_YEAR, calendar.get(Calendar.WEEK_OF_YEAR)-1);
-            initializeWeeks(calendarNextWeek);
+            initialize();
         }else {
             calendarNextWeek.set(Calendar.WEEK_OF_YEAR, calendarNextWeek.get(Calendar.WEEK_OF_YEAR)-1);
-            initializeWeeks(calendarNextWeek);
+            initialize();
         }
 
     }
 
     private void clearEvents() throws IOException {
        vBox.getChildren().remove(vBox.getChildren().get(2));
-        initialize();
+        mondayLabel.setText(null);
+        thursdayLabel.setText(null);
+        tuesdayLabel.setText(null);
+        wednesdayLabel.setText(null);
+        fridayLabel.setText(null);
+        sundayLabel.setText(null);
+        saturdayLabel.setText(null);
     }
 
 
@@ -102,37 +109,24 @@ public class CalendarController {
         clearEvents();
         calendar = Calendar.getInstance();
         calendarNextWeek = Calendar.getInstance();
-        initializeWeeks(calendar);
-
+        initialize();
     }
 
     public void initialize() throws IOException {
         initializeLabelsTextSize();
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
-        initializeWeeks(calendar);
+        calendarNextWeek.setFirstDayOfWeek(Calendar.MONDAY);
 
+        initializeWeeks(calendarNextWeek);
         FXMLLoader gridEvent = new  FXMLLoader(getClass().getResource("../samples/GridPaneOfEvents.fxml"));
-        PaneOfEventsController paneOfEventsController = new PaneOfEventsController(calendar, mondayLabel,tuesdayLabel,wednesdayLabel,thursdayLabel,fridayLabel,saturdayLabel,sundayLabel,dateLabel);
+        PaneOfEventsController paneOfEventsController = new PaneOfEventsController(calendarNextWeek, mondayLabel,tuesdayLabel,wednesdayLabel,thursdayLabel,fridayLabel,saturdayLabel,sundayLabel,dateLabel);
         gridEvent.setController(paneOfEventsController);
         vBox.getChildren().add(gridEvent.load());
     }
 
     private void initializeWeeks(Calendar calendar) throws IOException {
-
-
-
         getDate(calendar);
         getWeek(calendar);
-        //getTimeLine(calendar);
-        //getEvent();
-        ContextMenu contextMenu = new ContextMenu();
-        MenuItem item1 = new MenuItem("Menu Item 1");
-        Label label = new Label();
-        item1.setOnAction(event -> label.setText("Select Menu Item 1"));
-        MenuItem item2 = new MenuItem("Menu Item 2");
-        item2.setOnAction(event -> label.setText("Select Menu Item 2"));
-        contextMenu.getItems().addAll(item1,item2);
-
     }
 
     private void initializeLabelsTextSize() {
@@ -145,18 +139,6 @@ public class CalendarController {
         saturdayLabel.setFont(new Font(15));
         sundayLabel.setFont(new Font(15));
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
     private void getDate(Calendar calendar) {
         int year = calendar.get(Calendar.YEAR);

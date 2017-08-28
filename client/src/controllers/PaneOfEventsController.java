@@ -2,14 +2,20 @@ package controllers;
 
 import com.vkkzlabs.api.entity.Subject;
 import com.vkkzlabs.api.entity.Timetable;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
+import requests.EventsRequest;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -49,21 +55,37 @@ public class PaneOfEventsController {
     }
 
     public void initialize(){
-
-        eventGridPane.setOnContextMenuRequested(contextMenuEvent -> {
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem item1 = new MenuItem("Create event");
+        int[] contRowCol;
+        contRowCol = new int[]{0, 0};
+        item1.setOnAction(event -> {
+            try {
+                createEvent(contRowCol[1],contRowCol[0]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
-        List<Integer> rowSel = new ArrayList<>();
-        List<Integer> colSel = new ArrayList<>();
-        rowSel.add(0);
+        contextMenu.getItems().addAll(item1);
         for (int i = 1; i < 8; i++) {
             for (int j = 1; j < 101; j++) {
                 Pane pane = new Pane();
                 int col = i;
                 int row = j;
 
+                pane.setOnContextMenuRequested(contextMenuEvent -> {
+                    contextMenu.show(eventGridPane, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY());
+                    contRowCol[0] = col;
+                    contRowCol[1] = row;
+                });
+
                 pane.setOnMouseClicked(mouseEvent -> {
                     try {
-                        createEvent(row, col, rowSel, colSel);
+                        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                            if(mouseEvent.getClickCount() == 2){
+                                createEvent(row, col);
+                            }
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -75,11 +97,22 @@ public class PaneOfEventsController {
     }
 
     private void initializeEvents() {
+        List<Timetable> timetables = getAllTimetables();
         getTimeLine(calendar);
-        getEvent();
+        if (timetables != null) {
+            for (Timetable timetable : timetables) {
+                getEvent(timetable);
+            }
+        }
     }
 
-    private void createEvent(int row, int col, List<Integer> rowSel, List<Integer> colSel) throws IOException {
+    private List<Timetable> getAllTimetables() {
+        EventsRequest eventsRequest = new EventsRequest();
+        List<Timetable> list = eventsRequest.getAllEvents();
+        return list;
+    }
+
+    private void createEvent(int row, int col) throws IOException {
 
         String[] dates = {mondayLabel.getText(), tuesdayLabel.getText(), wednesdayLabel.getText(),thursdayLabel.getText(),fridayLabel.getText(),saturdayLabel.getText(),sundayLabel.getText()};
         List<Integer> parsedDates = new ArrayList<>();
@@ -96,29 +129,21 @@ public class PaneOfEventsController {
         int month = Integer.parseInt(dateLabel.getText().substring(0,2).replaceAll("[\\D]", ""));
         int day = selectDate;
         Calendar calendar = Calendar.getInstance();
-
         calendar.set(Calendar.YEAR,year);
         calendar.set(Calendar.MONTH, month-1);
         calendar.set(Calendar.DAY_OF_MONTH, day);
+        showCreateEventDialog(row,col, calendar);
+        System.out.println(row);
+        System.out.println(col);
 
-
-        rowSel.add(row);
-        colSel.add(col);
-        if (Objects.equals(rowSel.get(rowSel.size() - 1), rowSel.get(rowSel.size() - 2))){
-            rowSel.clear();
-            rowSel.add(0);
-            colSel.clear();
-            showCreateEventDialog(row,col, calendar);
-            System.out.println(row);
-            System.out.println(col);
-        }
     }
 
     private void showCreateEventDialog(int row, int col, Calendar calendar) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         DialogPane dialogPane = new DialogPane();
+        Timetable timetable = new Timetable();
         FXMLLoader createEvent = new  FXMLLoader(getClass().getResource("../samples/CreateEvent.fxml"));
-        CreateEventController createEventController = new CreateEventController(row,col, calendar);
+        CreateEventController createEventController = new CreateEventController(row,col, calendar, timetable);
         createEvent.setController(createEventController);
         dialogPane.getChildren().add(createEvent.load());
         dialogPane.setOnKeyPressed(keyEvent -> {
@@ -133,27 +158,14 @@ public class PaneOfEventsController {
         alert.show();
     }
 
-    private void getEvent() {
-        Timetable timetable = new Timetable();
-        Date date = new Date();
-        Date dateEnd = new Date();
-        timetable.setDate(date);
-        timetable.setAuditory("3451");
-        date.setHours(22);
-        dateEnd.setHours(23);
-        timetable.setTimeOfEndWork(date);
-        Subject subject = new Subject();
-        subject.setNameSubject("POVS");
-        timetable.setSubject(subject);
+    private void getEvent(Timetable timetable) {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-        String textOfEntity = "Subj:"+timetable.getSubject().getNameSubject()+ " Loc:" + timetable.getAuditory() +" Start:"+ dateFormat.format(date)+" End:"+ dateFormat.format(dateEnd);
-        Date dateOfStart;
-        dateOfStart = timetable.getDate();
-        compareWithDates(dateOfStart, dateEnd, textOfEntity);
+        String textOfEntity = "Subj:"+timetable.getSubject().getNameSubject()+ " Loc:" + timetable.getAuditory() +" Start:"+ dateFormat.format(timetable.getDate())+" End:"+ dateFormat.format(timetable.getTimeOfEndWork());
+        compareWithDates(timetable.getDate(), timetable.getTimeOfEndWork(), textOfEntity,timetable);
 
     }
 
-    private void compareWithDates(Date dateOfStart, Date dateofEnd,String text) {
+    private void compareWithDates(Date dateOfStart, Date dateofEnd,String text, Timetable timetable) {
         String[] dates = {mondayLabel.getText(), tuesdayLabel.getText(), wednesdayLabel.getText(),thursdayLabel.getText(),fridayLabel.getText(),saturdayLabel.getText(),sundayLabel.getText()};
         List<Integer> parsedDates = new ArrayList<>();
         for (String str :dates){
@@ -168,35 +180,165 @@ public class PaneOfEventsController {
             int minuteEnd = (dateofEnd.getMinutes()-1)/15;
             rowEnd = rowEnd+minuteEnd;
             rowStart = rowStart+minuteStart;
-            drawEvent(rowStart, rowEnd, column, text);
+            drawEvent(rowStart, rowEnd, column, text, timetable);
         }
     }
 
-    private void drawEvent(int rowStart,int rowEnd, int column, String text) {
+    private void drawEvent(int rowStart,int rowEnd, int column, String text, Timetable timetable) {
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem item1 = new MenuItem("Create event");
+        final Timetable[] thisTimetable = {new Timetable()};
+        item1.setOnAction(event -> {
+            try {
+                createSecEvent(thisTimetable);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        MenuItem item2 = new MenuItem("Edit event");
+        item2.setOnAction(event -> {
+            try {
+                editEvent(thisTimetable[0]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        contextMenu.getItems().addAll(item1,item2);
         startPane = new Pane();
+
+        startPane.setOnContextMenuRequested(contextMenuEvent -> {
+            thisTimetable[0] = timetable;
+            contextMenu.show(eventGridPane, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY());
+
+        });
+
+        startPane.setOnMouseClicked(mouseEvent -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() == 2){
+                    try {
+                        editEvent(timetable);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
         startPane.setOpacity(0.6F);
         startPane.setStyle("-fx-background-color: #3c763d; -fx-border-radius: 10 10 0 0; -fx-background-radius: 10 10 0 0;");
         eventGridPane.setMargin(startPane, new Insets(0,1,0,0));
         eventGridPane.add(startPane, column+1, rowStart);
-        printMiddle(rowStart,rowEnd,column, text);
+        printMiddle(rowStart,rowEnd,column, text, timetable, contextMenu, thisTimetable);
         endPane = new Pane();
         endPane.setOpacity(0.6F);
+
+        endPane.setOnContextMenuRequested(contextMenuEvent -> {
+            thisTimetable[0] = timetable;
+            contextMenu.show(eventGridPane, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY());
+
+        });
+
+        endPane.setOnMouseClicked(mouseEvent -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() == 2){
+                    try {
+                        editEvent(timetable);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
         endPane.setStyle("-fx-background-color: #3c763d;-fx-border-radius: 0 0 10 10; -fx-background-radius: 0 0 10 10;");
         eventGridPane.setMargin(endPane, new Insets(0,1,0,0));
         eventGridPane.add(endPane, column+1, rowEnd);
     }
 
-    private void printMiddle(int rowStart, int rowEnd, int column, String text) {
+    private void createSecEvent(Timetable[] thisTimetable) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        DialogPane dialogPane = new DialogPane();
+        FXMLLoader createEvent = new  FXMLLoader(getClass().getResource("../samples/CreateEvent.fxml"));
+        CreateEventController createEventController = new CreateEventController(0,0, calendar, thisTimetable[0]);
+        createEvent.setController(createEventController);
+        dialogPane.getChildren().add(createEvent.load());
+        dialogPane.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ESCAPE){
+                alert.close();
+            }
+        });
+        dialogPane.setMinHeight(300);
+        dialogPane.getButtonTypes().add(ButtonType.CLOSE);
+        alert.setHeaderText("Create event");
+        alert.setDialogPane(dialogPane);
+        alert.show();
+    }
+
+    private void editEvent(Timetable timetable) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        DialogPane dialogPane = new DialogPane();
+        FXMLLoader createEvent = new  FXMLLoader(getClass().getResource("../samples/CreateEvent.fxml"));
+        CreateEventController createEventController = new CreateEventController(0,0, calendar, timetable);
+        createEvent.setController(createEventController);
+        dialogPane.getChildren().add(createEvent.load());
+        dialogPane.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ESCAPE){
+                alert.close();
+            }
+        });
+        dialogPane.setMinHeight(300);
+        dialogPane.getButtonTypes().add(ButtonType.CLOSE);
+        alert.setHeaderText("Edit event");
+        alert.setDialogPane(dialogPane);
+        alert.show();
+    }
+
+    private void printMiddle(int rowStart, int rowEnd, int column, String text, Timetable timetable, ContextMenu contextMenu, Timetable[] thisTimetable) {
         int col = (rowEnd-rowStart-1)/2;
         int rowToText = rowStart+col;
         for (int i = rowStart+1; i<rowEnd; i++ ){
             middlePane = new Pane();
+
+            middlePane.setOnMouseClicked(mouseEvent -> {
+                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                    if(mouseEvent.getClickCount() == 2){
+                        try {
+                            editEvent(timetable);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+            middlePane.setOnContextMenuRequested(contextMenuEvent -> {
+                thisTimetable[0] = timetable;
+                contextMenu.show(eventGridPane, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY());
+
+            });
+
             middlePane.setOpacity(0.6F);
             middlePane.setStyle("-fx-background-color: #3c763d");
             eventGridPane.add(middlePane, column + 1, i);
             eventGridPane.setMargin(middlePane, new Insets(0,1,0,0));
         }
         paneToText = new Pane();
+        paneToText.setOnMouseClicked(mouseEvent -> {
+            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                if(mouseEvent.getClickCount() == 2){
+                    try {
+                        editEvent(timetable);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        paneToText.setOnContextMenuRequested(contextMenuEvent -> {
+            thisTimetable[0] = timetable;
+            contextMenu.show(eventGridPane, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY());
+
+        });
+
         textOfEvent = new Label();
         textOfEvent.setFont(new Font(10));
         textOfEvent.setMaxWidth(75);

@@ -1,4 +1,5 @@
 package controllers;
+import com.vkkzlabs.api.entity.Timetable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -8,6 +9,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import requests.TimetableRequest;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -45,11 +47,13 @@ public class CreateEventController {
     private int row;
     private int col;
     private Calendar calendar;
+    private Timetable timetable;
 
-    public CreateEventController(int row, int col, Calendar calendar) {
+    public CreateEventController(int row, int col, Calendar calendar, Timetable timetable) {
         this.row = row;
         this.col = col;
         this.calendar = calendar;
+        this.timetable = timetable;
     }
 
     @FXML
@@ -69,19 +73,31 @@ public class CreateEventController {
     }
 
     private void initializeDates() {
-    }
-
-    private void initializeTimes() {
-        int hour = (row-1)/4;
-        int minutes = row - ((hour*4)+1);
-        howersOfStart.setValue(hour*4.16);//4.16
-        minutesOfStart.setValue(minutes*15*1.667);//1.6
-        if (minutes == 0){
-            timeOfStartLabel.setText(String.valueOf(hour)+":"+"00");
-        }else timeOfStartLabel.setText(String.valueOf(hour)+":"+String.valueOf(minutes*15));
         Date dateTime = new Date(calendar.getTimeInMillis());
         LocalDate localDate = dateTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();;
         dateOfStart.setValue(localDate);
+    }
+
+    private void initializeTimes() {
+        int hour;
+        int minutes;
+        if (row == 0 && col == 0){
+            hour = timetable.getDate().getHours();
+            minutes = timetable.getDate().getMinutes();
+            howersOfStart.setValue(hour*4.16);//4.16
+            minutesOfStart.setValue(minutes*1.667);
+            minutes = minutes/15;
+        }else {
+            hour = (row - 1) / 4;
+            minutes = row - ((hour * 4) + 1);
+            howersOfStart.setValue(hour*4.16);//4.16
+            minutesOfStart.setValue(minutes*15*1.667);
+        }
+
+        //1.6
+        if (minutes == 0){
+            timeOfStartLabel.setText(String.valueOf(hour)+":"+"00");
+        }else timeOfStartLabel.setText(String.valueOf(hour)+":"+String.valueOf(minutes*15));
         houersOfEnd.setValue((hour+1)*4.16);
         minutesOfEnd.setValue(minutes*15*1.667);
         if (minutes == 0){
