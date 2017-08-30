@@ -22,6 +22,7 @@ public class EventsRequest {
         timetable.setDate(date);
         timetable.setTimeOfEndWork(dateOfStart);
         list.add(timetable);
+
         date = new Date();
         date.setDate(2);
         date.setHours(12);
@@ -34,6 +35,7 @@ public class EventsRequest {
         timetable.setTimeOfEndWork(dateOfStart);
         timetable.setAuditory("234");
         list.add(timetable);
+
         date = new Date();
         date.setDate(2);
         date.setHours(15);
@@ -46,8 +48,9 @@ public class EventsRequest {
         timetable.setTimeOfEndWork(dateOfStart);
         timetable.setAuditory("234");
         list.add(timetable);
+
         date = new Date();
-        date.setDate(1);
+        date.setDate(2);
         date.setHours(12);
         dateOfStart = new Date();
         dateOfStart.setDate(2);
@@ -58,11 +61,12 @@ public class EventsRequest {
         timetable.setTimeOfEndWork(dateOfStart);
         timetable.setAuditory("234");
         list.add(timetable);
+
         date = new Date();
         date.setDate(3);
         date.setHours(12);
         dateOfStart = new Date();
-        dateOfStart.setDate(2);
+        dateOfStart.setDate(3);
         dateOfStart.setHours(14);
         timetable = new Timetable();
         timetable.setSubject(subject);

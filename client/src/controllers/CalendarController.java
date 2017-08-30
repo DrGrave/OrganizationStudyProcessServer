@@ -1,23 +1,26 @@
 package controllers;
 
-import com.vkkzlabs.api.entity.Subject;
+
+import com.vkkzlabs.api.entity.MyUser;
+import com.vkkzlabs.api.entity.MyUserCredentials;
 import com.vkkzlabs.api.entity.Timetable;
+import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-
-
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static controllers.PaneOfEventsController.listOfEvents;
+import static controllers.PaneOfEventsController.timetableObservableList;
+
 
 public class CalendarController {
 
@@ -60,40 +63,61 @@ public class CalendarController {
     @FXML
     private Label sundayLabel;
 
+    private List<Timetable> timetableList = new ArrayList<>();
 
 
-
+    private int week;
+    private int year;
+    private int month;
     private Calendar calendar = Calendar.getInstance();
     private Calendar calendarNextWeek = Calendar.getInstance();
+    private boolean first, sec = true;
+    private PaneOfEventsController paneOfEventsController;
+    private MyUser iUser;
+    private String token;
+    private MyUserCredentials myUserCredentials;
+
+    public CalendarController(MyUser iUser, String token, MyUserCredentials myUserCredentials) {
+        this.iUser = iUser;
+        this.token = token;
+        this.myUserCredentials = myUserCredentials;
+    }
 
     @FXML
     void nextWeekAction(ActionEvent event) throws IOException {
         clearEvents();
-        if (calendar.get(Calendar.WEEK_OF_YEAR) == calendarNextWeek.get(Calendar.WEEK_OF_YEAR)){
-            calendarNextWeek.set(Calendar.WEEK_OF_YEAR, calendar.get(Calendar.WEEK_OF_YEAR)+1);
-            initialize();
-        }else {
-            calendarNextWeek.set(Calendar.WEEK_OF_YEAR, calendarNextWeek.get(Calendar.WEEK_OF_YEAR)+1);
-            initialize();
+
+        calendar = Calendar.getInstance();
+        week = calendarNextWeek.get(Calendar.WEEK_OF_YEAR)+1;
+        year = calendarNextWeek.get(Calendar.YEAR);
+        month = calendarNextWeek.get(Calendar.MONTH);
+        calendarNextWeek.set(Calendar.WEEK_OF_YEAR, week);
+        if (week == calendar.get(Calendar.WEEK_OF_YEAR) && month == calendar.get(Calendar.MONTH) +1 && year == calendar.get(Calendar.YEAR)) {
+            calendarNextWeek = Calendar.getInstance();
         }
+
+        initializeDate();
 
     }
 
     @FXML
     void prevWeekAction(ActionEvent event) throws IOException {
         clearEvents();
-        if (calendar.get(Calendar.WEEK_OF_YEAR) == calendarNextWeek.get(Calendar.WEEK_OF_YEAR)){
-            calendarNextWeek.set(Calendar.WEEK_OF_YEAR, calendar.get(Calendar.WEEK_OF_YEAR)-1);
-            initialize();
-        }else {
-            calendarNextWeek.set(Calendar.WEEK_OF_YEAR, calendarNextWeek.get(Calendar.WEEK_OF_YEAR)-1);
-            initialize();
+        calendar = Calendar.getInstance();
+
+        week = calendarNextWeek.get(Calendar.WEEK_OF_YEAR)-1;
+        year = calendarNextWeek.get(Calendar.YEAR);
+        month = calendarNextWeek.get(Calendar.MONTH);
+        calendarNextWeek.set(Calendar.WEEK_OF_YEAR, week);
+        if (week == calendar.get(Calendar.WEEK_OF_YEAR) && month == calendar.get(Calendar.MONTH) +1 && year == calendar.get(Calendar.YEAR)){
+            calendarNextWeek = Calendar.getInstance();
         }
+        initializeDate();
 
     }
 
     private void clearEvents() throws IOException {
-       vBox.getChildren().remove(vBox.getChildren().get(2));
+        vBox.getChildren().remove(vBox.getChildren().get(2));
         mondayLabel.setText(null);
         thursdayLabel.setText(null);
         tuesdayLabel.setText(null);
@@ -109,20 +133,46 @@ public class CalendarController {
         clearEvents();
         calendar = Calendar.getInstance();
         calendarNextWeek = Calendar.getInstance();
-        initialize();
+        week = 0;
+        initializeDate();
     }
 
     public void initialize() throws IOException {
+        initializeDate();
+        initializeListChangeListener();
+
+
+    }
+
+    private void initializeListChangeListener() {
+
+        timetableObservableList.addListener((ListChangeListener<Timetable>) change -> {
+            while (change.next()) {
+                listOfEvents.removeAll(change.getRemoved());
+                if (timetableObservableList.size() != 0) {
+                    listOfEvents.add(change.getAddedSubList().get(0));
+                    paneOfEventsController.drawNewEvent(change.getAddedSubList().get(0));
+                    timetableObservableList.clear();
+                }
+            }
+        });
+    }
+
+
+    private void initializeDate() throws IOException {
         initializeLabelsTextSize();
+
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
         calendarNextWeek.setFirstDayOfWeek(Calendar.MONDAY);
-
         initializeWeeks(calendarNextWeek);
+        paneOfEventsController = new PaneOfEventsController(calendarNextWeek, mondayLabel,tuesdayLabel,wednesdayLabel,thursdayLabel,fridayLabel,saturdayLabel,sundayLabel,dateLabel);
         FXMLLoader gridEvent = new  FXMLLoader(getClass().getResource("../samples/GridPaneOfEvents.fxml"));
-        PaneOfEventsController paneOfEventsController = new PaneOfEventsController(calendarNextWeek, mondayLabel,tuesdayLabel,wednesdayLabel,thursdayLabel,fridayLabel,saturdayLabel,sundayLabel,dateLabel);
         gridEvent.setController(paneOfEventsController);
         vBox.getChildren().add(gridEvent.load());
     }
+
+
+
 
     private void initializeWeeks(Calendar calendar) throws IOException {
         getDate(calendar);

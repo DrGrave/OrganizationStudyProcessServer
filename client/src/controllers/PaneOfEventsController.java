@@ -1,17 +1,16 @@
 package controllers;
 
-import com.vkkzlabs.api.entity.Subject;
 import com.vkkzlabs.api.entity.Timetable;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
@@ -26,11 +25,18 @@ public class PaneOfEventsController {
     @FXML
     private GridPane eventGridPane;
 
+    @FXML
+    private ScrollPane scrollPane;
+
     private Label textOfEvent = new Label();
     private Pane startPane = new Pane();
     private Pane endPane = new Pane();
     private Pane middlePane = new Pane();
     private Pane paneToText = new Pane();
+    public static List<Timetable> listOfEvents = new ArrayList<>();
+
+    public static ObservableList<Timetable> timetableObservableList = FXCollections.observableList(listOfEvents);
+
 
     private Calendar calendar;
     private Label mondayLabel;
@@ -93,24 +99,38 @@ public class PaneOfEventsController {
                 eventGridPane.add(pane, i, j);
             }
         }
-        initializeEvents();
+        getTimeLine(calendar);
+
+        Platform.runLater(this::initializeEvents);
     }
 
+
+
+
     private void initializeEvents() {
-        List<Timetable> timetables = getAllTimetables();
-        getTimeLine(calendar);
-        if (timetables != null) {
-            for (Timetable timetable : timetables) {
+
+        if (listOfEvents.size() == 0) {
+            getAllTimetables();
+        }
+        if (listOfEvents != null) {
+            for (Timetable timetable : listOfEvents) {
                 getEvent(timetable);
             }
         }
     }
 
-    private List<Timetable> getAllTimetables() {
+    private void getAllTimetables() {
         EventsRequest eventsRequest = new EventsRequest();
-        List<Timetable> list = eventsRequest.getAllEvents();
-        return list;
+        listOfEvents = eventsRequest.getAllEvents();
+
     }
+
+    public void drawNewEvent(Timetable timetable){
+        Platform.runLater(() -> {
+                getEvent(timetable);
+        });
+    }
+
 
     private void createEvent(int row, int col) throws IOException {
 
@@ -125,12 +145,24 @@ public class PaneOfEventsController {
                 selectDate = parsedDates.get(i-1);
             }
         }
-        int year = Integer.parseInt(dateLabel.getText().substring(dateLabel.getText().indexOf('.')+1)) ;
+        int monthToEveryDate[] = new int[7];
+
         int month = Integer.parseInt(dateLabel.getText().substring(0,2).replaceAll("[\\D]", ""));
+        monthToEveryDate[0] = month;
+        for (int i = 1; i < 7; i ++){
+            if (parsedDates.get(i) == 1){
+                for (int j = i; j < 7; j++){
+                    monthToEveryDate[j] = month+1;
+                }
+                break;
+            }else monthToEveryDate[i] = month;
+        }
+        int year = Integer.parseInt(dateLabel.getText().substring(dateLabel.getText().indexOf('.')+1)) ;
+
         int day = selectDate;
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR,year);
-        calendar.set(Calendar.MONTH, month-1);
+        calendar.set(Calendar.MONTH, monthToEveryDate[parsedDates.indexOf(day)]-1);
         calendar.set(Calendar.DAY_OF_MONTH, day);
         showCreateEventDialog(row,col, calendar);
         System.out.println(row);
@@ -143,7 +175,7 @@ public class PaneOfEventsController {
         DialogPane dialogPane = new DialogPane();
         Timetable timetable = new Timetable();
         FXMLLoader createEvent = new  FXMLLoader(getClass().getResource("../samples/CreateEvent.fxml"));
-        CreateEventController createEventController = new CreateEventController(row,col, calendar, timetable);
+        CreateEventController createEventController = new CreateEventController(row,col, calendar, timetable, alert);
         createEvent.setController(createEventController);
         dialogPane.getChildren().add(createEvent.load());
         dialogPane.setOnKeyPressed(keyEvent -> {
@@ -162,22 +194,32 @@ public class PaneOfEventsController {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         String textOfEntity = "Subj:"+timetable.getSubject().getNameSubject()+ " Loc:" + timetable.getAuditory() +" Start:"+ dateFormat.format(timetable.getDate())+" End:"+ dateFormat.format(timetable.getTimeOfEndWork());
         compareWithDates(timetable.getDate(), timetable.getTimeOfEndWork(), textOfEntity,timetable);
-
     }
 
-    private void compareWithDates(Date dateOfStart, Date dateofEnd,String text, Timetable timetable) {
+    private void compareWithDates(Date dateOfStart, Date dateOfEnd,String text, Timetable timetable) {
         String[] dates = {mondayLabel.getText(), tuesdayLabel.getText(), wednesdayLabel.getText(),thursdayLabel.getText(),fridayLabel.getText(),saturdayLabel.getText(),sundayLabel.getText()};
         List<Integer> parsedDates = new ArrayList<>();
         for (String str :dates){
             parsedDates.add(Integer.parseInt(str.replaceAll("[\\D]", "")));
         }
         int month = Integer.parseInt(dateLabel.getText().substring(0,2).replaceAll("[\\D]", ""));
-        if (parsedDates.contains(dateOfStart.getDate()) && dateOfStart.getMonth() == month-1){
+        int[] monthToEveryDate = new int[7];
+        monthToEveryDate[0] = month;
+        for (int i = 1; i < 7; i ++){
+            if (parsedDates.get(i) == 1){
+                for (int j = i; j < 7; j++){
+                    monthToEveryDate[j] = month+1;
+                }
+                break;
+            }else monthToEveryDate[i] = month;
+        }
+        int monthOfEvent = dateOfStart.getMonth()+1;
+        if (parsedDates.contains(dateOfStart.getDate()) && monthToEveryDate[parsedDates.indexOf(dateOfStart.getDate())] == monthOfEvent){
             int column = parsedDates.indexOf(dateOfStart.getDate());
             int rowStart = dateOfStart.getHours()*4+1;
-            int rowEnd = dateofEnd.getHours()*4+1;
+            int rowEnd = dateOfEnd.getHours()*4+1;
             int minuteStart = dateOfStart.getMinutes()/15;
-            int minuteEnd = (dateofEnd.getMinutes()-1)/15;
+            int minuteEnd = (dateOfEnd.getMinutes()-1)/15;
             rowEnd = rowEnd+minuteEnd;
             rowStart = rowStart+minuteStart;
             drawEvent(rowStart, rowEnd, column, text, timetable);
@@ -259,7 +301,7 @@ public class PaneOfEventsController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         DialogPane dialogPane = new DialogPane();
         FXMLLoader createEvent = new  FXMLLoader(getClass().getResource("../samples/CreateEvent.fxml"));
-        CreateEventController createEventController = new CreateEventController(0,0, calendar, thisTimetable[0]);
+        CreateEventController createEventController = new CreateEventController(0,0, calendar, thisTimetable[0], alert);
         createEvent.setController(createEventController);
         dialogPane.getChildren().add(createEvent.load());
         dialogPane.setOnKeyPressed(keyEvent -> {
@@ -278,7 +320,7 @@ public class PaneOfEventsController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         DialogPane dialogPane = new DialogPane();
         FXMLLoader createEvent = new  FXMLLoader(getClass().getResource("../samples/CreateEvent.fxml"));
-        CreateEventController createEventController = new CreateEventController(0,0, calendar, timetable);
+        CreateEventController createEventController = new CreateEventController(0,0, calendar, timetable,alert);
         createEvent.setController(createEventController);
         dialogPane.getChildren().add(createEvent.load());
         dialogPane.setOnKeyPressed(keyEvent -> {

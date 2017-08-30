@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 
 <AnchorPane fx:id="professorAnchorPane" prefHeight="650.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -18,7 +17,7 @@
         <tabs>
           <Tab fx:id="professorTab" text="User">
                <content>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox fx:id="userInfohBox" prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <GridPane prefHeight="617.0" prefWidth="359.0">
                           <columnConstraints>
@@ -70,7 +69,6 @@
                               <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                            </children>
                         </GridPane>
-                        <VBox prefHeight="617.0" prefWidth="687.0" />
                      </children>
                   </HBox>
                </content>

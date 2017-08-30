@@ -4,10 +4,15 @@ import com.calendarfx.view.page.WeekPage;
 import com.vkkzlabs.api.entity.MyUser;
 import com.vkkzlabs.api.entity.MyUserCredentials;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+
+import java.io.IOException;
 
 public class ProfessorController {
     @FXML
@@ -37,6 +42,9 @@ public class ProfessorController {
     @FXML
     private Tab professorSettingsTab;
 
+    @FXML
+    private HBox userInfohBox;
+
     private MyUser iUser;
     private MyUserCredentials myUserCredentials;
     private String token;
@@ -47,20 +55,18 @@ public class ProfessorController {
         this.token = token;
     }
 
-    public void initialize(){
+    public void initialize() throws IOException {
         initializeInfoOfUser();
-        initializeTimetableToProfessor();
         initializeCalendar();
     }
 
-    private void initializeCalendar() {
-        CalendarController calendarController = new CalendarController();
-
+    private void initializeCalendar() throws IOException {
+        CalendarController calendarController = new CalendarController(iUser, token, myUserCredentials);
+        FXMLLoader calendar = new  FXMLLoader(getClass().getResource("../samples/Timetable.fxml"));
+        calendar.setController(calendarController);
+        userInfohBox.getChildren().add(calendar.load());
     }
 
-    private void initializeTimetableToProfessor() {
-
-    }
 
     private void initializeInfoOfUser() {
         nameField.setText(iUser.getUserName());
