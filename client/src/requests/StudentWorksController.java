@@ -73,8 +73,15 @@ public class StudentWorksController {
         httpHeaders.add("Authorization", token);
         HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
         HttpEntity<M2MStudentWork[]> request = restTemplate.exchange(REST_SERVICE_URI+"/StudentWork/GetNewWorks/"+idUser, HttpMethod.GET, entity, M2MStudentWork[].class);
-        M2MStudentWork[] works = request.getBody();
-        return works;
+        return request.getBody();
     }
 
+    public M2MStudentWork[] getAllAcceptedWork(int idUser, String token, int idSubject) {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Authorization", token);
+        HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
+        HttpEntity<M2MStudentWork[]> request = restTemplate.exchange(REST_SERVICE_URI+"/StudentWork/GetAccepted/"+idUser+"/Subject/"+ idSubject, HttpMethod.GET, entity, M2MStudentWork[].class);
+        return request.getBody();
+    }
 }

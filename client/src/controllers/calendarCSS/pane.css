@@ -1,0 +1,11 @@
+
+#pane{
+
+    -fx-border-radius: 10 10 0 0;
+    -fx-background-radius: 10 10 0 0;
+    -fx-background-color: #3c763d;
+
+    /* top-left, top-right, bottom-right, and bottom-left corners, in that order. */
+}
+
+

@@ -48,4 +48,9 @@ public class StudentWorkServiceImpl implements StudentWorkService {
     public List<M2MStudentWork> getListOfNewWorks(int id) {
         return studentWorkDAO.findAllByIdOfWork_Subject_IdSubjectAndAndIdUser_IdUserOrderByDeadlineForWork(1, id);
     }
+
+    @Override
+    public List<M2MStudentWork> getListOfAcceptedStudentWorks(int idUser, int idSubject) {
+        return studentWorkDAO.findAllByIdUser_IdUserAndIdOfWork_Subject_IdSubjectAndIdOfAccaptWork_IdOfAccaptWork(idUser,idSubject, 5);
+    }
 }

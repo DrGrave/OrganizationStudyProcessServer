@@ -36,7 +36,7 @@ public class StudentWorkController {
      * по запросу /StudentWork/ToStudentWork/{Id} возвращает объект по его Id
      */
 
-    @GetMapping(value = "/Subject/ToStudentWorks/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/Subject/ToStudentWorks/{id}")
     public ResponseEntity<List<M2MStudentWork>> getSubjectsToStudent(@PathVariable("id") int id) {
         List<M2MStudentWork> subjectList = studentWorkService.getListSubjectsToStudent(id);
         if (subjectList == null) {
@@ -50,7 +50,7 @@ public class StudentWorkController {
      * по запросу /StudentWork/User/{idUser}/Subject/{idSubject} возвращает объект по id пользователя и id предмета
      */
 
-    @GetMapping(value = "/User/{idUser}/Subject/{idSubject}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/User/{idUser}/Subject/{idSubject}")
     public ResponseEntity<List<M2MStudentWork>> getWorkToStudent(@PathVariable("idUser") int idUser, @PathVariable("idSubject") int idSubject) {
         List<M2MStudentWork> subjectList = studentWorkService.getListWorksToStudent(idUser, idSubject);
         if (subjectList == null) {
@@ -64,7 +64,7 @@ public class StudentWorkController {
      * по запросу /StudentWork/Student/Works/{id} возвращает объект по id пользователя
      */
 
-    @GetMapping(value = "/Student/Works/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("Student/Works/{id}")
     public ResponseEntity<List<M2MStudentWork>> getAllWorks(@PathVariable("id") int id) {
         List<M2MStudentWork> subjectList = studentWorkService.getListSubjectsToStudent(id);
         if (subjectList == null) {
@@ -74,13 +74,21 @@ public class StudentWorkController {
         return new ResponseEntity<List<M2MStudentWork>>(subjectList, HttpStatus.OK);
     }
 
+    @GetMapping("GetAccepted/{idUser}/Subject/{idSubject}")
+    public ResponseEntity<List<M2MStudentWork>> getAcceptedWorkToStudentByIdUserAndIdSubject(@PathVariable("idUser") int idUser, @PathVariable("idSubject") int idSubject){
+        List<M2MStudentWork> studentWorkList = studentWorkService.getListOfAcceptedStudentWorks(idUser, idSubject);
+        if (studentWorkList != null){
+            return new ResponseEntity<List<M2MStudentWork>>(studentWorkList, HttpStatus.OK);
+        }return new ResponseEntity<List<M2MStudentWork>>(HttpStatus.NO_CONTENT);
+    }
+
     @RequestMapping(value = "Edit", method = RequestMethod.POST)
     public ResponseEntity editSetting(@RequestBody M2MStudentWork m2MStudentWork, UriComponentsBuilder ucBuilder) {
         studentWorkService.editStudentWork(m2MStudentWork);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/GetNewWorks/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping("/GetNewWorks/{id}")
     public ResponseEntity<List<M2MStudentWork>> getAllNewWork(@PathVariable("id") int id){
         List<M2MStudentWork> studentWorks = studentWorkService.getListOfNewWorks(id);
         return new ResponseEntity<List<M2MStudentWork>>(studentWorks, HttpStatus.OK);
