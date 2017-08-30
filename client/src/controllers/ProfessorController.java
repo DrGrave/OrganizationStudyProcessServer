@@ -51,7 +51,10 @@ public class ProfessorController {
     private MyUserCredentials myUserCredentials;
     private String token;
 
-    public ProfessorController(MyUser iUser, MyUserCredentials myUserCredentials, String token) {
+
+    //TODO do queue adn create work!
+
+    ProfessorController(MyUser iUser, MyUserCredentials myUserCredentials, String token) {
         this.iUser = iUser;
         this.myUserCredentials = myUserCredentials;
         this.token = token;
