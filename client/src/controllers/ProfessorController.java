@@ -9,6 +9,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
@@ -43,6 +44,9 @@ public class ProfessorController {
     @FXML
     private HBox userInfohBox;
 
+    @FXML
+    private VBox calendarVBox;
+
     private MyUser iUser;
     private MyUserCredentials myUserCredentials;
     private String token;
@@ -62,7 +66,7 @@ public class ProfessorController {
         CalendarController calendarController = new CalendarController(iUser, token, myUserCredentials);
         FXMLLoader calendar = new  FXMLLoader(getClass().getResource("../samples/calendarFXML/Timetable.fxml"));
         calendar.setController(calendarController);
-        userInfohBox.getChildren().add(calendar.load());
+        calendarVBox.getChildren().add(calendar.load());
     }
 
 

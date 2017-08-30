@@ -4,6 +4,10 @@ package controllers.calendarControllers;
 import com.vkkzlabs.api.entity.MyUser;
 import com.vkkzlabs.api.entity.MyUserCredentials;
 import com.vkkzlabs.api.entity.Timetable;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +16,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
+
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -70,11 +76,11 @@ public class CalendarController {
     private int month;
     private Calendar calendar = Calendar.getInstance();
     private Calendar calendarNextWeek = Calendar.getInstance();
-    private boolean first, sec = true;
     private PaneOfEventsController paneOfEventsController;
     private MyUser iUser;
     private String token;
     private MyUserCredentials myUserCredentials;
+    private double scrollPanePos;
 
     public CalendarController(MyUser iUser, String token, MyUserCredentials myUserCredentials) {
         this.iUser = iUser;
@@ -116,6 +122,7 @@ public class CalendarController {
     }
 
     private void clearEvents() throws IOException {
+        scrollPanePos = paneOfEventsController.getScrollValue();
         vBox.getChildren().remove(vBox.getChildren().get(2));
         mondayLabel.setText(null);
         thursdayLabel.setText(null);
@@ -129,6 +136,7 @@ public class CalendarController {
 
     @FXML
     void thisDayAction(ActionEvent event) throws IOException {
+
         clearEvents();
         calendar = Calendar.getInstance();
         calendarNextWeek = Calendar.getInstance();
@@ -140,7 +148,29 @@ public class CalendarController {
         initializeDate();
         initializeListChangeListener();
 
+        calendar = Calendar.getInstance();
+        paneOfEventsController.getTimeLine(calendar);
 
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(15), ev -> {
+            calendar = Calendar.getInstance();
+            paneOfEventsController.getTimeLine(calendar);
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        Platform.runLater(timeline::play);
+        Timeline timelineToAllEvents = new Timeline(new KeyFrame(Duration.seconds(60), ev -> {
+            try {
+                clearEvents();
+                if (calendarNextWeek.get(Calendar.WEEK_OF_YEAR) == calendar.get(Calendar.WEEK_OF_YEAR)){
+                    calendarNextWeek = Calendar.getInstance();
+                }
+                initializeDate();
+                paneOfEventsController.getTimeLine(calendar);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }));
+        timelineToAllEvents.setCycleCount(Animation.INDEFINITE);
+        Platform.runLater(timelineToAllEvents::play);
     }
 
     private void initializeListChangeListener() {
@@ -164,7 +194,7 @@ public class CalendarController {
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
         calendarNextWeek.setFirstDayOfWeek(Calendar.MONDAY);
         initializeWeeks(calendarNextWeek);
-        paneOfEventsController = new PaneOfEventsController(calendarNextWeek, mondayLabel,tuesdayLabel,wednesdayLabel,thursdayLabel,fridayLabel,saturdayLabel,sundayLabel,dateLabel);
+        paneOfEventsController = new PaneOfEventsController(calendarNextWeek, mondayLabel,tuesdayLabel,wednesdayLabel,thursdayLabel,fridayLabel,saturdayLabel,sundayLabel,dateLabel, scrollPanePos);
         FXMLLoader gridEvent = new  FXMLLoader(getClass().getResource("../../samples/calendarFXML/GridPaneOfEvents.fxml"));
         gridEvent.setController(paneOfEventsController);
         vBox.getChildren().add(gridEvent.load());

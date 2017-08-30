@@ -46,7 +46,10 @@ public class PaneOfEventsController {
     private Label saturdayLabel;
     private Label sundayLabel;
     private Label dateLabel;
-    public PaneOfEventsController(Calendar calendar, Label mondayLabel, Label tuesdayLabel, Label wednesdayLabel, Label thursdayLabel, Label fridayLabel, Label saturdayLabel, Label sundayLabel, Label dateLabel) {
+    private double scrollPanePos;
+    private Separator separator = new Separator();
+
+    public PaneOfEventsController(Calendar calendar, Label mondayLabel, Label tuesdayLabel, Label wednesdayLabel, Label thursdayLabel, Label fridayLabel, Label saturdayLabel, Label sundayLabel, Label dateLabel, double scrollPanePos) {
         this.calendar = calendar;
         this.mondayLabel = mondayLabel;
         this.tuesdayLabel = tuesdayLabel;
@@ -56,10 +59,11 @@ public class PaneOfEventsController {
         this.saturdayLabel = saturdayLabel;
         this.sundayLabel = sundayLabel;
         this.dateLabel = dateLabel;
-
+        this.scrollPanePos = scrollPanePos;
     }
 
     public void initialize(){
+        scrollPane.setVvalue(scrollPanePos);
         ContextMenu contextMenu = new ContextMenu();
         MenuItem item1 = new MenuItem("Create event");
         int[] contRowCol;
@@ -98,8 +102,8 @@ public class PaneOfEventsController {
                 eventGridPane.add(pane, i, j);
             }
         }
-        getTimeLine(calendar);
 
+        getTimeLine(calendar);
         Platform.runLater(this::initializeEvents);
     }
 
@@ -107,7 +111,6 @@ public class PaneOfEventsController {
 
 
     private void initializeEvents() {
-
         if (listOfEvents.size() == 0) {
             getAllTimetables();
         }
@@ -127,6 +130,7 @@ public class PaneOfEventsController {
     public void drawNewEvent(Timetable timetable){
         Platform.runLater(() -> {
                 getEvent(timetable);
+
         });
     }
 
@@ -394,16 +398,20 @@ public class PaneOfEventsController {
         System.out.println(col);
     }
 
-    private void getTimeLine(Calendar calendar) {
+    public void getTimeLine(Calendar calendar) {
         int i = calendar.get(Calendar.HOUR_OF_DAY);
         int timeLine = i*4+1;
         i = calendar.get(Calendar.MINUTE);
         i = i/15;
         timeLine = timeLine + i;
-        Separator separator = new Separator();
         separator.setMinWidth(600);
         separator.getStylesheets().add((getClass().getResource("../calendarCSS/timeLine.css")).toExternalForm());
         separator.setPadding(new Insets(0,0,8,0));
+        eventGridPane.getChildren().remove(separator);
         eventGridPane.add(separator, 1, timeLine);
+    }
+
+    public double getScrollValue() {
+        return scrollPane.getVvalue();
     }
 }
