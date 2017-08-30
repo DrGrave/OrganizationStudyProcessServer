@@ -1,12 +1,6 @@
-<template>
-  <a
-    class="nav-link"
-    v-bind:href="href"
-    v-bind:class="{ active: isActive }"
-    v-on:click="go"
-  >
-    <slot></slot>
-  </a>
+<template lang="pug">
+a.nav-link(v-bind:href='href', v-bind:class='{ active: isActive }', v-on:click='go')
+  slot
 </template>
 
 <script>
@@ -26,7 +20,6 @@
     },
     methods: {
       go (event) {
-         console.log(this.$root.currentRoute)
         event.preventDefault()
         this.$root.currentRoute = this.href
         window.history.pushState(

@@ -1,14 +1,9 @@
-<template>
-	<main-page>
-		<div class="container">
-
-    		<div class="starter-template">
-        		<h1> {{ title }} </h1>
-        		<p> {{ message }} </p>
-    		</div>
-
-		</div>
-	</main-page>
+<template lang="pug">
+    main-page
+        .container
+            .starter-template
+                h1  {{ title }} 
+                p  {{ message }} 
 </template>
 
 <script>
