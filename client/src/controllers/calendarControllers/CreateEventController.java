@@ -1,4 +1,4 @@
-package controllers;
+package controllers.calendarControllers;
 import com.vkkzlabs.api.entity.Subject;
 import com.vkkzlabs.api.entity.Timetable;
 import javafx.event.ActionEvent;
@@ -10,7 +10,7 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
-import static controllers.PaneOfEventsController.timetableObservableList;
+import static controllers.calendarControllers.PaneOfEventsController.timetableObservableList;
 
 
 public class CreateEventController {

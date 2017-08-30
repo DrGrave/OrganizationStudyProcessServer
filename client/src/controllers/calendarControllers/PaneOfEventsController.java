@@ -1,9 +1,8 @@
-package controllers;
+package controllers.calendarControllers;
 
 import com.vkkzlabs.api.entity.Timetable;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -174,7 +173,7 @@ public class PaneOfEventsController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         DialogPane dialogPane = new DialogPane();
         Timetable timetable = new Timetable();
-        FXMLLoader createEvent = new  FXMLLoader(getClass().getResource("../samples/CreateEvent.fxml"));
+        FXMLLoader createEvent = new  FXMLLoader(getClass().getResource("../../samples/calendarFXML/CreateEvent.fxml"));
         CreateEventController createEventController = new CreateEventController(row,col, calendar, timetable, alert);
         createEvent.setController(createEventController);
         dialogPane.getChildren().add(createEvent.load());
@@ -186,6 +185,7 @@ public class PaneOfEventsController {
         dialogPane.setMinHeight(300);
         dialogPane.getButtonTypes().add(ButtonType.CLOSE);
         alert.setHeaderText("Create event");
+        alert.setTitle("Create event");
         alert.setDialogPane(dialogPane);
         alert.show();
     }
@@ -300,7 +300,7 @@ public class PaneOfEventsController {
     private void createSecEvent(Timetable[] thisTimetable) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         DialogPane dialogPane = new DialogPane();
-        FXMLLoader createEvent = new  FXMLLoader(getClass().getResource("../samples/CreateEvent.fxml"));
+        FXMLLoader createEvent = new  FXMLLoader(getClass().getResource("../../samples/calendarFXML/CreateEvent.fxml"));
         CreateEventController createEventController = new CreateEventController(0,0, calendar, thisTimetable[0], alert);
         createEvent.setController(createEventController);
         dialogPane.getChildren().add(createEvent.load());
@@ -312,6 +312,7 @@ public class PaneOfEventsController {
         dialogPane.setMinHeight(300);
         dialogPane.getButtonTypes().add(ButtonType.CLOSE);
         alert.setHeaderText("Create event");
+        alert.setTitle("Create event");
         alert.setDialogPane(dialogPane);
         alert.show();
     }
@@ -319,7 +320,7 @@ public class PaneOfEventsController {
     private void editEvent(Timetable timetable) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         DialogPane dialogPane = new DialogPane();
-        FXMLLoader createEvent = new  FXMLLoader(getClass().getResource("../samples/CreateEvent.fxml"));
+        FXMLLoader createEvent = new  FXMLLoader(getClass().getResource("../../samples/calendarFXML/CreateEvent.fxml"));
         CreateEventController createEventController = new CreateEventController(0,0, calendar, timetable,alert);
         createEvent.setController(createEventController);
         dialogPane.getChildren().add(createEvent.load());
@@ -331,6 +332,7 @@ public class PaneOfEventsController {
         dialogPane.setMinHeight(300);
         dialogPane.getButtonTypes().add(ButtonType.CLOSE);
         alert.setHeaderText("Edit event");
+        alert.setTitle("Edit event");
         alert.setDialogPane(dialogPane);
         alert.show();
     }
@@ -400,7 +402,7 @@ public class PaneOfEventsController {
         timeLine = timeLine + i;
         Separator separator = new Separator();
         separator.setMinWidth(600);
-        separator.getStylesheets().add((getClass().getResource("calendarCSS/timeLine.css")).toExternalForm());
+        separator.getStylesheets().add((getClass().getResource("../calendarCSS/timeLine.css")).toExternalForm());
         separator.setPadding(new Insets(0,0,8,0));
         eventGridPane.add(separator, 1, timeLine);
     }

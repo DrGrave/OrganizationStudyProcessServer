@@ -1,10 +1,9 @@
-package controllers;
+package controllers.calendarControllers;
 
 
 import com.vkkzlabs.api.entity.MyUser;
 import com.vkkzlabs.api.entity.MyUserCredentials;
 import com.vkkzlabs.api.entity.Timetable;
-import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,8 +17,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static controllers.PaneOfEventsController.listOfEvents;
-import static controllers.PaneOfEventsController.timetableObservableList;
+import static controllers.calendarControllers.PaneOfEventsController.listOfEvents;
+import static controllers.calendarControllers.PaneOfEventsController.timetableObservableList;
 
 
 public class CalendarController {
@@ -166,7 +165,7 @@ public class CalendarController {
         calendarNextWeek.setFirstDayOfWeek(Calendar.MONDAY);
         initializeWeeks(calendarNextWeek);
         paneOfEventsController = new PaneOfEventsController(calendarNextWeek, mondayLabel,tuesdayLabel,wednesdayLabel,thursdayLabel,fridayLabel,saturdayLabel,sundayLabel,dateLabel);
-        FXMLLoader gridEvent = new  FXMLLoader(getClass().getResource("../samples/GridPaneOfEvents.fxml"));
+        FXMLLoader gridEvent = new  FXMLLoader(getClass().getResource("../../samples/calendarFXML/GridPaneOfEvents.fxml"));
         gridEvent.setController(paneOfEventsController);
         vBox.getChildren().add(gridEvent.load());
     }
