@@ -34,9 +34,10 @@ module.exports = {
   	  historyApiFallback: true,
   	  noInfo: true,
   	  port: 3000,
-  	  allowedHosts: [
-  	  	'localhost:8080'
-  	  ]
+  	  proxy: [{
+        context: ["/login","/GetUser"],
+        target: "http://localhost:8080"
+      }]
   	},
   	devtool: '#eval-source-map'
 }

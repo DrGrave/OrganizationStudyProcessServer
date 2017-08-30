@@ -1,14 +1,9 @@
-<template>
-	<main-page>
-		<div class="container">
-
-    		<div class="starter-template">
-        		<h1> О системе </h1>
-        		<p> Типо крутая система для преподов и студентов и т.д и тому подобное </p>
-    		</div>
-
-		</div>
-	</main-page>
+<template lang="pug">
+  main-page
+    .container
+      .starter-template
+        h1  О системе 
+        p  Типо крутая система для преподов и студентов и т.д и тому подобное 
 </template>
 
 <script>

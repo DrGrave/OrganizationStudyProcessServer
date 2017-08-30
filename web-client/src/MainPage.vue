@@ -1,22 +1,13 @@
-<template>
-    <div>
-        <navigation></navigation>
-        <slot></slot>
-    </div>
+<template lang="pug">
+    div
+        navigation
+        slot
 </template>
 
 <script>
 import Navigation from './forms/Navigation.vue'
 
 export default {
-    data(){
-        return {
-            title: 'Главная',
-            message: 'Здароу пользователь',
-            login: '',
-            password: ''
-        }
-    },
     components: {
         Navigation
     }
