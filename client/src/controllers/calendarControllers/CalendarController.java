@@ -17,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
+import requests.EventsRequest;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -157,7 +158,7 @@ public class CalendarController {
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         Platform.runLater(timeline::play);
-        Timeline timelineToAllEvents = new Timeline(new KeyFrame(Duration.seconds(60), ev -> {
+        Timeline timelineToAllEvents = new Timeline(new KeyFrame(Duration.seconds(30), ev -> {
             try {
                 clearEvents();
                 if (calendarNextWeek.get(Calendar.WEEK_OF_YEAR) == calendar.get(Calendar.WEEK_OF_YEAR)){
@@ -174,13 +175,12 @@ public class CalendarController {
     }
 
     private void initializeListChangeListener() {
-
+        EventsRequest eventsRequest = new EventsRequest();
         timetableObservableList.addListener((ListChangeListener<Timetable>) change -> {
             while (change.next()) {
-                listOfEvents.removeAll(change.getRemoved());
                 if (timetableObservableList.size() != 0) {
-                    listOfEvents.add(change.getAddedSubList().get(0));
-                    paneOfEventsController.drawNewEvent(change.getAddedSubList().get(0));
+                    Timetable timetable = eventsRequest.saveEvent(change.getAddedSubList().get(0), token);
+                    paneOfEventsController.drawNewEvent(timetable);
                     timetableObservableList.clear();
                 }
             }
@@ -194,7 +194,7 @@ public class CalendarController {
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
         calendarNextWeek.setFirstDayOfWeek(Calendar.MONDAY);
         initializeWeeks(calendarNextWeek);
-        paneOfEventsController = new PaneOfEventsController(calendarNextWeek, mondayLabel,tuesdayLabel,wednesdayLabel,thursdayLabel,fridayLabel,saturdayLabel,sundayLabel,dateLabel, scrollPanePos);
+        paneOfEventsController = new PaneOfEventsController(calendarNextWeek, mondayLabel,tuesdayLabel,wednesdayLabel,thursdayLabel,fridayLabel,saturdayLabel,sundayLabel,dateLabel, scrollPanePos, iUser, token, myUserCredentials);
         FXMLLoader gridEvent = new  FXMLLoader(getClass().getResource("../../samples/calendarFXML/GridPaneOfEvents.fxml"));
         gridEvent.setController(paneOfEventsController);
         vBox.getChildren().add(gridEvent.load());

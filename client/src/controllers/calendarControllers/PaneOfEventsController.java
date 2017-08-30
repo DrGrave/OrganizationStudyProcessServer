@@ -1,5 +1,7 @@
 package controllers.calendarControllers;
 
+import com.vkkzlabs.api.entity.MyUser;
+import com.vkkzlabs.api.entity.MyUserCredentials;
 import com.vkkzlabs.api.entity.Timetable;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -47,9 +49,12 @@ public class PaneOfEventsController {
     private Label sundayLabel;
     private Label dateLabel;
     private double scrollPanePos;
+    private MyUser iUser;
+    private String token;
+    private MyUserCredentials myUserCredentials;
     private Separator separator = new Separator();
 
-    public PaneOfEventsController(Calendar calendar, Label mondayLabel, Label tuesdayLabel, Label wednesdayLabel, Label thursdayLabel, Label fridayLabel, Label saturdayLabel, Label sundayLabel, Label dateLabel, double scrollPanePos) {
+    public PaneOfEventsController(Calendar calendar, Label mondayLabel, Label tuesdayLabel, Label wednesdayLabel, Label thursdayLabel, Label fridayLabel, Label saturdayLabel, Label sundayLabel, Label dateLabel, double scrollPanePos, MyUser iUser, String token, MyUserCredentials myUserCredentials) {
         this.calendar = calendar;
         this.mondayLabel = mondayLabel;
         this.tuesdayLabel = tuesdayLabel;
@@ -60,6 +65,9 @@ public class PaneOfEventsController {
         this.sundayLabel = sundayLabel;
         this.dateLabel = dateLabel;
         this.scrollPanePos = scrollPanePos;
+        this.iUser = iUser;
+        this.token = token;
+        this.myUserCredentials = myUserCredentials;
     }
 
     public void initialize(){
@@ -111,9 +119,7 @@ public class PaneOfEventsController {
 
 
     private void initializeEvents() {
-        if (listOfEvents.size() == 0) {
-            getAllTimetables();
-        }
+        getAllTimetables();
         if (listOfEvents != null) {
             for (Timetable timetable : listOfEvents) {
                 getEvent(timetable);
@@ -123,7 +129,7 @@ public class PaneOfEventsController {
 
     private void getAllTimetables() {
         EventsRequest eventsRequest = new EventsRequest();
-        listOfEvents = eventsRequest.getAllEvents();
+        listOfEvents = Arrays.asList(eventsRequest.getAllEvents(iUser.getIdUser(), token));
 
     }
 
@@ -168,8 +174,7 @@ public class PaneOfEventsController {
         calendar.set(Calendar.MONTH, monthToEveryDate[parsedDates.indexOf(day)]-1);
         calendar.set(Calendar.DAY_OF_MONTH, day);
         showCreateEventDialog(row,col, calendar);
-        System.out.println(row);
-        System.out.println(col);
+
 
     }
 
@@ -178,7 +183,7 @@ public class PaneOfEventsController {
         DialogPane dialogPane = new DialogPane();
         Timetable timetable = new Timetable();
         FXMLLoader createEvent = new  FXMLLoader(getClass().getResource("../../samples/calendarFXML/CreateEvent.fxml"));
-        CreateEventController createEventController = new CreateEventController(row,col, calendar, timetable, alert);
+        CreateEventController createEventController = new CreateEventController(row,col, calendar, timetable, alert, iUser,token,myUserCredentials);
         createEvent.setController(createEventController);
         dialogPane.getChildren().add(createEvent.load());
         dialogPane.setOnKeyPressed(keyEvent -> {
@@ -196,8 +201,10 @@ public class PaneOfEventsController {
 
     private void getEvent(Timetable timetable) {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-        String textOfEntity = "Subj:"+timetable.getSubject().getNameSubject()+ " Loc:" + timetable.getAuditory() +" Start:"+ dateFormat.format(timetable.getDate())+" End:"+ dateFormat.format(timetable.getTimeOfEndWork());
-        compareWithDates(timetable.getDate(), timetable.getTimeOfEndWork(), textOfEntity,timetable);
+        if (timetable != null) {
+            String textOfEntity = "Subj:" + timetable.getSubject().getNameSubject() + " Loc:" + timetable.getAuditory() + " Start:" + dateFormat.format(timetable.getDate()) + " End:" + dateFormat.format(timetable.getTimeOfEndWork());
+            compareWithDates(timetable.getDate(), timetable.getTimeOfEndWork(), textOfEntity, timetable);
+        }
     }
 
     private void compareWithDates(Date dateOfStart, Date dateOfEnd,String text, Timetable timetable) {
@@ -305,7 +312,7 @@ public class PaneOfEventsController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         DialogPane dialogPane = new DialogPane();
         FXMLLoader createEvent = new  FXMLLoader(getClass().getResource("../../samples/calendarFXML/CreateEvent.fxml"));
-        CreateEventController createEventController = new CreateEventController(0,0, calendar, thisTimetable[0], alert);
+        CreateEventController createEventController = new CreateEventController(0,0, calendar, thisTimetable[0], alert, iUser,token,myUserCredentials);
         createEvent.setController(createEventController);
         dialogPane.getChildren().add(createEvent.load());
         dialogPane.setOnKeyPressed(keyEvent -> {
@@ -325,7 +332,7 @@ public class PaneOfEventsController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         DialogPane dialogPane = new DialogPane();
         FXMLLoader createEvent = new  FXMLLoader(getClass().getResource("../../samples/calendarFXML/CreateEvent.fxml"));
-        CreateEventController createEventController = new CreateEventController(0,0, calendar, timetable,alert);
+        CreateEventController createEventController = new CreateEventController(0,0, calendar, timetable,alert, iUser, token, myUserCredentials);
         createEvent.setController(createEventController);
         dialogPane.getChildren().add(createEvent.load());
         dialogPane.setOnKeyPressed(keyEvent -> {
@@ -395,7 +402,7 @@ public class PaneOfEventsController {
         textOfEvent.setPadding(new Insets(0,0,0,10));
         paneToText.getChildren().add(textOfEvent);
         eventGridPane.add(paneToText, column+1,rowToText-1);
-        System.out.println(col);
+
     }
 
     public void getTimeLine(Calendar calendar) {

@@ -1,14 +1,19 @@
 package controllers.calendarControllers;
+import com.vkkzlabs.api.entity.MyUser;
+import com.vkkzlabs.api.entity.MyUserCredentials;
 import com.vkkzlabs.api.entity.Subject;
 import com.vkkzlabs.api.entity.Timetable;
+import controllers.converters.SubjectConverter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import requests.SubjectRequest;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 import static controllers.calendarControllers.PaneOfEventsController.timetableObservableList;
 
@@ -36,7 +41,7 @@ public class CreateEventController {
     private Label timeOfEndLabel;
 
     @FXML
-    private ChoiceBox<?> subjectChoice;
+    private ChoiceBox<Subject> subjectChoice;
 
     @FXML
     private TextField locationTextField;
@@ -46,14 +51,22 @@ public class CreateEventController {
     private Calendar calendar;
     private Timetable timetable;
     private Alert alert;
+    private MyUser iUser;
+    private String token;
+    private MyUserCredentials myUserCredentials;
 
-    public CreateEventController(int row, int col, Calendar calendar, Timetable timetable, Alert alert) {
+    public CreateEventController(int row, int col, Calendar calendar, Timetable timetable, Alert alert, MyUser iUser, String token, MyUserCredentials myUserCredentials) {
         this.row = row;
         this.col = col;
         this.calendar = calendar;
         this.timetable = timetable;
         this.alert = alert;
+        this.iUser = iUser;
+        this.token = token;
+        this.myUserCredentials = myUserCredentials;
     }
+
+
 
     @FXML
     void acceptEvent(ActionEvent event) {
@@ -67,7 +80,7 @@ public class CreateEventController {
         dateStart.setHours(Integer.parseInt(timeOfStartLabel.getText().substring(0,2).replaceAll("[\\D]", "")));
         dateStart.setMinutes(Integer.parseInt(timeOfStartLabel.getText().substring(2, 5).replaceAll("[\\D]", "")));
         dateStart.setSeconds(0);
-        System.out.println(dateStart);
+
 
 
         Date dateEnd = new Date();
@@ -82,19 +95,23 @@ public class CreateEventController {
         timetable.setTimeOfEndWork(dateEnd);
 
         String str = timeOfEndLabel.getText().substring(2,4);
-        System.out.println(str);
 
-        if (locationTextField.getText() != null) {
-            timetable.setAuditory(locationTextField.getText());
-        }
-        Subject subject = new Subject();
-        subject.setNameSubject("FFF");
-        timetable.setSubject(subject);
-        timetable.setProfessor(null);
+
+
+
+        timetable.setSubject(subjectChoice.getValue());
+        timetable.setProfessor(iUser);
         timetable.setAuditory(locationTextField.getText());
-        timetableObservableList.add(timetable);
-        alert.close();
-        System.out.println(dateEnd);
+
+        if (locationTextField.getText() != null && !Objects.equals(locationTextField.getText(), "Please write location!")) {
+            timetable.setAuditory(locationTextField.getText());
+            timetableObservableList.add(timetable);
+            alert.close();
+        }else {
+            locationTextField.setText("Please write location!");
+        }
+
+
 
     }
 
@@ -104,6 +121,12 @@ public class CreateEventController {
     }
 
     public void initialize(){
+        SubjectConverter subjectConverter = new SubjectConverter();
+        SubjectRequest subjectRequest = new SubjectRequest();
+        subjectChoice.setConverter(subjectConverter);
+        ObservableList<Subject> subjects = FXCollections.observableList(Arrays.asList(subjectRequest.getSubjectsToProfessor(iUser.getIdUser(), token)));
+        subjectChoice.setItems(subjects);
+        subjectChoice.getSelectionModel().select(0);
         initializeTimes();
         initializeDates();
 

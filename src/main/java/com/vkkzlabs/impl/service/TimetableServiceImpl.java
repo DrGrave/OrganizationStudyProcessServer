@@ -45,4 +45,9 @@ public class TimetableServiceImpl implements TimetableService{
         }
         return null;
     }
+
+    @Override
+    public List<Timetable> getAllTimetableToUser(int idUser) {
+        return timetableDAO.findAllByProfessor_IdUser(idUser);
+    }
 }
