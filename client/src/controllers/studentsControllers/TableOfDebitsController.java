@@ -74,7 +74,7 @@ public class TableOfDebitsController {
         QueueRequest queueRequest = new QueueRequest();
         if (debtTable.getSelectionModel().getSelectedItem() != null) {
             TimetableRequest timetableRequest = new TimetableRequest();
-            Timetable timetable = timetableRequest.getTimetableByProfessorIdAndSubjectId(debtTable.getSelectionModel().getSelectedItem().getIdOfWork().getMyUser(), debtTable.getSelectionModel().getSelectedItem().getIdOfWork().getSubject().getIdSubject(), token);
+            Timetable timetable = timetableRequest.getTimetableByProfessorIdAndSubjectId(debtTable.getSelectionModel().getSelectedItem().getIdOfWork().getProfessorId(), debtTable.getSelectionModel().getSelectedItem().getIdOfWork().getSubject().getIdSubject(), token);
             if (timetable != null) {
                 Queue queue = new Queue();
                 queue.setTimetable(timetable);

@@ -56,6 +56,9 @@ public class ProfessorController {
     @FXML
     private Tab professorQueueTab;
 
+    @FXML
+    private Tab studentListTab;
+
     private MyUser iUser;
     private MyUserCredentials myUserCredentials;
     private String token;
@@ -84,7 +87,7 @@ public class ProfessorController {
     }
 
     private void initializeCreateWork() throws IOException {
-        CreateWorkController createWorkController = new CreateWorkController();
+        CreateWorkController createWorkController = new CreateWorkController(iUser, token, myUserCredentials);
         FXMLLoader createWork = new FXMLLoader(getClass().getResource("../samples/professorFXML/CreateWork.fxml"));
         createWork.setController(createWorkController);
         addWorkTab.setContent(createWork.load());

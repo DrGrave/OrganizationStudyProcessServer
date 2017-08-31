@@ -37,6 +37,7 @@ public class PaneOfEventsController {
     public static List<Timetable> listOfEvents = new ArrayList<>();
 
     public static ObservableList<Timetable> timetableObservableList = FXCollections.observableList(listOfEvents);
+    public static Timetable nowTimetable = new Timetable();
 
 
     private Calendar calendar;
@@ -416,6 +417,21 @@ public class PaneOfEventsController {
         separator.setPadding(new Insets(0,0,8,0));
         eventGridPane.getChildren().remove(separator);
         eventGridPane.add(separator, 1, timeLine);
+        setNowTimetable(calendar);
+    }
+
+    private void setNowTimetable(Calendar calendar){
+        int monthOfCalendar = calendar.get(Calendar.MONTH)+1;
+        int dayOfCalendar = calendar.get(Calendar.DAY_OF_MONTH);
+        int[] timeOfCalendar = {calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE)};
+        for (Timetable timetable : listOfEvents){
+            int monthOfTimetable = timetable.getDate().getMonth();
+            int dayOfTimetable = timetable.getDate().getDate();
+            int[] timeOfStartEnd = {timetable.getDate().getHours(), timetable.getDate().getMinutes(), timetable.getTimeOfEndWork().getHours(), timetable.getTimeOfEndWork().getMinutes()};
+            if (monthOfCalendar == monthOfTimetable && dayOfCalendar == dayOfTimetable && timeOfStartEnd[0] <= timeOfCalendar[0] && timeOfStartEnd[1] <= timeOfCalendar[1] && timeOfStartEnd[2] >= timeOfCalendar[0] && timeOfStartEnd[3] >= timeOfCalendar[1]){
+                nowTimetable = timetable;
+            }
+        }
     }
 
     public double getScrollValue() {

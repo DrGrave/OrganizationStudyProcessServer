@@ -84,4 +84,9 @@ public class StudentWorksController {
         HttpEntity<M2MStudentWork[]> request = restTemplate.exchange(REST_SERVICE_URI+"/StudentWork/GetAccepted/"+idUser+"/Subject/"+ idSubject, HttpMethod.GET, entity, M2MStudentWork[].class);
         return request.getBody();
     }
+
+    public M2MStudentWork getWorkByUserIdAndIdWork(int idUser, int idOfWork) {
+
+        return null;
+    }
 }
