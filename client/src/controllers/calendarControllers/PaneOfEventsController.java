@@ -179,6 +179,8 @@ public class PaneOfEventsController {
 
     }
 
+    // TODO: 01.09.17 Отобразить в расписании группу у которой пара, доделать очередь, исправить у студента становление в очередь(неправильная дата).
+
     private void showCreateEventDialog(int row, int col, Calendar calendar) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         DialogPane dialogPane = new DialogPane();
@@ -192,7 +194,7 @@ public class PaneOfEventsController {
                 alert.close();
             }
         });
-        dialogPane.setMinHeight(300);
+        dialogPane.setMinHeight(350);
         dialogPane.getButtonTypes().add(ButtonType.CLOSE);
         alert.setHeaderText("Create event");
         alert.setTitle("Create event");

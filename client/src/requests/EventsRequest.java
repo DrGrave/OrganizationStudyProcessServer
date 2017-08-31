@@ -32,8 +32,8 @@ public class EventsRequest {
                 HttpHeaders httpHeaders = new HttpHeaders();
                 httpHeaders.add("Authorization", token);
                 HttpEntity<?> entity = new HttpEntity<>(timetable, httpHeaders);
-                HttpEntity<Timetable> queueEntity = restTemplate.exchange(REST_SERVICE_URI + "/Timetable/Save", HttpMethod.POST, entity, Timetable.class);
-                return queueEntity.getBody();
+                HttpEntity<Timetable> timetableEntity = restTemplate.exchange(REST_SERVICE_URI + "/Timetable/Save", HttpMethod.POST, entity, Timetable.class);
+                return timetableEntity.getBody();
             } catch (HttpClientErrorException exception){
                 return null;
             }

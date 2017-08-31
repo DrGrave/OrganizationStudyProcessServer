@@ -175,12 +175,11 @@ public class CalendarController {
     }
 
     private void initializeListChangeListener() {
-        EventsRequest eventsRequest = new EventsRequest();
+
         timetableObservableList.addListener((ListChangeListener<Timetable>) change -> {
             while (change.next()) {
                 if (timetableObservableList.size() != 0) {
-                    Timetable timetable = eventsRequest.saveEvent(change.getAddedSubList().get(0), token);
-                    paneOfEventsController.drawNewEvent(timetable);
+                    paneOfEventsController.drawNewEvent(change.getAddedSubList().get(0));
                     timetableObservableList.clear();
                 }
             }

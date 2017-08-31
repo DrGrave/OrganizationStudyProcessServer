@@ -33,17 +33,20 @@ public class Controller {
 
     private LoginController loginController = new LoginController();
 
+    public static String token;
+
+    public static MyUser iUser;
 
 
     @FXML
     void signInEvent(ActionEvent event) throws IOException {
         MyUserCredentials myUserCredentials = new MyUserCredentials(loginTextField.getText(), passwordTextField.getText());
         System.out.print(myUserCredentials);
-        String token = loginController.loginEvent(myUserCredentials);
+        token = loginController.loginEvent(myUserCredentials);
         if (token != null){
             incorrectLogPass.setVisible(false);
             myUserCredentials.setUserPassword(null);
-            MyUser iUser = loginController.getUserByLogin(myUserCredentials, token);
+            iUser = loginController.getUserByLogin(myUserCredentials, token);
             if (iUser.getUserType().getIdUserType() == 1) {
                 openAdminStage(iUser, myUserCredentials, token);
                 signInButtom.getScene().getWindow().hide();

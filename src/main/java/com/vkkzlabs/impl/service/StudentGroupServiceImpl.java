@@ -6,6 +6,8 @@ import com.vkkzlabs.api.service.StudentGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  *  Сервис для работы со связью студентов и их групп
  */
@@ -25,4 +27,8 @@ public class StudentGroupServiceImpl implements StudentGroupService {
         return studentGroupDAO.getByIdGroup(idStudentGroup);
     }
 
+    @Override
+    public List<StudentGroup> getListStudentGroupsToProfessor(int idProfessor) {
+        return studentGroupDAO.findAll();
+    }
 }

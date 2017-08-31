@@ -1,20 +1,22 @@
 package controllers.calendarControllers;
-import com.vkkzlabs.api.entity.MyUser;
-import com.vkkzlabs.api.entity.MyUserCredentials;
-import com.vkkzlabs.api.entity.Subject;
-import com.vkkzlabs.api.entity.Timetable;
+import com.vkkzlabs.api.entity.*;
+import controllers.converters.StudentGroupConverter;
 import controllers.converters.SubjectConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import requests.EventsRequest;
+import requests.GroupTimetableRequest;
+import requests.StudentGroupRequest;
 import requests.SubjectRequest;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
 
+import static controllers.calendarControllers.PaneOfEventsController.listOfEvents;
 import static controllers.calendarControllers.PaneOfEventsController.timetableObservableList;
 
 
@@ -46,6 +48,9 @@ public class CreateEventController {
     @FXML
     private TextField locationTextField;
 
+    @FXML
+    private ChoiceBox<StudentGroup> groupChoiceBox;
+
     private int row;
     private int col;
     private Calendar calendar;
@@ -54,6 +59,7 @@ public class CreateEventController {
     private MyUser iUser;
     private String token;
     private MyUserCredentials myUserCredentials;
+
 
     public CreateEventController(int row, int col, Calendar calendar, Timetable timetable, Alert alert, MyUser iUser, String token, MyUserCredentials myUserCredentials) {
         this.row = row;
@@ -102,10 +108,16 @@ public class CreateEventController {
         timetable.setSubject(subjectChoice.getValue());
         timetable.setProfessor(iUser);
         timetable.setAuditory(locationTextField.getText());
-
+        EventsRequest eventsRequest = new EventsRequest();
+        GroupTimetableRequest groupTimetableRequest = new GroupTimetableRequest();
         if (locationTextField.getText() != null && !Objects.equals(locationTextField.getText(), "Please write location!")) {
             timetable.setAuditory(locationTextField.getText());
+            M2MGroupTimetable m2MGroupTimetable = new M2MGroupTimetable();
+            m2MGroupTimetable.setIdGroup(groupChoiceBox.getValue());
+            m2MGroupTimetable.setIdTimetable(eventsRequest.saveEvent(timetable,token));
+            groupTimetableRequest.saveGroupTimetable(m2MGroupTimetable,token);
             timetableObservableList.add(timetable);
+
             alert.close();
         }else {
             locationTextField.setText("Please write location!");
@@ -123,10 +135,16 @@ public class CreateEventController {
     public void initialize(){
         SubjectConverter subjectConverter = new SubjectConverter();
         SubjectRequest subjectRequest = new SubjectRequest();
+        StudentGroupRequest studentGroupRequest = new StudentGroupRequest();
+        ObservableList<StudentGroup> studentGroupObservableList = FXCollections.observableList(Arrays.asList(studentGroupRequest.getAllProfessorsGroup(token,iUser)));
+        StudentGroupConverter studentGroupConverter = new StudentGroupConverter();
+        groupChoiceBox.setConverter(studentGroupConverter);
+        groupChoiceBox.setItems(studentGroupObservableList);
         subjectChoice.setConverter(subjectConverter);
         ObservableList<Subject> subjects = FXCollections.observableList(Arrays.asList(subjectRequest.getSubjectsToProfessor(iUser.getIdUser(), token)));
         subjectChoice.setItems(subjects);
         subjectChoice.getSelectionModel().select(0);
+
         initializeTimes();
         initializeDates();
 
