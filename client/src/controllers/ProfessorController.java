@@ -2,6 +2,8 @@ package controllers;
 import com.vkkzlabs.api.entity.MyUser;
 import com.vkkzlabs.api.entity.MyUserCredentials;
 import controllers.calendarControllers.CalendarController;
+import controllers.professorControllers.CreateWorkController;
+import controllers.professorControllers.ProfessorQueueController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
@@ -47,6 +49,13 @@ public class ProfessorController {
     @FXML
     private VBox calendarVBox;
 
+
+    @FXML
+    private Tab addWorkTab;
+
+    @FXML
+    private Tab professorQueueTab;
+
     private MyUser iUser;
     private MyUserCredentials myUserCredentials;
     private String token;
@@ -63,6 +72,22 @@ public class ProfessorController {
     public void initialize() throws IOException {
         initializeInfoOfUser();
         initializeCalendar();
+        initializeCreateWork();
+        initializeProfessorQueue();
+    }
+
+    private void initializeProfessorQueue() throws IOException {
+        ProfessorQueueController professorQueueController = new ProfessorQueueController();
+        FXMLLoader professorQueue = new FXMLLoader(getClass().getResource("../samples/professorFXML/ProfessorQueue.fxml"));
+        professorQueue.setController(professorQueueController);
+        professorQueueTab.setContent(professorQueue.load());
+    }
+
+    private void initializeCreateWork() throws IOException {
+        CreateWorkController createWorkController = new CreateWorkController();
+        FXMLLoader createWork = new FXMLLoader(getClass().getResource("../samples/professorFXML/CreateWork.fxml"));
+        createWork.setController(createWorkController);
+        addWorkTab.setContent(createWork.load());
     }
 
     private void initializeCalendar() throws IOException {
