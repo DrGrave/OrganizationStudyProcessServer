@@ -428,8 +428,11 @@ public class PaneOfEventsController {
             int monthOfTimetable = timetable.getDate().getMonth();
             int dayOfTimetable = timetable.getDate().getDate();
             int[] timeOfStartEnd = {timetable.getDate().getHours(), timetable.getDate().getMinutes(), timetable.getTimeOfEndWork().getHours(), timetable.getTimeOfEndWork().getMinutes()};
-            if (monthOfCalendar == monthOfTimetable && dayOfCalendar == dayOfTimetable && timeOfStartEnd[0] <= timeOfCalendar[0] && timeOfStartEnd[1] <= timeOfCalendar[1] && timeOfStartEnd[2] >= timeOfCalendar[0] && timeOfStartEnd[3] >= timeOfCalendar[1]){
-                nowTimetable = timetable;
+            if (monthOfCalendar == monthOfTimetable && dayOfCalendar == dayOfTimetable && timeOfStartEnd[0] <= timeOfCalendar[0]  && timeOfStartEnd[2] >= timeOfCalendar[0]){
+                    nowTimetable = timetable;
+                    break;
+            } else {
+                nowTimetable = null;
             }
         }
     }

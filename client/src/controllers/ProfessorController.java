@@ -80,7 +80,7 @@ public class ProfessorController {
     }
 
     private void initializeProfessorQueue() throws IOException {
-        ProfessorQueueController professorQueueController = new ProfessorQueueController();
+        ProfessorQueueController professorQueueController = new ProfessorQueueController(iUser,token,myUserCredentials);
         FXMLLoader professorQueue = new FXMLLoader(getClass().getResource("../samples/professorFXML/ProfessorQueue.fxml"));
         professorQueue.setController(professorQueueController);
         professorQueueTab.setContent(professorQueue.load());

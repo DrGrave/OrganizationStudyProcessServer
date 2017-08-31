@@ -9,6 +9,7 @@ import java.util.List;
  */
 public interface QueueService {
     void saveQueue(Queue queue);
+
     Queue getQueueByIdQueue(int idQueue);
 
     List<Queue> getAllQueueToStudent(int idTimetable);
@@ -18,4 +19,6 @@ public interface QueueService {
     List<Queue> getQueueToSubject(int idTimetable, int idStudent);
 
     List<Queue> tryToGetQueue(int idUser);
+
+    void deleteByIdTimetableIdWorkIdStudent(int timetableId, int idOfWork, int studentId);
 }

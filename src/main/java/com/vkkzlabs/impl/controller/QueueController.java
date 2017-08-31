@@ -3,6 +3,7 @@ package com.vkkzlabs.impl.controller;
 import com.vkkzlabs.api.entity.MyUser;
 import com.vkkzlabs.api.entity.MyUserCredentials;
 import com.vkkzlabs.api.entity.Queue;
+import com.vkkzlabs.api.entity.Work;
 import com.vkkzlabs.api.service.QueueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,7 +51,7 @@ public class QueueController {
         }
     }
 
-    @GetMapping("GetToStudent/{idTimetable}")
+    @GetMapping("GetByTimetable/{idTimetable}")
     public ResponseEntity<List<Queue>> getToStudentQueue(@PathVariable("idTimetable") int idTimetable){
         List<Queue> queues = queueService.getAllQueueToStudent(idTimetable);
         if (queues != null) {
@@ -72,5 +73,23 @@ public class QueueController {
         if (queues != null){
             return new ResponseEntity<List<Queue>>(queues, HttpStatus.OK);
         } return new ResponseEntity<List<Queue>>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("Delete/Timetable/{timetableId}/Work/{idOfWork}/Student/{studentId}")
+    public ResponseEntity deleteQueueByIdProfessorIdWorkIdStudent(@PathVariable("timetableId") int timetableId, @PathVariable("idOfWork") int idOfWork, @PathVariable("studentId") int studentId){
+        queueService.deleteByIdTimetableIdWorkIdStudent(timetableId, idOfWork, studentId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("Student/{idUser}/Timetable/{idTimetable}")
+    public ResponseEntity<List<Work>> getListQueueByTimetableAndStudentId(@PathVariable("idUser") int idUser, @PathVariable("idTimetable") int idTimetable){
+        List<Queue> queues = queueService.getQueueToSubject(idTimetable, idUser);
+        List<Work> works = new ArrayList<>();
+        for (Queue queue :queues){
+            works.add(queue.getWork());
+        }
+        if (queues != null) {
+            return new ResponseEntity<List<Work>>(works, HttpStatus.OK);
+        } return new ResponseEntity<List<Work>>(HttpStatus.NOT_FOUND);
     }
 }

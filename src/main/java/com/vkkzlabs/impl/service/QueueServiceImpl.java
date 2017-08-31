@@ -36,7 +36,7 @@ public class QueueServiceImpl implements QueueService {
 
     @Override
     public boolean checkIfExists(Queue queue) {
-        if (queueDAO.findByTimetable_IdTimetableAndWork_IdOfWorkAndAndStudent_IdUser(queue.getTimetable().getIdTimetable(), queue.getWork().getIdOfWork(), queue.getStudent().getIdUser()) == null){
+        if (queueDAO.findByTimetable_IdTimetableAndWork_IdOfWorkAndStudent_IdUser(queue.getTimetable().getIdTimetable(), queue.getWork().getIdOfWork(), queue.getStudent().getIdUser()) == null){
             return false;
         }else return true;
     }
@@ -56,5 +56,11 @@ public class QueueServiceImpl implements QueueService {
             }
         }
         return null;
+    }
+
+    @Override
+    public void deleteByIdTimetableIdWorkIdStudent(int timetableId, int idOfWork, int studentId) {
+        Queue queue = queueDAO.findByTimetable_IdTimetableAndWork_IdOfWorkAndStudent_IdUser(timetableId,idOfWork,studentId);
+        queueDAO.delete(queue);
     }
 }

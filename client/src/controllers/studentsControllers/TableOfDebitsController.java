@@ -84,7 +84,7 @@ public class TableOfDebitsController {
                 if (queues != null) {
                     initializeQueueTab(queues);
                 } else {
-                    initializeQueueTab(queueRequest.getAllQueueToUser(queue, token));
+                    initializeQueueTab(queueRequest.getAllQueueToUser(queue.getTimetable(), token));
                 }
             }else {
                 Alert noTimetableAlert = new Alert(Alert.AlertType.INFORMATION);
