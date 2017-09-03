@@ -40,6 +40,7 @@ function getUser(self){
     }).catch(function(err){
         alert("Произошла ошибка");
         console.error(err);
+        self.$root.user = null;
     });
 }
 
@@ -53,18 +54,21 @@ function getToken(self){
             console.log(res);
             if(res.status==200){
                 localStorage.setItem('Auth', res.headers.get("Authorization"));
+                getUser(self);
             }
             if(res.status==401){
                 alert("Неправильный логин или пароль");
+                self.$root.user = null;
             }
-            getUser(self);
         }).catch(function(err){
             alert("Произошла ошибка");
+            self.$root.user = null;
             console.error(res);
         });
     }
     else{
-        alert("Не заполненое поле!")
+        alert("Не заполненое поле!");
+        self.$root.user = null;
     }
 }
 
