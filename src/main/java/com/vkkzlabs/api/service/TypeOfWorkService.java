@@ -2,6 +2,7 @@ package com.vkkzlabs.api.service;
 
 import com.vkkzlabs.api.entity.TypeOfWork;
 
+import java.util.List;
 
 
 /**
@@ -10,4 +11,6 @@ import com.vkkzlabs.api.entity.TypeOfWork;
 public interface TypeOfWorkService {
     void saveTypeOfWork(TypeOfWork typeOfWork);
     TypeOfWork getTypeOfWorkByIdTypeOfWork(int idTypeOfWork);
+
+    List<TypeOfWork> getAllTypesOfWork();
 }

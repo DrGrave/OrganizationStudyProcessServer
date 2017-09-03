@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 /**
  *  Предназначен для работы с типами работ
  */
@@ -26,5 +28,13 @@ public class TypeOfWorkController {
         if (typeOfWork != null) {
             return new ResponseEntity<TypeOfWork>(typeOfWork, HttpStatus.OK);
         } return new ResponseEntity<TypeOfWork>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("GetAll")
+    public ResponseEntity<List<TypeOfWork>> getTypesOfWork(){
+        List<TypeOfWork> typeOfWorks = typeOfWorkService.getAllTypesOfWork();
+        if (typeOfWorks != null) {
+            return new ResponseEntity<List<TypeOfWork>>(typeOfWorks, HttpStatus.OK);
+        } return new ResponseEntity<List<TypeOfWork>>(HttpStatus.NOT_FOUND);
     }
 }

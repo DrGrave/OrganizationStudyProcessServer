@@ -1,8 +1,6 @@
 package requests;
 
-import com.vkkzlabs.api.entity.MyUser;
-import com.vkkzlabs.api.entity.Queue;
-import com.vkkzlabs.api.entity.Subject;
+import com.vkkzlabs.api.entity.*;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -31,13 +29,13 @@ public class QueueRequest {
         }
     }
 
-    public Queue[] getAllQueueToUser(Queue queue, String token) {
+    public Queue[] getAllQueueToUser(Timetable timetable, String token) {
         try {
             RestTemplate restTemplate = new RestTemplate();
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.add("Authorization", token);
             HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
-            HttpEntity<Queue[]> queueEntity = restTemplate.exchange(REST_SERVICE_URI + "/Queue/GetToStudent/"+queue.getTimetable().getIdTimetable(), HttpMethod.GET, entity, Queue[].class);
+            HttpEntity<Queue[]> queueEntity = restTemplate.exchange(REST_SERVICE_URI + "/Queue/GetByTimetable/"+timetable.getIdTimetable(), HttpMethod.GET, entity, Queue[].class);
             return queueEntity.getBody();
         } catch (HttpClientErrorException ex){
             return null;
@@ -66,6 +64,32 @@ public class QueueRequest {
             HttpEntity<Queue[]> queueEntity = restTemplate.exchange(REST_SERVICE_URI + "/Queue/TryGetQueueToStudent/"+iUser.getIdUser(), HttpMethod.GET, entity, Queue[].class);
             return queueEntity.getBody();
         }catch (HttpClientErrorException ex){
+            return null;
+        }
+    }
+
+    public void deleteQueueByQueue(int timetable, int idOfWork, int studentId, String token) {
+            try {
+                RestTemplate restTemplate = new RestTemplate();
+                HttpHeaders httpHeaders = new HttpHeaders();
+                httpHeaders.add("Authorization", token);
+                HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
+                HttpEntity<Work[]> queueEntity = restTemplate.exchange(REST_SERVICE_URI + "/Queue/Delete/Timetable/"+timetable+"/Work/"+idOfWork+"/Student/"+studentId, HttpMethod.GET, entity, Work[].class);
+            } catch (HttpClientErrorException exception){
+                exception.printStackTrace();
+            }
+    }
+
+    public Work[] listOfWorksQueueToStudent(int idUser, Timetable nowTimetable,String token) {
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add("Authorization", token);
+            HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
+            HttpEntity<Work[]> queueEntity = restTemplate.exchange(REST_SERVICE_URI + "/Queue/Student/"+idUser+"/Timetable/"+nowTimetable.getIdTimetable(), HttpMethod.GET, entity, Work[].class);
+            return queueEntity.getBody();
+        } catch (HttpClientErrorException exception){
+            exception.printStackTrace();
             return null;
         }
     }

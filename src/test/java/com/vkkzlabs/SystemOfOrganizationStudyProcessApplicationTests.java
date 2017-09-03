@@ -162,7 +162,7 @@ public class SystemOfOrganizationStudyProcessApplicationTests {
 		subjectService.saveSubject(subject);
 
 		Work work = new Work();
-		work.setMyUser(userService.getUserById(2));
+		work.setProfessorId(userService.getUserById(2));
 		work.setNameOfWork("Masses");
 		work.setNumberOfWOrk("2");
 		work.setTextOfWork("Do work with masses");
@@ -171,7 +171,7 @@ public class SystemOfOrganizationStudyProcessApplicationTests {
 		workService.saveWork(work);
 
 		work = new Work();
-		work.setMyUser(userService.getUserById(2));
+		work.setProfessorId(userService.getUserById(2));
 		work.setNameOfWork("Works");
 		work.setNumberOfWOrk("1");
 		work.setTextOfWork("Do sum work");
@@ -180,7 +180,7 @@ public class SystemOfOrganizationStudyProcessApplicationTests {
 		workService.saveWork(work);
 
 		work = new Work();
-		work.setMyUser(userService.getUserById(2));
+		work.setProfessorId(userService.getUserById(2));
 		work.setNameOfWork("Works");
 		work.setNumberOfWOrk("1");
 		work.setTextOfWork("Do sum work");

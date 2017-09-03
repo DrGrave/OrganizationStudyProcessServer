@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  *  Данный класс предназначен для мапинга запросов связанных с расписанием группы
@@ -30,5 +29,11 @@ public class GroupTimetableController {
         if (groupTimetable != null) {
             return new ResponseEntity<M2MGroupTimetable>(groupTimetable, HttpStatus.OK);
         } return new ResponseEntity<M2MGroupTimetable>(HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping("Save")
+    public  ResponseEntity getListToQueue(@RequestBody M2MGroupTimetable m2MGroupTimetable, UriComponentsBuilder uriComponentsBuilder){
+        groupTimetableService.saveGroupTimetable(m2MGroupTimetable);
+            return new ResponseEntity(HttpStatus.OK);
     }
 }

@@ -55,8 +55,8 @@ public class Work {
      */
 
     @ManyToOne
-    @JoinColumn(name = "IdUser")
-    private MyUser MyUser;
+    @JoinColumn(name = "IdProfessor")
+    private MyUser professorId;
 
 
 
@@ -108,12 +108,12 @@ public class Work {
         this.subject = subject;
     }
 
-    public MyUser getMyUser() {
-        return MyUser;
+    public MyUser getProfessorId() {
+        return professorId;
     }
 
-    public void setMyUser(MyUser MyUser) {
-        this.MyUser = MyUser;
+    public void setProfessorId(MyUser professorId) {
+        this.professorId = professorId;
     }
 
     @Override
@@ -125,7 +125,7 @@ public class Work {
                 ", textOfWork='" + textOfWork + '\'' +
                 ", typeOfWork=" + typeOfWork +
                 ", subject=" + subject +
-                ", MyUser=" + MyUser +
+                ", MyUser=" + professorId +
                 '}';
     }
 }

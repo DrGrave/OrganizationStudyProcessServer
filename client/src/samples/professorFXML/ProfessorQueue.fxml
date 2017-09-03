@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="professorQueueAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="635.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox layoutX="334.0" layoutY="114.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox fx:id="queueTableHbox" fillHeight="false" prefHeight="635.0" prefWidth="601.0">
+               <children>
+                  <TableView fx:id="tableOfQueueProfessor" prefHeight="634.0" prefWidth="216.0">
+                     <columns>
+                        <TableColumn fx:id="firstNamePersonInQueueOfProfessor" prefWidth="110.0" resizable="false" text="Name" />
+                        <TableColumn fx:id="seccondNAmeOfStudentInQueue" prefWidth="104.0" resizable="false" text="Surname" />
+                     </columns>
+                  </TableView>
+                  <TableView fx:id="tableOfWorksInQueueProfessor" prefHeight="634.0" prefWidth="172.0">
+                     <columns>
+                        <TableColumn fx:id="subjectStudentCell" prefWidth="116.0" text="Subject" />
+                        <TableColumn fx:id="numberOfWorkCell" prefWidth="53.0" text="№" />
+                     </columns>
+                  </TableView>
+                  <TableView fx:id="tableOfCommentWork" prefHeight="634.0" prefWidth="153.0">
+                     <columns>
+                        <TableColumn fx:id="dateOfCommentOfWork" prefWidth="151.0" resizable="false" text="Date of comment" />
+                     </columns>
+                  </TableView>
+               </children>
+            </HBox>
+            <VBox HBox.hgrow="ALWAYS">
+               <children>
+                  <GridPane prefHeight="347.0" prefWidth="543.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="191.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="290.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Name of work" />
+                        <Label text="Text of work" GridPane.rowIndex="2" />
+                        <Label text="Type of work" GridPane.rowIndex="1" />
+                        <TextArea fx:id="textOfWorkQueue" editable="false" prefHeight="100.0" prefWidth="267.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets right="3.0" />
+                           </GridPane.margin>
+                        </TextArea>
+                        <TextField fx:id="nameOfWorkQueue" editable="false" prefHeight="25.0" prefWidth="158.0" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets right="3.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="typeOfWorkQueue" editable="false" prefHeight="25.0" prefWidth="152.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets right="3.0" />
+                           </GridPane.margin>
+                        </TextField>
+                     </children>
+                  </GridPane>
+                  <HBox prefHeight="36.0" prefWidth="543.0">
+                     <children>
+                        <Label text="Text of comment">
+                           <padding>
+                              <Insets left="200.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="nameOfStudentRecensionLable" text="Label">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <TextArea fx:id="recensionLableProfessor" editable="false" prefHeight="90.0" prefWidth="323.0">
+                     <VBox.margin>
+                        <Insets left="3.0" right="3.0" />
+                     </VBox.margin>
+                  </TextArea>
+                  <Label text="Text of new comment">
+                     <padding>
+                        <Insets left="200.0" />
+                     </padding>
+                  </Label>
+                  <TextArea fx:id="wrongLableProfessor" editable="false" prefHeight="53.0" prefWidth="320.0">
+                     <VBox.margin>
+                        <Insets left="3.0" right="3.0" />
+                     </VBox.margin>
+                  </TextArea>
+                  <HBox>
+                     <children>
+                        <Label text="Recomended mark">
+                           <padding>
+                              <Insets left="200.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="recomendedMarkLableProfessor" text="Label">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Label text="Real mark">
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </Label>
+                  <HBox>
+                     <children>
+                        <ChoiceBox fx:id="realMarkProfessor" prefHeight="25.0" prefWidth="62.0" />
+                        <Button mnemonicParsing="false" onAction="#refreshQueue" text="Refresh" />
+                     </children>
+                  </HBox>
+                  <ButtonBar prefHeight="25.0" prefWidth="329.0">
+                     <buttons>
+                        <Button maxWidth="30.0" mnemonicParsing="false" onAction="#accaptProfessorWork" prefHeight="25.0" text="Accept" />
+                        <Button maxWidth="30.0" mnemonicParsing="false" onAction="#deceptProfessorWork" text="Deccept" />
+                        <Button mnemonicParsing="false" onAction="#InLastProfessorWork" text="To helper" />
+                     </buttons>
+                     <VBox.margin>
+                        <Insets right="10.0" />
+                     </VBox.margin>
+                  </ButtonBar>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

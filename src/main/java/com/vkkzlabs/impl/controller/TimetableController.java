@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 /**
  *  Данный класс предназначен для мапинга запросов связанных с расписанием пар
@@ -35,4 +36,21 @@ public class TimetableController {
             return new ResponseEntity<Timetable>(timetable, HttpStatus.OK);
         } return new ResponseEntity<Timetable>(HttpStatus.NOT_FOUND);
     }
+
+    @PostMapping("Save")
+    public  ResponseEntity<Timetable> getListToQueue(@RequestBody Timetable timetable, UriComponentsBuilder uriComponentsBuilder){
+            timetableService.saveTimetable(timetable);
+            if (timetable != null) {
+                return new ResponseEntity<Timetable>(timetable, HttpStatus.OK);
+            } return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("GetAllTimetable/{id}")
+    public  ResponseEntity<List<Timetable>> getAllTimetableToProfessor(@PathVariable("id") int idUser){
+        List<Timetable> timetableList = timetableService.getAllTimetableToUser(idUser);
+        if (timetableList != null){
+            return new ResponseEntity<List<Timetable>>(timetableList, HttpStatus.OK);
+        } return new ResponseEntity<List<Timetable>>(HttpStatus.NOT_FOUND);
+    }
+
 }

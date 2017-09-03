@@ -1,79 +1,42 @@
 package requests;
 
-import com.vkkzlabs.api.entity.Subject;
 import com.vkkzlabs.api.entity.Timetable;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class EventsRequest {
-    public List<Timetable> getAllEvents() {
-        List<Timetable> list = new ArrayList<>();
-        Timetable timetable = new Timetable();
-        Date date = new Date();
-        date.setHours(19);
-        Date dateOfStart = new Date();
-        dateOfStart.setHours(21);
-        Subject subject = new Subject();
-        subject.setNameSubject("POVS");
-        timetable.setSubject(subject);
-        timetable.setAuditory("234");
-        timetable.setDate(date);
-        timetable.setTimeOfEndWork(dateOfStart);
-        list.add(timetable);
 
-        date = new Date();
-        date.setDate(2);
-        date.setHours(12);
-        dateOfStart = new Date();
-        dateOfStart.setDate(2);
-        dateOfStart.setHours(14);
-        timetable = new Timetable();
-        timetable.setSubject(subject);
-        timetable.setDate(date);
-        timetable.setTimeOfEndWork(dateOfStart);
-        timetable.setAuditory("234");
-        list.add(timetable);
+    private static final String REST_SERVICE_URI = "http://localhost:8080";
 
-        date = new Date();
-        date.setDate(2);
-        date.setHours(15);
-        dateOfStart = new Date();
-        dateOfStart.setDate(2);
-        dateOfStart.setHours(16);
-        timetable = new Timetable();
-        timetable.setSubject(subject);
-        timetable.setDate(date);
-        timetable.setTimeOfEndWork(dateOfStart);
-        timetable.setAuditory("234");
-        list.add(timetable);
+    public Timetable[] getAllEvents(int iUser, String token) {
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add("Authorization", token);
+            HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
+            HttpEntity<Timetable[]> eventEntity = restTemplate.exchange(REST_SERVICE_URI + "/Timetable/GetAllTimetable/"+iUser, HttpMethod.GET, entity, Timetable[].class);
+            return eventEntity.getBody();
+        } catch (HttpClientErrorException ex){
+            return null;
+        }
+    }
 
-        date = new Date();
-        date.setDate(2);
-        date.setHours(12);
-        dateOfStart = new Date();
-        dateOfStart.setDate(2);
-        dateOfStart.setHours(14);
-        timetable = new Timetable();
-        timetable.setSubject(subject);
-        timetable.setDate(date);
-        timetable.setTimeOfEndWork(dateOfStart);
-        timetable.setAuditory("234");
-        list.add(timetable);
+    public Timetable saveEvent(Timetable timetable, String token) {
+            try {
+                RestTemplate restTemplate = new RestTemplate();
+                HttpHeaders httpHeaders = new HttpHeaders();
+                httpHeaders.add("Authorization", token);
+                HttpEntity<?> entity = new HttpEntity<>(timetable, httpHeaders);
+                HttpEntity<Timetable> timetableEntity = restTemplate.exchange(REST_SERVICE_URI + "/Timetable/Save", HttpMethod.POST, entity, Timetable.class);
+                return timetableEntity.getBody();
+            } catch (HttpClientErrorException exception){
+                return null;
+            }
 
-        date = new Date();
-        date.setDate(3);
-        date.setHours(12);
-        dateOfStart = new Date();
-        dateOfStart.setDate(3);
-        dateOfStart.setHours(14);
-        timetable = new Timetable();
-        timetable.setSubject(subject);
-        timetable.setDate(date);
-        timetable.setTimeOfEndWork(dateOfStart);
-        timetable.setAuditory("234");
-        list.add(timetable);
-        return list;
     }
 }

@@ -6,6 +6,8 @@ import com.vkkzlabs.api.service.TypeOfWorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  *  Сервис для работы с типами работ
  */
@@ -23,5 +25,10 @@ public class TypeOfWorkServiceImpl implements TypeOfWorkService {
     @Override
     public TypeOfWork getTypeOfWorkByIdTypeOfWork(int idTypeOfWork) {
         return typeOfWorkDAO.getByIdTypeOfWOrk(idTypeOfWork);
+    }
+
+    @Override
+    public List<TypeOfWork> getAllTypesOfWork() {
+        return typeOfWorkDAO.findAll();
     }
 }
