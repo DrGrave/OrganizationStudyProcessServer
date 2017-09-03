@@ -1,6 +1,10 @@
 package controllers.professorControllers;
 
 import com.vkkzlabs.api.entity.*;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,10 +13,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 import requests.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import static controllers.calendarControllers.PaneOfEventsController.nowTimetable;
@@ -85,7 +91,13 @@ public class ProfessorQueueController {
     }
 
     public void initialize(){
-        professorQueueInitialize(iUser);
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), ev -> {
+            professorQueueInitialize(iUser);
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        Platform.runLater(timeline::play);
+
     }
 
     @FXML
@@ -117,6 +129,7 @@ public class ProfessorQueueController {
     private void professorQueueInitialize(MyUser iProfessor){
         QueueRequest getQueueControl = new QueueRequest();
         if (nowTimetable != null) {
+            tableOfQueueProfessor.getSelectionModel().selectFirst();
             Queue[] queues = getQueueControl.getAllQueueToUser(nowTimetable, token);
             if (queues != null) {
                 List<MyUser> myUserList = new ArrayList<>();
@@ -152,22 +165,26 @@ public class ProfessorQueueController {
         clearFieldQueue();
         tableOfWorksInQueueProfessor.getItems().clear();
         QueueRequest queueControl = new QueueRequest();
-        Work[] works = queueControl.listOfWorksQueueToStudent(student.getIdUser(), nowTimetable, token);
-        if (works != null) {
-            List<Work> myUserList = new ArrayList<>();
-            myUserList.addAll(Arrays.asList(works));
-            ObservableList<Work> listWorks = FXCollections.observableList(myUserList);
-            tableOfWorksInQueueProfessor.setItems(listWorks);
-            subjectStudentCell.setCellValueFactory(
-                    cellData -> new SimpleStringProperty(cellData.getValue().getSubject().getNameSubject())
-            );
-            numberOfWorkCell.setCellValueFactory(
-                    cellData -> new SimpleStringProperty(cellData.getValue().getNumberOfWOrk())
-            );
-            tableOfWorksInQueueProfessor.getSelectionModel().selectedItemProperty().addListener(
-                    (observable, oldValue, newValue) -> setCommentsToWorkInQueueProfessor(newValue, student)
-            );
+        tableOfQueueProfessor.getSelectionModel().selectFirst();
+        if (student != null){
+            Work[] works = queueControl.listOfWorksQueueToStudent(student.getIdUser(), nowTimetable, token);
+            if (works != null) {
+                List<Work> myUserList = new ArrayList<>();
+                myUserList.addAll(Arrays.asList(works));
+                ObservableList<Work> listWorks = FXCollections.observableList(myUserList);
+                tableOfWorksInQueueProfessor.setItems(listWorks);
+                subjectStudentCell.setCellValueFactory(
+                        cellData -> new SimpleStringProperty(cellData.getValue().getSubject().getNameSubject())
+                );
+                numberOfWorkCell.setCellValueFactory(
+                        cellData -> new SimpleStringProperty(cellData.getValue().getNumberOfWOrk())
+                );
+                tableOfWorksInQueueProfessor.getSelectionModel().selectedItemProperty().addListener(
+                        (observable, oldValue, newValue) -> setCommentsToWorkInQueueProfessor(newValue, student)
+                );
+            }
         }
+
     }
 
     private void setCommentsToWorkInQueueProfessor(Work work, MyUser student){

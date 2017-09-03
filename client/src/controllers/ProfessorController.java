@@ -4,6 +4,7 @@ import com.vkkzlabs.api.entity.MyUserCredentials;
 import controllers.calendarControllers.CalendarController;
 import controllers.professorControllers.CreateWorkController;
 import controllers.professorControllers.ProfessorQueueController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
@@ -73,10 +74,29 @@ public class ProfessorController {
     }
 
     public void initialize() throws IOException {
-        initializeInfoOfUser();
-        initializeCalendar();
-        initializeCreateWork();
-        initializeProfessorQueue();
+        Platform.runLater(() -> {
+            try {
+                initializeCalendar();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        Platform.runLater(this::initializeInfoOfUser);
+        Platform.runLater(() -> {
+            try {
+                initializeCreateWork();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        Platform.runLater(() -> {
+            try {
+                initializeProfessorQueue();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 
     private void initializeProfessorQueue() throws IOException {

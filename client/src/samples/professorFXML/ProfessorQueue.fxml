@@ -20,23 +20,23 @@
    <children>
       <HBox layoutX="334.0" layoutY="114.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox fx:id="queueTableHbox" fillHeight="false" prefHeight="514.0" prefWidth="477.0">
+            <HBox fx:id="queueTableHbox" fillHeight="false" prefHeight="635.0" prefWidth="601.0">
                <children>
-                  <TableView fx:id="tableOfQueueProfessor" prefHeight="634.0" prefWidth="206.0">
+                  <TableView fx:id="tableOfQueueProfessor" prefHeight="634.0" prefWidth="216.0">
                      <columns>
-                        <TableColumn fx:id="firstNamePersonInQueueOfProfessor" prefWidth="100.0" resizable="false" text="Name" />
-                        <TableColumn fx:id="seccondNAmeOfStudentInQueue" prefWidth="103.0" resizable="false" text="Surname" />
+                        <TableColumn fx:id="firstNamePersonInQueueOfProfessor" prefWidth="110.0" resizable="false" text="Name" />
+                        <TableColumn fx:id="seccondNAmeOfStudentInQueue" prefWidth="104.0" resizable="false" text="Surname" />
                      </columns>
                   </TableView>
-                  <TableView fx:id="tableOfWorksInQueueProfessor" prefHeight="634.0" prefWidth="133.0">
+                  <TableView fx:id="tableOfWorksInQueueProfessor" prefHeight="634.0" prefWidth="172.0">
                      <columns>
-                        <TableColumn fx:id="subjectStudentCell" prefWidth="100.0" text="Subject" />
-                        <TableColumn fx:id="numberOfWorkCell" prefWidth="32.0" text="№" />
+                        <TableColumn fx:id="subjectStudentCell" prefWidth="116.0" text="Subject" />
+                        <TableColumn fx:id="numberOfWorkCell" prefWidth="53.0" text="№" />
                      </columns>
                   </TableView>
-                  <TableView fx:id="tableOfCommentWork" prefHeight="634.0" prefWidth="142.0">
+                  <TableView fx:id="tableOfCommentWork" prefHeight="634.0" prefWidth="153.0">
                      <columns>
-                        <TableColumn fx:id="dateOfCommentOfWork" prefWidth="140.0" resizable="false" text="Date of comment" />
+                        <TableColumn fx:id="dateOfCommentOfWork" prefWidth="151.0" resizable="false" text="Date of comment" />
                      </columns>
                   </TableView>
                </children>
@@ -45,8 +45,8 @@
                <children>
                   <GridPane prefHeight="347.0" prefWidth="543.0">
                      <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="191.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="290.0" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />

@@ -54,6 +54,7 @@ public class PaneOfEventsController {
     private String token;
     private MyUserCredentials myUserCredentials;
     private Separator separator = new Separator();
+    List<Timetable> timetableList = new ArrayList<>();
 
     public PaneOfEventsController(Calendar calendar, Label mondayLabel, Label tuesdayLabel, Label wednesdayLabel, Label thursdayLabel, Label fridayLabel, Label saturdayLabel, Label sundayLabel, Label dateLabel, double scrollPanePos, MyUser iUser, String token, MyUserCredentials myUserCredentials) {
         this.calendar = calendar;
@@ -111,9 +112,9 @@ public class PaneOfEventsController {
                 eventGridPane.add(pane, i, j);
             }
         }
-
-        getTimeLine(calendar);
         Platform.runLater(this::initializeEvents);
+        getTimeLine(calendar);
+
     }
 
 
@@ -131,13 +132,20 @@ public class PaneOfEventsController {
     private void getAllTimetables() {
         EventsRequest eventsRequest = new EventsRequest();
         listOfEvents = Arrays.asList(eventsRequest.getAllEvents(iUser.getIdUser(), token));
+        Calendar thisCalendar = Calendar.getInstance();
+        int monthOfCalendar = thisCalendar.get(Calendar.MONTH)+1;
+        int dayOfCalendar = thisCalendar.get(Calendar.DAY_OF_MONTH);
+        for (Timetable timetable : listOfEvents){
+            if (timetable.getDate().getDate() == dayOfCalendar && timetable.getDate().getMonth()+1 == monthOfCalendar){
+                timetableList.add(timetable);
+            }
+        }
 
     }
 
     public void drawNewEvent(Timetable timetable){
         Platform.runLater(() -> {
                 getEvent(timetable);
-
         });
     }
 
@@ -157,7 +165,7 @@ public class PaneOfEventsController {
         }
         int monthToEveryDate[] = new int[7];
 
-        int month = Integer.parseInt(dateLabel.getText().substring(0,2).replaceAll("[\\D]", ""));
+        int month = calendar.get(Calendar.MONTH)+1;
         monthToEveryDate[0] = month;
         for (int i = 1; i < 7; i ++){
             if (parsedDates.get(i) == 1){
@@ -216,7 +224,8 @@ public class PaneOfEventsController {
         for (String str :dates){
             parsedDates.add(Integer.parseInt(str.replaceAll("[\\D]", "")));
         }
-        int month = Integer.parseInt(dateLabel.getText().substring(0,2).replaceAll("[\\D]", ""));
+
+        int month = calendar.get(Calendar.MONTH)+1;
         int[] monthToEveryDate = new int[7];
         monthToEveryDate[0] = month;
         for (int i = 1; i < 7; i ++){
@@ -408,7 +417,7 @@ public class PaneOfEventsController {
 
     }
 
-    public void getTimeLine(Calendar calendar) {
+    void getTimeLine(Calendar calendar) {
         int i = calendar.get(Calendar.HOUR_OF_DAY);
         int timeLine = i*4+1;
         i = calendar.get(Calendar.MINUTE);
@@ -419,27 +428,28 @@ public class PaneOfEventsController {
         separator.setPadding(new Insets(0,0,8,0));
         eventGridPane.getChildren().remove(separator);
         eventGridPane.add(separator, 1, timeLine);
-        setNowTimetable(calendar);
+        setNowTimetable();
     }
 
-    private void setNowTimetable(Calendar calendar){
-        int monthOfCalendar = calendar.get(Calendar.MONTH)+1;
-        int dayOfCalendar = calendar.get(Calendar.DAY_OF_MONTH);
-        int[] timeOfCalendar = {calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE)};
-        for (Timetable timetable : listOfEvents){
-            int monthOfTimetable = timetable.getDate().getMonth();
+    private void setNowTimetable(){
+        Calendar thisCalendar = Calendar.getInstance();
+        int monthOfCalendar = thisCalendar.get(Calendar.MONTH)+1;
+        int dayOfCalendar = thisCalendar.get(Calendar.DAY_OF_MONTH);
+        int[] timeOfCalendar = {thisCalendar.get(Calendar.HOUR_OF_DAY), thisCalendar.get(Calendar.MINUTE)};
+        for (Timetable timetable : timetableList){
+            int monthOfTimetable = timetable.getDate().getMonth()+1;
             int dayOfTimetable = timetable.getDate().getDate();
             int[] timeOfStartEnd = {timetable.getDate().getHours(), timetable.getDate().getMinutes(), timetable.getTimeOfEndWork().getHours(), timetable.getTimeOfEndWork().getMinutes()};
             if (monthOfCalendar == monthOfTimetable && dayOfCalendar == dayOfTimetable && timeOfStartEnd[0] <= timeOfCalendar[0]  && timeOfStartEnd[2] >= timeOfCalendar[0]){
                     nowTimetable = timetable;
-                    break;
+                    return;
             } else {
                 nowTimetable = null;
             }
         }
     }
 
-    public double getScrollValue() {
+    double getScrollValue() {
         return scrollPane.getVvalue();
     }
 }
