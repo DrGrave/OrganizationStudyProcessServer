@@ -20,19 +20,19 @@
    <children>
       <HBox layoutX="224.0" layoutY="84.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox prefHeight="441.0" prefWidth="276.0">
+            <VBox prefHeight="594.0" prefWidth="576.0">
                <children>
                   <HBox prefHeight="558.0" prefWidth="295.0">
                      <children>
-                        <TableView fx:id="tableSubjectProfessor" prefHeight="406.0" prefWidth="115.0">
+                        <TableView fx:id="tableSubjectProfessor" prefHeight="558.0" prefWidth="163.0">
                            <columns>
-                              <TableColumn fx:id="subjectNameCollomProfessor" prefWidth="105.0" resizable="false" text="Subject" />
+                              <TableColumn fx:id="subjectNameCollomProfessor" prefWidth="160.0" resizable="false" text="Subject" />
                            </columns>
                         </TableView>
-                        <TableView fx:id="tableWorkProfessor" prefHeight="406.0" prefWidth="176.0">
+                        <TableView fx:id="tableWorkProfessor" prefHeight="558.0" prefWidth="272.0">
                            <columns>
-                              <TableColumn fx:id="workNumberAddWork" prefWidth="55.0" resizable="false" text="№" />
-                              <TableColumn fx:id="workInfoAddWork" minWidth="2.0" prefWidth="113.0" resizable="false" text="Info" />
+                              <TableColumn fx:id="workNumberAddWork" prefWidth="65.0" resizable="false" text="№" />
+                              <TableColumn fx:id="workInfoAddWork" minWidth="2.0" prefWidth="206.0" resizable="false" text="Info" />
                            </columns>
                         </TableView>
                      </children>

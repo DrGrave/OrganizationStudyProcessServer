@@ -2,7 +2,6 @@ package controllers.studentsControllers;
 
 import com.vkkzlabs.api.entity.*;
 import com.vkkzlabs.api.entity.Queue;
-import controllers.StudentController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -144,7 +143,112 @@ public class TableOfDebitsController {
     }
 
     public void initialize(){
+
+        initializeListeners();
         initializeDebtTable();
+    }
+
+    private void initializeListeners() {
+        subjectTable.getSelectionModel().selectedItemProperty().addListener(
+                ((observable, oldValue, newValue) -> initializeWorksTable(newValue.getIdOfWork().getSubject(), iUser))
+        );
+
+        subjectTable.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.RIGHT) {
+                M2MStudentWork pos = debtTable.getFocusModel().getFocusedItem();
+                if (pos != null) {
+                    initializeWorksTable(pos.getIdOfWork().getSubject(), iUser);
+                    debtTable.requestFocus();
+                    debtTable.getSelectionModel().select(0);
+                    debtTable.getFocusModel().focus(0);
+                }
+            }
+        });
+
+        Date thisDate = studentWorksController.getServerDate(token);
+        LocalDate date7 = thisDate.toLocalDate().plusDays(7);
+
+        Tooltip tooltip = new Tooltip("New work by this subject");
+        subjectTable.setRowFactory(new Callback<TableView<M2MStudentWork>, TableRow<M2MStudentWork>>() {
+            @Override
+            public TableRow<M2MStudentWork> call(TableView<M2MStudentWork> m2MStudentWorkTableView) {
+                return new TableRow<M2MStudentWork>(){
+                    @Override
+                    protected void updateItem(M2MStudentWork item, boolean empty) {
+                        if (item != null){
+                            setStyle("");
+                            if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 1){
+                                setTooltip(tooltip);
+                            }
+                            if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 5){
+                                setStyle("-fx-background-color: green");
+                            }else
+                            if (item.getDeadlineForWork().before(thisDate)) {
+                                setStyle("-fx-background-color: lightcoral;");
+                            }else
+                            if (item.getDeadlineForWork().before(java.sql.Date.valueOf(date7))){
+                                setStyle("-fx-background-color: coral;");
+                            }else
+                            if (item.getDeadlineForWork().after(java.sql.Date.valueOf(date7))){
+                                setStyle("-fx-background-color: khaki;");
+                            }
+                        }
+                        super.updateItem(item, empty);
+                    }
+                };
+            }
+        });
+
+        LocalDate date15 = thisDate.toLocalDate().minusDays(15);
+
+        debtTable.setRowFactory(new Callback<TableView<M2MStudentWork>, TableRow<M2MStudentWork>>() {
+            @Override
+            public TableRow<M2MStudentWork> call(TableView<M2MStudentWork> m2MStudentWorkTableView) {
+                return new TableRow<M2MStudentWork>(){
+                    @Override
+                    protected void updateItem(M2MStudentWork item, boolean empty) {
+                        if (item != null){
+                            setStyle("");
+                            if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 1){
+                                setTooltip(new Tooltip("New work"));
+                            }
+                            if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 4){
+                                setStyle("-fx-background-color: green");
+                            }else
+                            if (item.getDeadlineForWork().before(thisDate)) {
+                                setStyle("-fx-background-color: lightcoral;");
+                            }else
+                            if (item.getDeadlineForWork().before(java.sql.Date.valueOf(date7))){
+                                setStyle("-fx-background-color: coral;");
+                            }else
+                            if (item.getDeadlineForWork().after(java.sql.Date.valueOf(date15))) {
+                                setStyle("-fx-background-color: khaki;");
+                            }
+                        }
+                        super.updateItem(item, empty);
+                    }
+                };
+            }
+        });
+
+        debtTable.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.RIGHT) {
+                M2MStudentWork pos = debtTable.getFocusModel().getFocusedItem();
+                if (pos != null) {
+                    try {
+                        initializeInfoOfWork(pos, iUser);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            if (event.getCode() == KeyCode.LEFT){
+                subjectTable.requestFocus();
+                subjectTable.getSelectionModel().select(subjectTable.getFocusModel().getFocusedIndex());
+                subjectTable.getFocusModel().focus(subjectTable.getFocusModel().getFocusedIndex());
+            }
+        });
+
     }
 
     private void initializeDebtTable() {
@@ -154,75 +258,24 @@ public class TableOfDebitsController {
             List<M2MStudentWork> subjects = new ArrayList<>();
             Date thisDate = studentWorksController.getServerDate(token);
             LocalDate date7 = thisDate.toLocalDate().plusDays(7);
-            Tooltip tooltip = new Tooltip("New work by this subject");
             ObservableList<M2MStudentWork> subjectObservableList = FXCollections.observableList(sortSubjects(subjects, thisDate, date7, studentWorks));
             subjectTable.setItems(subjectObservableList);
             subjectCollom.setCellValueFactory(
                     cellDate -> new SimpleStringProperty(cellDate.getValue().getIdOfWork().getSubject().getNameSubject())
             );
-            subjectTable.getSelectionModel().selectedItemProperty().addListener(
-                    ((observable, oldValue, newValue) -> initializeWorksTable(newValue.getIdOfWork().getSubject(), iUser, subjectTable.getFocusModel().getFocusedIndex()))
-            );
-            subjectTable.setRowFactory(new Callback<TableView<M2MStudentWork>, TableRow<M2MStudentWork>>() {
-                @Override
-                public TableRow<M2MStudentWork> call(TableView<M2MStudentWork> m2MStudentWorkTableView) {
-                    return new TableRow<M2MStudentWork>(){
-                        @Override
-                        protected void updateItem(M2MStudentWork item, boolean empty) {
-                            if (item != null){
-                                setStyle("");
-                                if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 1){
-                                    setTooltip(tooltip);
-                                }
-                                if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 5){
-                                    setStyle("-fx-background-color: green");
-                                }else
-                                if (item.getDeadlineForWork().before(thisDate)) {
-                                    setStyle("-fx-background-color: lightcoral;");
-                                }else
-                                if (item.getDeadlineForWork().before(java.sql.Date.valueOf(date7))){
-                                    setStyle("-fx-background-color: coral;");
-                                }else
-                                if (item.getDeadlineForWork().after(java.sql.Date.valueOf(date7))){
-                                    setStyle("-fx-background-color: khaki;");
-                                }
-                            }
-                            super.updateItem(item, empty);
-                        }
-                    };
-                }
-            });
-
-            subjectTable.setOnKeyPressed(event -> {
-                if (event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.RIGHT) {
-                    M2MStudentWork pos = debtTable.getFocusModel().getFocusedItem();
-                    if (pos != null) {
-                        int position;
-                        position = subjectTable.getFocusModel().getFocusedIndex();
-                        initializeWorksTable(pos.getIdOfWork().getSubject(), iUser, position);
-                        debtTable.requestFocus();
-                        debtTable.getSelectionModel().select(0);
-                        debtTable.getFocusModel().focus(0);
-                    }
-                }
-            });
-
         }
     }
 
 
 
 
-    private void initializeWorksTable(Subject subject, MyUser iUser, int position) {
+    private void initializeWorksTable(Subject subject, MyUser iUser) {
         M2MStudentWork[] m2MStudentWork = studentWorksController.getWorksByUserIdAndSubjectId(iUser, subject, token);
         debtTable.refresh();
         if (m2MStudentWork != null){
             List<M2MStudentWork> works = new ArrayList<>();
             works.addAll(Arrays.asList(m2MStudentWork));
             ObservableList<M2MStudentWork> workObservableList = FXCollections.observableList(works);
-            Date thisDate = studentWorksController.getServerDate(token);
-            LocalDate date7 = thisDate.toLocalDate().plusDays(7);
-            LocalDate date15 = thisDate.toLocalDate().minusDays(15);
 
             debtTable.setItems(workObservableList);
 
@@ -235,63 +288,6 @@ public class TableOfDebitsController {
             lastDateCollom.setCellValueFactory(
                     cellDate -> new SimpleStringProperty(String.valueOf(cellDate.getValue().getDeadlineForWork()))
             );
-
-            debtTable.setRowFactory(new Callback<TableView<M2MStudentWork>, TableRow<M2MStudentWork>>() {
-                @Override
-                public TableRow<M2MStudentWork> call(TableView<M2MStudentWork> m2MStudentWorkTableView) {
-                    return new TableRow<M2MStudentWork>(){
-                        @Override
-                        protected void updateItem(M2MStudentWork item, boolean empty) {
-                            if (item != null){
-                                setStyle("");
-                                if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 1){
-                                    setTooltip(new Tooltip("New work"));
-                                }
-                                if (item.getIdOfAccaptWork().getIdOfAccaptWork() == 4){
-                                    setStyle("-fx-background-color: green");
-                                }else
-                                if (item.getDeadlineForWork().before(thisDate)) {
-                                    setStyle("-fx-background-color: lightcoral;");
-                                }else
-                                if (item.getDeadlineForWork().before(java.sql.Date.valueOf(date7))){
-                                    setStyle("-fx-background-color: coral;");
-                                }else
-                                if (item.getDeadlineForWork().after(java.sql.Date.valueOf(date15))) {
-                                    setStyle("-fx-background-color: khaki;");
-                                }
-                            }
-                            super.updateItem(item, empty);
-                        }
-                    };
-                }
-            });
-//            debtTable.getSelectionModel().selectedItemProperty().addListener(
-//                    ((observable, oldValue, newValue) -> {
-//                        try {
-//                            initializeInfoOfWork(newValue, iUser);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    })
-//            );
-            debtTable.setOnKeyPressed(event -> {
-                if (event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.RIGHT) {
-                    M2MStudentWork pos = debtTable.getFocusModel().getFocusedItem();
-                    if (pos != null) {
-                        try {
-                            initializeInfoOfWork(pos, iUser);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                if (event.getCode() == KeyCode.LEFT){
-                    subjectTable.requestFocus();
-                    subjectTable.getSelectionModel().select(position);
-                    subjectTable.getFocusModel().focus(position);
-                }
-            });
-
         }
     }
 

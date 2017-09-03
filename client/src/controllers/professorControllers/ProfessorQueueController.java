@@ -18,7 +18,6 @@ import requests.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 import static controllers.calendarControllers.PaneOfEventsController.nowTimetable;
@@ -79,6 +78,8 @@ public class ProfessorQueueController {
     private ChoiceBox<Integer> realMarkProfessor;
     private String token;
     private MyUser iUser;
+    private MyUser position;
+    private int positionWork;
 
     public ProfessorQueueController(MyUser iUser, String token, MyUserCredentials myUserCredentials) {
         this.iUser = iUser;
@@ -91,13 +92,26 @@ public class ProfessorQueueController {
     }
 
     public void initialize(){
+        initializeListeners();
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), ev -> {
-            professorQueueInitialize(iUser);
-        }));
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(20), ev -> professorQueueInitialize(iUser)));
+
         timeline.setCycleCount(Animation.INDEFINITE);
         Platform.runLater(timeline::play);
 
+    }
+
+    private void initializeListeners() {
+        tableOfQueueProfessor.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> setColumnStudentInQueueProfessor(newValue));
+
+        tableOfWorksInQueueProfessor.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> setCommentsToWorkInQueueProfessor(newValue, tableOfQueueProfessor.getSelectionModel().getSelectedItem())
+        );
+
+        tableOfCommentWork.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> setInfoCommentWorks(newValue)
+        );
     }
 
     @FXML
@@ -129,7 +143,6 @@ public class ProfessorQueueController {
     private void professorQueueInitialize(MyUser iProfessor){
         QueueRequest getQueueControl = new QueueRequest();
         if (nowTimetable != null) {
-            tableOfQueueProfessor.getSelectionModel().selectFirst();
             Queue[] queues = getQueueControl.getAllQueueToUser(nowTimetable, token);
             if (queues != null) {
                 List<MyUser> myUserList = new ArrayList<>();
@@ -153,8 +166,9 @@ public class ProfessorQueueController {
                 firstNamePersonInQueueOfProfessor.setCellValueFactory(
                         cellData -> new SimpleStringProperty(cellData.getValue().getUserName())
                 );
-                tableOfQueueProfessor.getSelectionModel().selectedItemProperty().addListener(
-                        (observable, oldValue, newValue) -> setColumnStudentInQueueProfessor(newValue));
+
+                tableOfQueueProfessor.requestFocus();
+                tableOfQueueProfessor.getSelectionModel().select(position);
             }
         }else {
             //TODO alert to say "No timetable to queue"
@@ -162,10 +176,10 @@ public class ProfessorQueueController {
     }
 
     private void setColumnStudentInQueueProfessor(MyUser student) {
+        position = tableOfQueueProfessor.getFocusModel().getFocusedItem();
         clearFieldQueue();
         tableOfWorksInQueueProfessor.getItems().clear();
         QueueRequest queueControl = new QueueRequest();
-        tableOfQueueProfessor.getSelectionModel().selectFirst();
         if (student != null){
             Work[] works = queueControl.listOfWorksQueueToStudent(student.getIdUser(), nowTimetable, token);
             if (works != null) {
@@ -179,15 +193,16 @@ public class ProfessorQueueController {
                 numberOfWorkCell.setCellValueFactory(
                         cellData -> new SimpleStringProperty(cellData.getValue().getNumberOfWOrk())
                 );
-                tableOfWorksInQueueProfessor.getSelectionModel().selectedItemProperty().addListener(
-                        (observable, oldValue, newValue) -> setCommentsToWorkInQueueProfessor(newValue, student)
-                );
+                tableOfWorksInQueueProfessor.requestFocus();
+                tableOfWorksInQueueProfessor.getSelectionModel().select(positionWork);
+                tableOfWorksInQueueProfessor.getFocusModel().focus(positionWork);
             }
         }
 
     }
 
     private void setCommentsToWorkInQueueProfessor(Work work, MyUser student){
+        positionWork = tableOfWorksInQueueProfessor.getFocusModel().getFocusedIndex();
         tableOfCommentWork.getItems().clear();
         CommentToWorkRequest commentToWorkRequest = new CommentToWorkRequest();
         if (work != null) {
@@ -202,9 +217,6 @@ public class ProfessorQueueController {
                 tableOfCommentWork.setItems(commentToWorks);
                 dateOfCommentOfWork.setCellValueFactory(
                         cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getDate()))
-                );
-                tableOfCommentWork.getSelectionModel().selectedItemProperty().addListener(
-                        (observable, oldValue, newValue) -> setInfoCommentWorks(newValue)
                 );
             }
         }
