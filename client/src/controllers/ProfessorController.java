@@ -3,6 +3,7 @@ import com.vkkzlabs.api.entity.MyUser;
 import com.vkkzlabs.api.entity.MyUserCredentials;
 import controllers.calendarControllers.CalendarController;
 import controllers.professorControllers.CreateWorkController;
+import controllers.professorControllers.ListOfStudentsController;
 import controllers.professorControllers.ProfessorQueueController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -97,6 +98,21 @@ public class ProfessorController {
             }
         });
 
+        Platform.runLater(() -> {
+            try {
+                initializeListOfStudent();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+    }
+
+    private void initializeListOfStudent() throws IOException {
+        ListOfStudentsController listOfStudentsController = new ListOfStudentsController();
+        FXMLLoader listOfStudent = new FXMLLoader(getClass().getResource("../samples/professorFXML/ListOfStudents.fxml"));
+        listOfStudent.setController(listOfStudentsController);
+        studentListTab.setContent(listOfStudent.load());
     }
 
     private void initializeProfessorQueue() throws IOException {
