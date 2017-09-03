@@ -1,17 +1,19 @@
 <template lang="pug">
     main-page
         .container
-            .starter-template
+            .starter-template(v-if='!$root.user')
                 h1  {{ title }} 
-                p  {{ message }} 
+                p  {{ message }}
+            subject-list(v-if='$root.user&&$root.user!="load"')
 </template>
 
 <script>
 import MainPage from '../MainPage.vue'
+import SubjectList from '../forms/SubjectList.vue'
 
 export default {
 	components: {
-      MainPage
+      MainPage, SubjectList
     },
     data(){
         return {

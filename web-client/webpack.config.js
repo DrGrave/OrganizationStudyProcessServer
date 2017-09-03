@@ -35,7 +35,7 @@ module.exports = {
   	  noInfo: true,
   	  port: 3000,
   	  proxy: [{
-        context: ["/login","/GetUser"],
+        context: ["/login","/GetUser", "/StudentWork/"],
         target: "http://localhost:8080"
       }]
   	},

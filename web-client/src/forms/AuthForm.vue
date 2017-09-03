@@ -15,7 +15,8 @@ module.exports = {
     },
     methods:{
     	signIn(){
-    		getToken(this)
+    		getToken(this);
+            this.$root.user='load';
     	}
     }
 }

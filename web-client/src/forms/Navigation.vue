@@ -9,8 +9,10 @@ nav.navbar.navbar-toggleable-md.navbar-inverse.bg-inverse.fixed-top
                 v-link(href='/') Главная
             li.nav-item
                 v-link(href='/about') О системе
-        user-info(v-if='$root.user')
-        auth-form(v-if='!$root.user')
+        li.form-inline.load(v-if='$root.user=="load"')
+            |Loading...
+        user-info(v-else-if='$root.user')
+        auth-form(v-else)
 </template>
 
 <script>
@@ -24,3 +26,10 @@ nav.navbar.navbar-toggleable-md.navbar-inverse.bg-inverse.fixed-top
         }
     }
 </script>
+
+<style>
+    .load{
+        color: rgba(255,255,255,.75);
+        margin-right: 20px; 
+    }
+</style>

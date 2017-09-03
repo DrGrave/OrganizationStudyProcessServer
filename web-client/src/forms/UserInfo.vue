@@ -19,9 +19,19 @@
 
 
 		li.nav-item
-			a.nav-link(href='#') Выйти
+			a.nav-link(href='#', v-on:click='signOut') Выйти
 </template>
-
+<script>
+export default {
+	methods:{
+		signOut(){
+			this.$root.user = null;
+			localStorage.removeItem('user');
+			localStorage.removeItem('auth');
+		}
+	}
+}
+</script>
 <style>
 	.userinfo a{
 		color: rgba(255,255,255,.5);
